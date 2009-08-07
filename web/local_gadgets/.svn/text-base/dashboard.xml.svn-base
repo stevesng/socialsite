@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+  Copyright 2007-2008 Sun Microsystems, Inc. All rights reserved.
+
+  The contents of this file are subject to the terms of either the GNU
+  General Public License Version 2 only ("GPL") or the Common Development
+  and Distribution License("CDDL") (collectively, the "License").  You
+  may not use this file except in compliance with the License. You can obtain
+  a copy of the License at https://socialsite.dev.java.net/legal/CDDL+GPL.html
+  or legal/LICENSE.txt.  See the License for the specific language governing
+  permissions and limitations under the License.
+
+  When distributing the software, include this License Header Notice in each
+  file and include the License file at legal/LICENSE.txt.  Sun designates this
+  particular file as subject to the "Classpath" exception as provided by Sun
+  in the GPL Version 2 section of the License file that accompanied this code.
+  If applicable, add the following below the License Header, with the fields
+  enclosed by brackets [] replaced by your own identifying information:
+  "Portions Copyrighted [year] [name of copyright owner]"
+
+  Contributor(s):
+
+  If you wish your version of this file to be governed by only the CDDL or
+  only the GPL Version 2, indicate your decision by adding "[Contributor]
+  elects to include this software in this distribution under the [CDDL or GPL
+  Version 2] license."  If you don't indicate a single choice of license, a
+  recipient has the option to distribute your version of this file under
+  either the CDDL, the GPL Version 2 or to extend the choice of license to
+  its licensees as provided above.  However, if you add GPL Version 2 code
+  and therefore, elected the GPL Version 2 license, then the option applies
+  only if the new code is made subject to such option by the copyright
+  holder.
+-->
+<Module>
+  <ModulePrefs
+        height="500"
+        title="Dashboard v2"
+        description="Supports viewing of activities, browsing profiles, making friends, managing groups and more"
+        author="Project SocialSite"
+        author_email="dev@socialsite.dev.java.net"
+        thumbnail="../local_gadgets/thumbnails/devgadget.png">
+    <Require feature="opensocial-0.8"/>
+    <Require feature="tabs" />
+    <Require feature="skins"/>
+    <Require feature="dynamic-height" />
+    <Require feature="minimessage"/>
+    <Require feature="socialsite-0.1"/>
+    <Require feature="opensocial-templates"/>
+    <Optional feature="content-rewrite">
+        <Param name="include-tags"></Param>
+    </Optional>
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+
+<!-- ********************************************************************* -->
+<!-- YUI includes -->
+
+<style type="text/css">
+/*margin and padding on body element
+  can introduce errors in determining
+  element position and are not recommended;
+  we turn them off as a foundation for YUI
+  CSS treatments. */
+body {
+	margin:0;
+	padding:0;
+}
+</style>
+
+<!-- TODO: include these YUI resources in SocialSite -->
+
+<!-- buttons -->
+<link rel="stylesheet" type="text/css" href="../app-ui/yui/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="../app-ui/yui/menu/assets/skins/sam/menu.css" />
+<link rel="stylesheet" type="text/css" href="../app-ui/yui/button/assets/skins/sam/button.css" />
+<script type="text/javascript" src="../app-ui/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="../app-ui/yui/container/container_core-min.js"></script>
+<script type="text/javascript" src="../app-ui/yui/menu/menu-min.js"></script>
+<script type="text/javascript" src="../app-ui/yui/element/element-beta-min.js"></script>
+<script type="text/javascript" src="../app-ui/yui/button/button-min.js"></script>
+
+<!-- panel -->
+<link rel="stylesheet" type="text/css" href="../app-ui/yui/container/assets/skins/sam/container.css" />
+<script type="text/javascript" src="../app-ui/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="../app-ui/yui/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="../app-ui/yui/container/container-min.js"></script>
+
+<!-- editor -->
+<link rel="stylesheet" type="text/css" href="../app-ui/yui/editor/assets/skins/sam/simpleeditor.css" />
+<script type="text/javascript" src="../app-ui/yui/editor/simpleeditor-min.js"></script>
+
+<!--begin custom header content for this example-->
+<style type="text/css">
+div.yuimenu .bd {
+    zoom: normal;
+}
+</style>
+
+
+<!-- ********************************************************************* -->
+<!-- SocialSite includes  -->
+
+<script type="text/javascript" src="../local_gadgets/dashboard.js"></script>
+<!--
+<link rel="stylesheet" text="text/css" href="../local_gadgets/files/socialsite-gadgets.css" />
+-->
+<style type="text/css">
+#socialsiteWidget {
+    padding: 1em 2em 1em 0;
+    padding-left: 1em;
+    width: 95%;
+}
+.tab {
+    padding: 1em;
+}
+span.relationshipControl {
+    padding: 4px 16px 4px 4px;
+}
+td.mailicon {
+   background-image: url(../local_gadgets/files/mail.png);
+   background-repeat: no-repeat;
+   background-position: center center;
+}
+</style>
+
+
+<!-- ********************************************************************* -->
+<!-- Widget body -->
+
+
+<div id="socialsiteWidget">
+     <div id="minimessages" />
+     <div id="progressIndicator" />
+
+     <div id="widgetBody" class="clearfloat">
+
+        <div id="tabs" />
+
+        <div id="messagesTab" class="tab">
+            <table width="100%"><tr>
+            <td valign="top" align="left" width="10%">
+                <!--
+                TODO: add compose message once we have a good recipient picker
+                <span id="createMessageButton"></span>
+                -->
+            </td>
+            <td valign="top" align="right" width="60%">
+                Mail-box: <span id="messagesFilterButton"></span>
+            </td>
+            <td valign="top" align="right" width="30%">
+               <span id="prevMessagesButton"></span>
+               <span id="nextMessagesButton"></span>
+            </td>
+            </tr></table>
+            <div id="messagesContent" />
+        </div>
+
+        <div id="peopleTab" class="tab">
+            <table width="100%"><tr>
+            <td valign="top" align="left">
+                <form action="#" name="peopleSearchForm" onsubmit="return onSearchPeople()">
+                    <input type="text" id="peopleSearchField" name="query"
+                        onkeyup="onPeopleSearchFieldChange()"
+                        style="vertical-align:top; margin-top:2px" />
+                    <span id="peopleSearchButtonContainer"></span>
+                </form>
+            </td>
+            <td valign="top" align="center">
+                Filter: <span id="peopleFilterButton"></span>
+            </td>
+            <td valign="top" align="right">
+                <span id="prevPeopleButton"></span>
+                <span id="nextPeopleButton"></span>
+            </td>
+            </tr></table>
+            <div id="peopleContent" />
+        </div>
+
+        <div id="activitiesTab" class="tab">
+            <table width="100%"><tr>
+            <td valign="top" align="left" width="10%">
+            </td>
+            <td valign="top" align="right" width="60%">
+                Filter: <span id="activitiesFilterButton"></span>
+            </td>
+            <td valign="top" align="right" width="30%">
+                <span id="prevActivitiesButton"></span>
+                <span id="nextActivitiesButton"></span>
+            </td>
+            </tr></table>
+            <div id="activitiesContent" />
+        </div>
+
+        <div id="groupsTab" class="tab">
+            <table width="100%"><tr>
+            <td valign="top" align="left">
+                <form action="#" id="groupsControl" name="groupsControlForm" onsubmit="return onSearchGroups()">
+                    <input type="text" id="groupsSearchField" name="query"
+                        onkeyup="onGroupSearchFieldChange()" style="vertical-align:top; margin-top:2px" />
+                    <span id="groupsSearchButton"></span>
+                </form>
+            </td>
+            <td valign="top" align="center">
+                <span id="groupsFilterButton"></span>
+                <span id="createGroupButton"></span>
+            </td>
+            <td valign="top" align="right">
+                <span id="prevGroupsButton"></span>
+                <span id="nextGroupsButton"></span>
+            </td>
+            </tr></table>
+            <div id="groupsContent" />
+        </div>
+
+    </div>
+
+    <div id="widgetFooter" class="clearfloat"></div>
+    </div>
+
+</div>
+
+
+
+
+<!-- ********************************************************************* -->
+<!-- Messages content -->
+
+<script type="text/os-template" name="messagesContent">
+    <h2>${title}</h2>
+
+    <table width="100%" cellspacing="0" cellpadding="4px">
+        <tr>
+            <td colspan="2">
+                <p if="total gt size">Showing from ${start} to ${end} of ${total}</p>
+                <p if="total eq 0">No messages</p>
+            </td>
+            <td>
+                <p if="size gt 0">Actions</p>
+            </td>
+        </tr>
+        <tr repeat="messages" class="itemRow">
+            <td width="10%" class="mailicon" />
+            <td width="70%" valign="top">
+                <a if="title" id="${id}_messageLink">${title}</a>
+                <a if="!title" id="${id}_messageLink">No Subject</a>
+            </td>
+            <td width="20%" valign="center" align="right">
+                <span id="${id}_messageControl" />
+            </td>
+        </tr>
+    </table>
+</script>
+
+
+<!-- ********************************************************************* -->
+<!-- People Content -->
+
+<script type="text/os-template" name="peopleContent">
+    <h2>${title}</h2>
+
+    <table width="100%" cellspacing="0" cellpadding="4px">
+        <tr style="border-bottom: 1px grey solid">
+            <td colspan="3">
+                <p if="total gt size">Showing from ${start} to ${end} of ${total}</p>
+                <p if="total eq 0">No people</p>
+            </td>
+            <td align="right">
+                Relationship
+            </td>
+        </tr>
+        <tr repeat="people" class="itemRow">
+            <td width="10%">
+               <img src="${thumbnailUrl}" title="${displayName}" width="30" height="30" />
+            </td>
+            <td width="35%" valign="top">
+                <a href="${profileUrl}" target="_parent">${displayName}</a> (${id})
+                <span if="currentLocation"><br />
+                    <span if="currentLocation.locality">${currentLocation.locality}</span>
+                    <span if="currentLocation.region">${currentLocation.region}</span>
+                </span>
+                <span if="age"><br />Age ${age}</span>
+            </td>
+            <td width="35%">
+                <span if="viewerRelationship.status eq 'MUTUAL'">Mutual</span>
+                <span if="viewerRelationship.status eq 'PENDING'">Pending</span>
+                <span if="viewerRelationship.status eq 'ONEWAY'">One-way</span>
+                <span if="viewerRelationship.status eq 'TWOWAY'">Two-way</span>
+                <span if="viewerRelationship.howknow"><br/>"${viewerRelationship.howknow}"</span>
+            </td>
+            <td width="20%" valign="center" align="right">
+                <span id="${id}_relationshipControl" />
+            </td>
+        </tr>
+    </table>
+</script>
+
+
+<!-- ********************************************************************* -->
+<!-- Activities Content -->
+
+<script type="text/os-template" name="activitiesContent">
+    <h2>${title}</h2>
+
+    <table width="100%" cellspacing="0" cellpadding="4px">
+        <tr style="border-bottom: 1px grey solid">
+            <td>
+                <p if="total gt size">Showing from ${start} to ${end} of ${total}</p>
+            </td>
+        </tr>
+        <tr repeat="activities" class="itemRow">
+            <td width="100%" valign="top">
+                <os:Html code="${unescapedBody}" />
+            </td>
+        </tr>
+    </table>
+</script>
+
+
+<!-- ********************************************************************* -->
+<!-- Groups Content -->
+
+<script type="text/os-template" name="groupsContent">
+    <h2>${title}</h2>
+
+    <table width="100%" cellspacing="0" cellpadding="4px">
+        <tr style="border-bottom: 1px grey solid">
+            <td colspan="3">
+                <p if="total gt size">Showing from ${start} to ${end} of ${total}</p>
+                <p if="total eq 0">No groups</p>
+            </td>
+            <td align="right">
+                Action
+            </td>
+        </tr>
+        <tr repeat="groups" class="itemRow">
+            <td width="10%">
+               <a href="${viewUrl}" target="_parent">
+                   <img src="${thumbnailUrl}" title="${name}" width="30" height="30" />
+               </a>
+            </td>
+            <td width="60%" valign="top">
+                <span if="name"><a href="${viewUrl}" target="_parent">${name}</a><br /></span>
+                <span>${description}</span>
+            </td>
+            <td width="10%">
+            </td>
+            <td width="20%" valign="center" align="right">
+                <span if="viewerRelationship.relationship eq 'NONE'"   >
+                    <span id="${id}_membershipControl" />
+                </span>
+                <span if="viewerRelationship.relationship eq 'MEMBER'" >
+                    <span id="${id}_membershipControl" />
+                </span>
+                <span if="viewerRelationship.relationship eq 'FOUNDER'">Founder</span>
+                <span if="viewerRelationship.relationship eq 'ADMIN'"  >Admin</span>
+                <span if="viewerRelationship.relationship eq 'PENDING'">Pending</span>
+
+            </td>
+        </tr>
+    </table>
+</script>
+
+
+<!-- ********************************************************************* -->
+<!-- Dialog boxes -->
+
+<div id="messageViewDialog" >
+    <div id="messageViewDialogHeader" class="hd">Message Viewer</div>
+    <div id="messageViewDialogBody" class="bd">
+        <form>
+            <table width="100%" cellspacing="5px">
+                <tr>
+                    <td width="10%" align="left">From</td>
+                    <td width="90%" align="left" style="width:100%; background:white">
+                        <span id="messageFrom" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="10%" align="left">Title</td>
+                    <td width="90%" align="left" style="width:100%; background:white">
+                        <span id="messageTitle" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" height="100" valign="top" style="background:white">
+                        <div style="width:100%; height:100%; overflow:auto">
+                            <span id="messageContent" />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div id="messageViewDialogFooter" class="ft">
+        <span id="messageViewDeleteButton" />
+        <span id="messageViewCancelButton" />
+    </div>
+</div>
+
+
+<div id="messageCreateDialog">
+    <div id="messageCreateDialogHeader" class="hd">Outgoing Message</div>
+    <div id="messageCreateDialogBody" class="bd">
+        <form name="createMessageForm">
+            <table width="100%" cellspacing="5px">
+                <tr>
+                    <td width="10%" align="right">To</td>
+                    <td width="90%" align="left">
+                        <span id="messageTo" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="10%" align="right">Title</td>
+                    <td width="90%" align="left" style="width:100%">
+                        <input type="text" name="title" style="width:100%"
+                            onkeyup="onCreateMessageDialogChange()" />
+                        <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div id="messageEditorWrapper">
+                            <textarea id="messageEditorContent" name="content"
+                                rows="10" style="width:100%"></textarea>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div id="messageCreateDialogFooter" class="ft">
+        <span id="messageCreateSendButton" />
+        <span id="messageCreateCancelButton" />
+    </div>
+</div>
+
+
+<div id="relationshipDialog">
+    <div id="relationshipDialogHeader" class="hd">Request Relationship</div>
+    <div id="relationshipDialogBody" class="bd">
+        <form>
+        <table>
+            <tr>
+                <td>How do you know this person?</td>
+                <td><input type="text" id="relationshipHowknowText" /></td>
+            </tr>
+            <tr>
+                <td>How well do you know them?</td>
+                <td><span id="relationshipLevelCombo" /></td>
+            </tr>
+        </table>
+        </form>
+    </div>
+    <div id="relationshipDialogFooter" class="ft">
+        <span id="relationshipSendButton" />
+        <span id="relationshipCancelButton" />
+    </div>
+</div>
+
+
+<div id="acceptRelationshipDialog">
+    <div id="acceptRelationshipDialogHeader" class="hd">Accept Relationship</div>
+    <div id="acceptRelationshipDialogBody" class="bd">
+        <form>
+        <table>
+            <tr>
+                <td>How you know each other:</td>
+                <td><input type="text" id="acceptRelationshipHowknowText" /></td>
+            </tr>
+            <tr>
+                <td>How well do you know this person?</td>
+                <td><span id="acceptRelationshipLevelCombo" /></td>
+            </tr>
+        </table>
+        </form>
+    </div>
+    <div id="acceptRelationshipDialogFooter" class="ft">
+        <span id="acceptRelationshipButton" />
+        <span id="clarifyRelationshipButton" />
+    </div>
+</div>
+
+
+<div id="createGroupDialog">
+    <div id="createGroupDialogHeader" class="hd">Create Group</div>
+    <div id="createGroupDialogBody" class="bd">
+        <form name="createGroupForm">
+            <table>
+                <tr>
+                    <td><label class="propLabel" for="name">Name:</label></td>
+                    <td><input type="text" id="name" class="formInput"
+                        name="name" value="" onkeyup="onGroupDialogChange()" /></td>
+                </tr>
+                <tr>
+                    <td><label class="propLabel" for="handle">Handle:</label></td>
+                    <td><input type="text" id="handle" class="formInput" maxlength="48"
+                        name="handle" value="" onkeyup="onGroupDialogChange()" /></td>
+                </tr>
+                <tr>
+                    <td><label class="propLabel" for="desc">Description:</label></td>
+                    <td><input type="text" id="desc" class="formInput"
+                        name="description" value="" onkeyup="onGroupDialogChange()" /></td>
+                </tr>
+                <tr>
+                    <td><label class="propLabel" for="icon">Icon URL:</label></td>
+                    <td><input type="text" id="icon" class="formInput"
+                        name="iconUrl" value="" onkeyup="onGroupDialogChange()" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div id="createGroupDialogFooter" class="ft">
+        <span id="submitGroupButton" />
+        <span id="cancelCreateGroupButton" />
+    </div>
+</div>
+
+
+
+    ]]>
+  </Content>
+</Module>

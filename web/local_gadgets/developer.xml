@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+  Copyright 2007-2008 Sun Microsystems, Inc. All rights reserved.
+
+  The contents of this file are subject to the terms of either the GNU
+  General Public License Version 2 only ("GPL") or the Common Development
+  and Distribution License("CDDL") (collectively, the "License").  You
+  may not use this file except in compliance with the License. You can obtain
+  a copy of the License at https://socialsite.dev.java.net/legal/CDDL+GPL.html
+  or legal/LICENSE.txt.  See the License for the specific language governing
+  permissions and limitations under the License.
+
+  When distributing the software, include this License Header Notice in each
+  file and include the License file at legal/LICENSE.txt.  Sun designates this
+  particular file as subject to the "Classpath" exception as provided by Sun
+  in the GPL Version 2 section of the License file that accompanied this code.
+  If applicable, add the following below the License Header, with the fields
+  enclosed by brackets [] replaced by your own identifying information:
+  "Portions Copyrighted [year] [name of copyright owner]"
+
+  Contributor(s):
+
+  If you wish your version of this file to be governed by only the CDDL or
+  only the GPL Version 2, indicate your decision by adding "[Contributor]
+  elects to include this software in this distribution under the [CDDL or GPL
+  Version 2] license."  If you don't indicate a single choice of license, a
+  recipient has the option to distribute your version of this file under
+  either the CDDL, the GPL Version 2 or to extend the choice of license to
+  its licensees as provided above.  However, if you add GPL Version 2 code
+  and therefore, elected the GPL Version 2 license, then the option applies
+  only if the new code is made subject to such option by the copyright
+  holder.
+-->
+
+<Module>
+ <ModulePrefs title="Developer Gadget" height="700"
+    show_in_directory="true"
+    description="Developers should install this application to gain access to the SocialSite REST API"
+    author="Project SocialSite"
+    author_email="dev@socialsite.dev.java.net">
+  <Require feature="opensocial-0.8"/>
+  <Require feature="rpc"/>
+  <Require feature="socialsite-0.1"/>
+  <Require feature="skins"/>
+  <Require feature="opensocial-templates"/>
+ </ModulePrefs>
+ <Content type="html">
+<![CDATA[
+
+<link rel="stylesheet" text="text/css" href="../local_gadgets/files/socialsite-gadgets.css" />
+<script type="text/javascript" src="../local_gadgets/developer.js"></script>
+<link rel="stylesheet" type="text/css" href="../app-ui/yui/fonts/fonts-min.css" />
+<style type="text/css">
+    #widgetBody { margin: 2em; }
+    #messageBox {
+        border: 1px solid #e5e5e5;
+        background: #f5f5f5;
+        width: 95%;
+        padding: 0.5em 0 0.5em 0.5em;
+        margin: 0.7em 0.7em 2em 0em;
+    }
+</style>
+
+<script type="text/os-template" name="registrations">
+
+    <h1>SocialSite Developer Gadget</h1>
+
+    <h2>Applications you have registered so far:</h2>
+
+    <table if="registrations" width="95%" cellspacing="0" cellpadding="6px" border="1">
+        <tr class="itemRow">
+            <td width="5%" valign="top">
+               <h3>Status</h3>
+            </td>
+            <td width="90%" valign="top">
+               <h3>Gadget Details</h3>
+            </td>
+            <td width="5%" valign="top">
+               <h3>Action</h3>
+            </td>
+        </tr>
+        <tr repeat="registrations" class="itemRow">
+            <td width="5%" valign="top">
+               ${status}
+            </td>
+            <td width="95%" valign="top">
+
+               <b>Gadget Spec URL</b><br />&nbsp;&nbsp;&nbsp;${appUrl}<br />
+
+               <span if="consumerSecret"><b>Consumer Key Type</b>: HMAC_SYMETRIC<br /></span>
+               <span if="consumerKey"><b>Consumer Key</b>: <br />
+                   &nbsp;&nbsp;&nbsp;${consumerKey}<br /></span>
+               <span if="consumerSecret"><b>Consumer Secret</b>: <br />
+                   &nbsp;&nbsp;&nbsp;${consumerSecret}<br /></span>
+
+               <span if="serviceName"><br /><b>Service Name</b>: ${serviceName}<br /></span>
+               <span if="serviceKeyType"><b>Service Key Type</b>: ${serviceKeyType}<br /></span>
+               <span if="serviceConsumerKey"><b>Service Consumer Key</b>:<br />
+                   &nbsp;&nbsp;&nbsp;${serviceConsumerKey}<br /></span>
+               <span if="serviceConsumerSecret"><b>Service Consumer Secret</b>:<br />
+                   &nbsp;&nbsp;&nbsp;${serviceConsumerSecret}<br /></span>
+
+               <span if="comment"><b>Comment</b>: ${comment}<br /></span>
+
+            </td>
+            <td width="5%" valign="top">
+                <form name="registration_${id}" onsubmit="removeApp('${id}'); return false">
+                    <input type="submit" value="Remove" />
+            </form>
+            </td>
+        </tr>
+    </table>
+
+    <p if="size eq 0">You have no pending or approved Application Registrations</p>
+
+    <h2>Would you like to register a new OpenSocial Application?</h2>
+    <p>If you want to share an OpenSocial Application that you created with the
+    users of this site, use the form below to register your work. Once we have
+    evaluated your Gadget will either reject it or accept it. You will be
+    notified either way. Use the form below to submit the URL of your
+    Application's Gadget Spec:</p>
+
+    <form name="registrationForm" onsubmit="registerApp(); return false">
+        <table width="95%">
+        <tr>
+            <td width="30%">Gadget URL:</td>
+            <td width="70%"><input id="gadgetURL" name="gadgetURL"
+                type="text" size="48" maxlength="128" onkeyup="onGadgetURLChange()" /></td>
+        </tr>
+        <tr>
+           <td colspan="2"><br />
+           <b>Need to call a server via OAuth?</b>: if your gadget needs to
+           call out to an OAuth protected service, then you also need to
+           provide a service name as well as a valid OAuth consumer key and
+           secret below. SocialSite will ensure that requests use OAuth protocol
+           with this information.
+           </td>
+        </tr>
+        <tr>
+            <td>Servce Name:</td>
+            <td><input id="serviceName" name="serviceName"
+                type="text" size="48" maxlength="48" /></td>
+        </tr>
+        <tr>
+            <td>Service Consumer Key:</td>
+            <td><input id="serviceConsumerKey" name="serviceConsumerKey"
+                type="text" size="48" maxlength="48" /></td>
+        </tr>
+        <tr>
+            <td>Service Consumer Secret:</td>
+            <td><input id="serviceConsumerSecret" name="serviceConsumerSecret"
+                type="text" size="48" maxlength="48" /></td>
+        </tr>
+        <tr>
+            <td>Service Key Type:</td>
+            <td>
+                <select id="serviceKeyType" name="serviceKeyType">
+                   <option value="HMAC_SYMETRIC">HMAC_SYMETRIC</option>
+                   <option value="RSA_PRIVATE">RSA_PRIVATE</option>
+                </select>
+            </td>
+        </tr>
+        </table>
+
+    <div id="messageBox">
+        <img id="status-icon" class="linkIcon" src="../local_gadgets/files/information.png" />
+        &nbsp;<span id="status-message">Enter a valid Gadget Spec URL above</span>
+    </div>
+
+    <input id="registerButton" name="registerButton" type="submit" value="Register" />
+
+    </form>
+
+</script>
+
+<div id="socialsiteWidget">
+    <div id="widgetHeading">
+    </div>
+    <div id="widgetBody">
+        <div id="registrations" />
+    </div>
+</div>
+ ]]>
+ </Content>
+</Module>

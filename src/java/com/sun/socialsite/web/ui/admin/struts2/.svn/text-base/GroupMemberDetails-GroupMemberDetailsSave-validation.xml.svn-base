@@ -1,0 +1,21 @@
+<!DOCTYPE validators PUBLIC
+        "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+        "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+
+  <field name="userid">
+    <field-validator type="requiredstring" short-circuit="true">
+      <param name="trim">true</param>
+      <message key="socialsite.form.userid.empty">Please enter a user ID.</message>
+    </field-validator>
+    <field-validator type="profileValidator" short-circuit="true">
+      <param name="mustExist">true</param>
+      <message>User unknown for given ID.</message>
+    </field-validator>
+    <field-validator type="groupMemberValidator">
+      <param name="mustBeMember">false</param>
+      <message>User already in group.</message>
+    </field-validator>
+  </field>
+</validators>

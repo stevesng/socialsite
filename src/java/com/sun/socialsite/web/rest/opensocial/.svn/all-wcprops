@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/socialsite/!svn/ver/777/trunk/src/java/com/sun/socialsite/web/rest/opensocial
+END
+SocialSiteToken.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/socialsite/!svn/ver/768/trunk/src/java/com/sun/socialsite/web/rest/opensocial/SocialSiteToken.java
+END
+ConsumerContext.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/socialsite/!svn/ver/654/trunk/src/java/com/sun/socialsite/web/rest/opensocial/ConsumerContext.java
+END
+ProfileCreator.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/socialsite/!svn/ver/756/trunk/src/java/com/sun/socialsite/web/rest/opensocial/ProfileCreator.java
+END
+socialsite_context.xml
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/socialsite/!svn/ver/698/trunk/src/java/com/sun/socialsite/web/rest/opensocial/socialsite_context.xml
+END
+ConsumerContextValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/socialsite/!svn/ver/751/trunk/src/java/com/sun/socialsite/web/rest/opensocial/ConsumerContextValidator.java
+END
+ExpandingContainerConfig.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/socialsite/!svn/ver/756/trunk/src/java/com/sun/socialsite/web/rest/opensocial/ExpandingContainerConfig.java
+END
+SocialSiteTokenDecoder.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/socialsite/!svn/ver/380/trunk/src/java/com/sun/socialsite/web/rest/opensocial/SocialSiteTokenDecoder.java
+END
+SocialSiteTokenBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/socialsite/!svn/ver/667/trunk/src/java/com/sun/socialsite/web/rest/opensocial/SocialSiteTokenBuilder.java
+END
+AssertedToken.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/socialsite/!svn/ver/777/trunk/src/java/com/sun/socialsite/web/rest/opensocial/AssertedToken.java
+END
+ConsumerContextHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/socialsite/!svn/ver/654/trunk/src/java/com/sun/socialsite/web/rest/opensocial/ConsumerContextHandler.java
+END
+SocialSiteContentRewriter.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/socialsite/!svn/ver/756/trunk/src/java/com/sun/socialsite/web/rest/opensocial/SocialSiteContentRewriter.java
+END

@@ -1,0 +1,309 @@
+<!--
+  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+  Copyright 2007-2008 Sun Microsystems, Inc. All rights reserved.
+
+  The contents of this file are subject to the terms of either the GNU
+  General Public License Version 2 only ("GPL") or the Common Development
+  and Distribution License("CDDL") (collectively, the "License").  You
+  may not use this file except in compliance with the License. You can obtain
+  a copy of the License at https://socialsite.dev.java.net/legal/CDDL+GPL.html
+  or legal/LICENSE.txt.  See the License for the specific language governing
+  permissions and limitations under the License.
+
+  When distributing the software, include this License Header Notice in each
+  file and include the License file at legal/LICENSE.txt.  Sun designates this
+  particular file as subject to the "Classpath" exception as provided by Sun
+  in the GPL Version 2 section of the License file that accompanied this code.
+  If applicable, add the following below the License Header, with the fields
+  enclosed by brackets [] replaced by your own identifying information:
+  "Portions Copyrighted [year] [name of copyright owner]"
+
+  Contributor(s):
+
+  If you wish your version of this file to be governed by only the CDDL or
+  only the GPL Version 2, indicate your decision by adding "[Contributor]
+  elects to include this software in this distribution under the [CDDL or GPL
+  Version 2] license."  If you don't indicate a single choice of license, a
+  recipient has the option to distribute your version of this file under
+  either the CDDL, the GPL Version 2 or to extend the choice of license to
+  its licensees as provided above.  However, if you add GPL Version 2 code
+  and therefore, elected the GPL Version 2 license, then the option applies
+  only if the new code is made subject to such option by the copyright
+  holder.
+-->
+
+<profile>
+
+    <display-section name="identification" namekey="socialsite.profile.displaysection.identification">
+
+        <property name="nickname"     type="string" namekey="socialsite.profile.property.nickname" />
+        <property name="displayName"  type="string" namekey="socialsite.profile.property.displayname" />
+
+        <object name="name" namekey="socialsite.profile.object.name">
+            <property name="givenName"       type="string" namekey="socialsite.profile.property.firstname" />
+            <property name="familyName"      type="string" namekey="socialsite.profile.property.lastname" />
+            <property name="additionalName"  type="string" namekey="socialsite.profile.property.middlename" />
+            <property name="honorificPrefix" type="string" namekey="socialsite.profile.property.surtitle" />
+            <property name="honorificSuffix" type="string" namekey="socialsite.profile.property.title" />
+            <property name="formatted"       type="string" namekey="socialsite.profile.property.unstructured" />
+        </object>
+
+        <property name="tags"   type="stringarray" namekey="socialsite.profile.property.personal.tags" />
+
+    </display-section>
+
+
+    <!-- Section 'contact' is required, but only property 'primaryemail' is required  -->
+    <display-section name="contact" namekey="socialsite.profile.displaysection.contactInformation">
+
+        <collection name="emails" namekey="socialsite.profile.object.email">
+            <property name="value" type="string" namekey="socialsite.profile.property.emailaddress" />
+            <property name="type" type="stringenum"    namekey="socialsite.profile.property.emailtype">
+                <allowed-values>
+                    <value name="Home"  namekey="socialsite.profile.property.value.home" />
+                    <value name="Work"  namekey="socialsite.profile.property.value.work" />
+                    <value name="Other" namekey="socialsite.profile.property.value.other" />
+                </allowed-values>
+            </property>
+            <property name="primary" type="boolean" namekey="socialsite.profile.property.primary" />
+        </collection>
+
+        <collection name="urls" namekey="socialsite.profile.property.website">
+            <property name="value"   type="string" namekey="socialsite.profile.property.url" />
+            <property name="type"    type="string" namekey="socialsite.profile.property.type" />
+            <property name="primary" type="boolean" namekey="socialsite.profile.property.primary" />
+        </collection>
+
+        <collection name="messengers" namekey="socialsite.profile.object.messenger">
+            <property name="value" type="string" namekey="socialsite.profile.property.messenger.screename" />
+            <property name="type" type="stringenum" value="GTalk" namekey="socialsite.profile.property.messenger.service">
+                <allowed-values>
+                    <value name="AOL"     namekey="socialsite.profile.property.value.aol" />
+                    <value name="ICQ"     namekey="socialsite.profile.property.value.icq" />
+                    <value name="GTalk"   namekey="socialsite.profile.property.value.gtalk" />
+                    <value name="YahooIM" namekey="socialsite.profile.property.value.yahooim" />
+                    <value name="SunIM"   namekey="socialsite.profile.property.value.sunim" />
+                </allowed-values>
+            </property>
+            <property name="primary" type="boolean" namekey="socialsite.profile.property.primary" />
+        </collection>
+
+    </display-section>
+
+
+    <!-- Section is required -->
+    <display-section name="extendedcontact" namekey="socialsite.profile.displaysection.extendedContactInformation">
+
+        <collection name="phones" namekey="socialsite.profile.property.phone">
+            <property name="value" type="string" namekey="socialsite.profile.property.phonenumber" />
+            <property name="type" type="stringenum" namekey="socialsite.profile.property.phonetype">
+                <allowed-values>
+                    <value name="home"   namekey="socialsite.profile.property.value.home" />
+                    <value name="fax"    namekey="socialsite.profile.property.value.fax" />
+                    <value name="work"   namekey="socialsite.profile.property.value.work" />
+                    <value name="mobile" namekey="socialsite.profile.property.value.mobile" />
+                    <value name="other"  namekey="socialsite.profile.property.value.other" />
+                </allowed-values>
+            </property>
+            <property name="primary" type="boolean" namekey="socialsite.profile.property.primary" />
+        </collection>
+
+        <object name="currentLocation" namekey="socialsite.profile.property.currentLocation">
+            <property name="streetAddress" type="string" namekey="socialsite.profile.property.address" />
+            <property name="extendedAddress" type="string" namekey="socialsite.profile.property.extendedAddress" />
+            <property name="locality"      type="string" namekey="socialsite.profile.property.city" />
+            <property name="region"        type="string" namekey="socialsite.profile.property.state" />
+            <property name="postalCode"    type="string" namekey="socialsite.profile.property.postcode" />
+            <property name="country"       type="string" namekey="socialsite.profile.property.country" />
+            <property name="type"          type="stringenum" namekey="socialsite.profile.property.type">
+                <allowed-values>
+                    <value name="home"   namekey="socialsite.profile.property.value.home" />
+                    <value name="work"   namekey="socialsite.profile.property.value.work" />
+                    <value name="other"  namekey="socialsite.profile.property.value.other" />
+                </allowed-values>
+            </property>
+        </object>
+
+        <collection name="addresses" namekey="socialsite.profile.property.addresses">
+            <property name="streetAddress" type="string" namekey="socialsite.profile.property.address" />
+            <property name="extendedAddress" type="string" namekey="socialsite.profile.property.extendedAddress" />
+            <property name="locality"      type="string" namekey="socialsite.profile.property.city" />
+            <property name="region"        type="string" namekey="socialsite.profile.property.state" />
+            <property name="postalCode"    type="string" namekey="socialsite.profile.property.postcode" />
+            <property name="country"       type="string" namekey="socialsite.profile.property.country" />
+            <property name="type"          type="stringenum" namekey="socialsite.profile.property.type">
+                <allowed-values>
+                    <value name="home"   namekey="socialsite.profile.property.value.home" />
+                    <value name="work"   namekey="socialsite.profile.property.value.work" />
+                    <value name="other"  namekey="socialsite.profile.property.value.other" />
+                </allowed-values>
+            </property>
+        </collection>
+
+    </display-section>
+
+
+    <display-section name="personal" namekey="socialsite.profile.displaysection.favorites">
+
+        <property name="about_me"      type="text" namekey="socialsite.profile.property.personal.about" />
+
+        <object name="profileSong" namekey="socialsite.profile.property.profile_song">
+            <property name="address"  type="string" namekey="socialsite.profile.property.url" />
+            <property name="linkText" type="string" namekey="socialsite.profile.property.linktext" />
+            <property name="type"     type="string" namekey="socialsite.profile.property.type" />
+        </object>
+
+        <object name="profileVideo" namekey="socialsite.profile.property.profile_video">
+            <property name="address"  type="string" namekey="socialsite.profile.property.url" />
+            <property name="linkText" type="string" namekey="socialsite.profile.property.linktext" />
+            <property name="type"     type="string" namekey="socialsite.profile.property.type" />
+        </object>
+
+        <property name="gender" type="enum" namekey="socialsite.profile.property.personal.gender">
+            <allowed-values>
+                <value name="male"   namekey="socialsite.profile.property.value.male" />
+                <value name="female" namekey="socialsite.profile.property.value.female" />
+            </allowed-values>
+        </property>
+
+        <property name="ethnicity"  type="string" namekey="socialsite.profile.property.personal.ethnicity" />
+        <property name="pets"       type="string" namekey="socialsite.profile.property.personal.pets" />
+
+        <property name="activities" type="stringarray" namekey="socialsite.profile.property.personal.activities" />
+        <property name="interests"  type="stringarray" namekey="socialsite.profile.property.personal.interests" />
+
+        <property name="music"      type="stringarray" namekey="socialsite.profile.property.personal.music" />
+        <property name="movies"     type="stringarray" namekey="socialsite.profile.property.personal.movies" />
+        <property name="books"      type="stringarray" namekey="socialsite.profile.property.personal.books" />
+        <property name="tvShows"    type="stringarray" namekey="socialsite.profile.property.personal.tv" />
+        <property name="humor"      type="text" namekey="socialsite.profile.property.personal.humor" />
+        <property name="food"       type="stringarray" namekey="socialsite.profile.property.personal.food" />
+        <property name="fashion"    type="text" namekey="socialsite.profile.property.personal.fashion" />
+        <property name="cars"       type="stringarray" namekey="socialsite.profile.property.personal.cars" />
+        <property name="sports"     type="stringarray" namekey="socialsite.profile.property.personal.sports" />
+
+        <property name="heroes"      type="stringarray" namekey="socialsite.profile.property.personal.heroes" />
+        <property name="quotes"      type="stringarray" namekey="socialsite.profile.property.personal.quotes" />
+        <property name="religion"       type="text" namekey="socialsite.profile.property.personal.religion" />
+        <property name="politicalViews" type="text" namekey="socialsite.profile.property.personal.politicalViews" />
+
+        <property name="happiestWhen" type="text" namekey="socialsite.profile.property.personal.happiestWhen" />
+        <property name="scaredOf"     type="text" namekey="socialsite.profile.property.personal.scaredOf" />
+
+    </display-section>
+
+    <display-section name="morepersonal" namekey="socialsite.profile.displaysection.morepersonal">
+
+        <property name="age"           type="integer" namekey="socialsite.profile.property.personal.age" />
+        <property name="dateOfBirth"   type="date"    namekey="socialsite.profile.property.personal.dateOfBirth" />
+        <property name="relationshipStatus" type="string" namekey="socialsite.profile.property.personal.relStatus" />
+        <property name="children"      type="text"    namekey="socialsite.profile.property.personal.children" />
+
+        <object name="bodyType" namekey="socialsite.profile.property.personal.bodytype">
+            <property name="build"     type="string" namekey="socialsite.profile.property.personal.build" />
+            <property name="eyeColor"  type="string" namekey="socialsite.profile.property.personal.eyeColor" />
+            <property name="hairColor" type="string" namekey="socialsite.profile.property.personal.hairColor" />
+            <property name="height"    type="integer" namekey="socialsite.profile.property.personal.height" />
+            <property name="weight"    type="integer" namekey="socialsite.profile.property.personal.weight" />
+        </object>
+
+        <property name="drinker" type="stringenum" namekey="socialsite.profile.property.personal.drinker">
+            <allowed-values>
+                <value name="NO"        namekey="socialsite.profile.property.value.no" />
+                <value name="YES"       namekey="socialsite.profile.property.value.yes" />
+                <value name="SOCIALLY"  namekey="socialsite.profile.property.value.socially" />
+                <value name="OCCAISONALLY" namekey="socialsite.profile.property.value.occaisionally" />
+                <value name="REGULARLY" namekey="socialsite.profile.property.value.regularly" />
+                <value name="HEAVILY"   namekey="socialsite.profile.property.value.heavily" />
+                <value name="QUITTING"  namekey="socialsite.profile.property.value.quitting" />
+                <value name="QUIT"      namekey="socialsite.profile.property.value.quit" />
+            </allowed-values>
+        </property>
+
+        <property name="smoker" type="stringenum" namekey="socialsite.profile.property.personal.smoker">
+            <allowed-values>
+                <value name="NO"        namekey="socialsite.profile.property.value.no" />
+                <value name="YES"       namekey="socialsite.profile.property.value.yes" />
+                <value name="SOCIALLY"  namekey="socialsite.profile.property.value.socially" />
+                <value name="OCCAISONALLY" namekey="socialsite.profile.property.value.occaisionally" />
+                <value name="REGULARLY" namekey="socialsite.profile.property.value.regularly" />
+                <value name="HEAVILY"   namekey="socialsite.profile.property.value.heavily" />
+                <value name="QUITTING"  namekey="socialsite.profile.property.value.quitting" />
+                <value name="QUIT"      namekey="socialsite.profile.property.value.quit" />
+            </allowed-values>
+        </property>
+
+        <property name="romance"     type="text" namekey="socialsite.profile.property.personal.romance" />
+
+        <!-- TODO: add this back in when when we can support an 'enumarray'
+        <property name="lookingFor"  type="stringarray" namekey="socialsite.profile.property.personal.lookingFor" />
+        -->
+
+        <property name="sexualOrientation" type="text" namekey="socialsite.profile.property.personal.sexOrientation" />
+        <property name="livingArrangement" type="text" namekey="socialsite.profile.property.personal.livingArrange" />
+        <property name="turnOns"     type="stringarray" namekey="socialsite.profile.property.personal.turnOns" />
+        <property name="turnOffs"    type="stringarray" namekey="socialsite.profile.property.personal.turnOffs" />
+
+    </display-section>
+
+
+    <display-section name="experience" namekey="socialsite.profile.displaysection.experience">
+
+        <property name="job_interests"  type="text" namekey="socialsite.profile.property.personal.interests" />
+
+        <collection name="jobs" namekey="socialsite.profile.property.experience">
+            <property name="name"        type="string"   namekey="socialsite.profile.property.experience.name" />
+            <object name="webpage" namekey="socialsite.profile.property.website">
+                <property name="address"   type="string" namekey="socialsite.profile.property.url" />
+                <property name="linkText"  type="string" namekey="socialsite.profile.property.linktext" />
+                <property name="type"      type="string" namekey="socialsite.profile.property.type" />
+            </object>
+            <property name="title"       type="string" namekey="socialsite.profile.property.title" />
+            <property name="description" type="string" namekey="socialsite.profile.property.experience.desc" />
+            <property name="startDate"   type="date"   namekey="socialsite.profile.property.experience.start_date" />
+            <property name="endDate"     type="date"   namekey="socialsite.profile.property.experience.end_date" />
+            <property name="field"       type="string" namekey="socialsite.profile.property.experience.field" />
+            <property name="subField"    type="string" namekey="socialsite.profile.property.experience.sub_field" />
+            <property name="salary"      type="string" namekey="socialsite.profile.property.experience.salary" />
+            <object name="address" namekey="socialsite.profile.property.address">
+                <property name="country"         type="string" namekey="socialsite.profile.property.country" />
+                <property name="extendedAddress" type="string" namekey="socialsite.profile.property.address" />
+                <property name="locality"        type="string" namekey="socialsite.profile.property.city" />
+                <property name="region"          type="string" namekey="socialsite.profile.property.state" />
+                <property name="streetAddress"   type="string" namekey="socialsite.profile.property.street_address" />
+                <property name="postalCode"      type="string" namekey="socialsite.profile.property.postcode" />
+            </object>
+        </collection>
+
+    </display-section>
+
+    <display-section name="education" namekey="socialsite.profile.displaysection.education">
+
+        <collection name="schools" namekey="socialsite.profile.property.schools">
+            <property name="name" type="string" namekey="socialsite.profile.property.experience.name" />
+            <object name="webpage" namekey="socialsite.profile.property.website">
+                <property name="address"   type="string" namekey="socialsite.profile.property.url" />
+                <property name="linkText"  type="string" namekey="socialsite.profile.property.linktext" />
+                <property name="type"      type="string" namekey="socialsite.profile.property.type" />
+            </object>
+            <property name="title"       type="string" namekey="socialsite.profile.property.title" />
+            <property name="description" type="string" namekey="socialsite.profile.property.experience.desc" />
+            <property name="startDate"   type="date"   namekey="socialsite.profile.property.experience.start_date" />
+            <property name="endDate"     type="date"   namekey="socialsite.profile.property.experience.end_date" />
+            <property name="field"       type="string" namekey="socialsite.profile.property.experience.field" />
+            <property name="subField"    type="string" namekey="socialsite.profile.property.experience.sub_field" />
+            <property name="salary"      type="string" namekey="socialsite.profile.property.experience.salary" />
+            <object name="address" namekey="socialsite.profile.property.address">
+                <property name="country"         type="string" namekey="socialsite.profile.property.country" />
+                <property name="extendedAddress" type="string" namekey="socialsite.profile.property.address" />
+                <property name="locality"        type="string" namekey="socialsite.profile.property.city" />
+                <property name="region"          type="string" namekey="socialsite.profile.property.state" />
+                <property name="streetAddress"   type="string" namekey="socialsite.profile.property.street_address" />
+                <property name="postalCode"      type="string" namekey="socialsite.profile.property.postcode" />
+            </object>
+        </collection>
+
+    </display-section>
+
+</profile>

@@ -1,0 +1,137 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/socialsite/!svn/ver/775/trunk/src/java/com/sun/socialsite/business/impl
+END
+JPAPermissionManagerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/socialsite/!svn/ver/732/trunk/src/java/com/sun/socialsite/business/impl/JPAPermissionManagerImpl.java
+END
+JPASocialSiteModule.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/socialsite/!svn/ver/771/trunk/src/java/com/sun/socialsite/business/impl/JPASocialSiteModule.java
+END
+NullExtensionManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/socialsite/!svn/ver/586/trunk/src/java/com/sun/socialsite/business/impl/NullExtensionManager.java
+END
+JPAPersistenceStrategy.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/socialsite/!svn/ver/771/trunk/src/java/com/sun/socialsite/business/impl/JPAPersistenceStrategy.java
+END
+DefaultUserCreator.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/socialsite/!svn/ver/493/trunk/src/java/com/sun/socialsite/business/impl/DefaultUserCreator.java
+END
+JPAGroupManagerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/socialsite/!svn/ver/745/trunk/src/java/com/sun/socialsite/business/impl/JPAGroupManagerImpl.java
+END
+JPAProfileManagerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/socialsite/!svn/ver/756/trunk/src/java/com/sun/socialsite/business/impl/JPAProfileManagerImpl.java
+END
+JPARelationshipManagerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/socialsite/!svn/ver/745/trunk/src/java/com/sun/socialsite/business/impl/JPARelationshipManagerImpl.java
+END
+JPASocialSiteImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/socialsite/!svn/ver/771/trunk/src/java/com/sun/socialsite/business/impl/JPASocialSiteImpl.java
+END
+LuceneSearchManagerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/socialsite/!svn/ver/507/trunk/src/java/com/sun/socialsite/business/impl/LuceneSearchManagerImpl.java
+END
+DelegatingUserManagerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/socialsite/!svn/ver/24/trunk/src/java/com/sun/socialsite/business/impl/DelegatingUserManagerImpl.java
+END
+JPASocialSitePersistenceStrategy.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/socialsite/!svn/ver/692/trunk/src/java/com/sun/socialsite/business/impl/JPASocialSitePersistenceStrategy.java
+END
+JPAContentManagerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/socialsite/!svn/ver/607/trunk/src/java/com/sun/socialsite/business/impl/JPAContentManagerImpl.java
+END
+JPASocialSiteActivityManagerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/socialsite/!svn/ver/607/trunk/src/java/com/sun/socialsite/business/impl/JPASocialSiteActivityManagerImpl.java
+END
+JPAContextRuleManagerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/socialsite/!svn/ver/751/trunk/src/java/com/sun/socialsite/business/impl/JPAContextRuleManagerImpl.java
+END
+JPAMessageContentManagerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/socialsite/!svn/ver/607/trunk/src/java/com/sun/socialsite/business/impl/JPAMessageContentManagerImpl.java
+END
+JPAAppManagerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/socialsite/!svn/ver/775/trunk/src/java/com/sun/socialsite/business/impl/JPAAppManagerImpl.java
+END
+JPAOAuthStore.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/socialsite/!svn/ver/775/trunk/src/java/com/sun/socialsite/business/impl/JPAOAuthStore.java
+END
+JPAConfigPropertiesManagerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/socialsite/!svn/ver/253/trunk/src/java/com/sun/socialsite/business/impl/JPAConfigPropertiesManagerImpl.java
+END
+JPAThemeSettingsManagerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/socialsite/!svn/ver/607/trunk/src/java/com/sun/socialsite/business/impl/JPAThemeSettingsManagerImpl.java
+END
+JPAListenerManagerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/socialsite/!svn/ver/485/trunk/src/java/com/sun/socialsite/business/impl/JPAListenerManagerImpl.java
+END
+JPANotificationManagerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/socialsite/!svn/ver/735/trunk/src/java/com/sun/socialsite/business/impl/JPANotificationManagerImpl.java
+END

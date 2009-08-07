@@ -1,0 +1,52 @@
+8
+
+dir
+783
+https://socialsite.dev.java.net/svn/socialsite/trunk/src/features/opensocial-base
+https://socialsite.dev.java.net/svn/socialsite
+
+
+
+2008-10-23T19:48:25.630633Z
+407
+snoopdave
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+ff20f9fe-4f4a-0410-aef0-b8c762daf8db
+
+jsonmessage.js
+file
+
+
+
+
+2009-06-11T03:53:35.501309Z
+7af916175094c6e6371ac36f9c32cb3d
+2008-10-23T19:48:25.630633Z
+407
+snoopdave
+
+feature.xml
+file
+
+
+
+
+2009-06-11T03:53:35.516909Z
+3036048b25d831cdb00cc90f87830503
+2008-10-23T19:48:25.630633Z
+407
+snoopdave
+

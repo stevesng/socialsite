@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/socialsite/!svn/ver/782/trunk/src/java/com/sun/socialsite
+END
+socialsite_resources.properties
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/socialsite/!svn/ver/775/trunk/src/java/com/sun/socialsite/socialsite_resources.properties
+END
+SocialSiteException.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/socialsite/!svn/ver/24/trunk/src/java/com/sun/socialsite/SocialSiteException.java
+END

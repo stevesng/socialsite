@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+  Copyright 2007-2008 Sun Microsystems, Inc. All rights reserved.
+
+  The contents of this file are subject to the terms of either the GNU
+  General Public License Version 2 only ("GPL") or the Common Development
+  and Distribution License("CDDL") (collectively, the "License").  You
+  may not use this file except in compliance with the License. You can obtain
+  a copy of the License at https://socialsite.dev.java.net/legal/CDDL+GPL.html
+  or legal/LICENSE.txt.  See the License for the specific language governing
+  permissions and limitations under the License.
+
+  When distributing the software, include this License Header Notice in each
+  file and include the License file at legal/LICENSE.txt.  Sun designates this
+  particular file as subject to the "Classpath" exception as provided by Sun
+  in the GPL Version 2 section of the License file that accompanied this code.
+  If applicable, add the following below the License Header, with the fields
+  enclosed by brackets [] replaced by your own identifying information:
+  "Portions Copyrighted [year] [name of copyright owner]"
+
+  Contributor(s):
+
+  If you wish your version of this file to be governed by only the CDDL or
+  only the GPL Version 2, indicate your decision by adding "[Contributor]
+  elects to include this software in this distribution under the [CDDL or GPL
+  Version 2] license."  If you don't indicate a single choice of license, a
+  recipient has the option to distribute your version of this file under
+  either the CDDL, the GPL Version 2 or to extend the choice of license to
+  its licensees as provided above.  However, if you add GPL Version 2 code
+  and therefore, elected the GPL Version 2 license, then the option applies
+  only if the new code is made subject to such option by the copyright
+  holder.
+-->
+
+<Module>
+ <ModulePrefs title="Roller Gadget"
+   description="Example Roller Weblog integration, uses AtomPub" height="400"
+   show_in_directory="true"
+   author="Project SocialSite"
+   author_email="dev@socialsite.dev.java.net"
+    thumbnail="../local_gadgets/thumbnails/roller_gadget.png">
+  <Require feature="opensocial-0.7"/>
+  <Require feature="socialsite-0.1"/>
+  <Require feature="setprefs"/>
+ </ModulePrefs>
+ <UserPref name="blogusername" display_name="Blog User Name" datatype="string"/>
+ <UserPref name="blogpassword" display_name="Blog Password" datatype="string"/>
+ <UserPref name="blogendpoint" display_name="AtomPub URI" datatype="string"/>
+ <Content type="html">
+ <![CDATA[
+  <script type="text/javascript">
+  // This code was written by Tyler Akins and has been placed in the
+  // public domain.  It would be nice if you left this header intact.
+  // Base64 code from Tyler Akins -- http://rumkin.com
+
+  var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+
+  function encode64(input) {
+     var output = "";
+     var chr1, chr2, chr3;
+     var enc1, enc2, enc3, enc4;
+     var i = 0;
+
+     do {
+        chr1 = input.charCodeAt(i++);
+        chr2 = input.charCodeAt(i++);
+        chr3 = input.charCodeAt(i++);
+
+        enc1 = chr1 >> 2;
+        enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+        enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+        enc4 = chr3 & 63;
+
+        if (isNaN(chr2)) {
+           enc3 = enc4 = 64;
+        } else if (isNaN(chr3)) {
+           enc4 = 64;
+        }
+
+        output = output + keyStr.charAt(enc1) + keyStr.charAt(enc2) +
+           keyStr.charAt(enc3) + keyStr.charAt(enc4);
+     } while (i < input.length);
+
+     return output;
+  }
+
+  function decode64(input) {
+     var output = "";
+     var chr1, chr2, chr3;
+     var enc1, enc2, enc3, enc4;
+     var i = 0;
+
+     // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
+     input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+
+     do {
+        enc1 = keyStr.indexOf(input.charAt(i++));
+        enc2 = keyStr.indexOf(input.charAt(i++));
+        enc3 = keyStr.indexOf(input.charAt(i++));
+        enc4 = keyStr.indexOf(input.charAt(i++));
+
+        chr1 = (enc1 << 2) | (enc2 >> 4);
+        chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+        chr3 = ((enc3 & 3) << 6) | enc4;
+
+        output = output + String.fromCharCode(chr1);
+
+        if (enc3 != 64) {
+           output = output + String.fromCharCode(chr2);
+        }
+        if (enc4 != 64) {
+           output = output + String.fromCharCode(chr3);
+        }
+     } while (i < input.length);
+
+     return output;
+  }
+
+  </script>
+  <script type="text/javascript">
+
+  var owner = null;
+  var viewer = null;
+  var postedSuccessfully = false;
+  var contextPath = '..'; // TODO: Remove hard-coding
+
+  function statusMessage(msg, fade) {
+      $("#message").html(msg);
+      $("#message").show("fast");
+      if (fade) $("#message").fadeOut(2000);
+  }
+  function getData() {
+      statusMessage('Requesting data...', false);
+      var req = opensocial.newDataRequest();
+      req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.VIEWER), 'viewer');
+      req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.OWNER), 'owner');
+      req.send(onLoadData);
+  };
+  function onLoadData(dataResponse) {
+      statusMessage("Data received!", true);
+      owner = dataResponse.get('owner').getData();
+      viewer = dataResponse.get('viewer').getData();
+      var prefs = new gadgets.Prefs();
+      var blogusername = prefs.getString('blogusername');
+      var blogpassword = prefs.getString('blogpassword');
+      var blogendpoint = prefs.getString('blogendpoint');
+      // TODO: remove redundant viewer.getId() == owner.getId() check, once isOwner works right
+      if (viewer.isOwner() || (viewer.getId() == owner.getId())) {
+          if (blogusername==null || blogpassword==null || blogendpoint==null) {
+              $("#configForm").show("slow");
+          } else {
+              $("#blogForm").show("slow");
+          }
+      } else {
+          $("#blogPosts").show("slow");
+      }
+  }
+  function configure() {
+      var prefs = new gadgets.Prefs();
+      var blogusername = prefs.getString('blogusername');
+      var blogpassword = prefs.getString('blogpassword');
+      var blogendpoint = prefs.getString('blogendpoint');
+      $("#blogusername")[0].value = blogusername;
+      $("#blogpassword")[0].value = blogpassword;
+      $("#blogendpoint")[0].value = blogendpoint;
+      $("#blogForm").fadeOut("slow");
+      $("#configForm").show("slow");
+  }
+  function saveConfig() {
+      var u = $("#blogusername")[0].value;
+      var p = $("#blogpassword")[0].value;
+      var e = $("#blogendpoint")[0].value;
+      if (u!=null && p!=null && e!=null && u.length>0 && p.length>0 && e.length>0) {
+          var prefs = new gadgets.Prefs();
+          prefs.set('blogusername',u);
+          prefs.set('blogpassword',p);
+          prefs.set('blogendpoint',e);
+          statusMessage('Configuration saved', true);
+          $("#configForm").fadeOut("slow");
+          $("#blogForm").show("slow");
+      } else {
+          statusMessage('You must set all configuration values', false);
+      }
+  }
+  function cancelConfig() {
+      $("#configForm").fadeOut("slow");
+      $("#blogForm").show("slow");
+  }
+  function postBlog() {
+      var t = $("#blogtitle")[0].value;
+      var c = $("#blogcontent")[0].value;
+      if (t!=null && c!=null && t.length>0 && c.length>0) {
+
+          // create Atom entry to be posted
+          entryData = '<?xml version=\"1.0\" encoding=\"UTF-8\"?>'
+              + '<entry xmlns=\"http://www.w3.org/2005/Atom\">'
+              + '    <title>' + t + '</title>'
+              + '    <content>' + c + '</content>'
+              + '</entry>';
+
+          // gather credentials and collection URI
+          var prefs = new gadgets.Prefs();
+          var blogusername = prefs.getString('blogusername');
+          var blogpassword = prefs.getString('blogpassword');
+          var blogendpoint = prefs.getString('blogendpoint');
+          var proxyurl = contextPath + '/get?uri=' + blogendpoint;
+
+          // post entry to AtomPub collection
+          $.ajax({type: "POST", url: proxyurl, data: entryData,
+              timeout: 5000, async: true,
+              beforeSend: function(xhr) {
+                  var creds = blogusername + ':' + blogpassword;
+                  xhr.setRequestHeader("Authorization","Basic " + encode64(creds));
+                  xhr.setRequestHeader("Content-type","application/atom+xml");
+              },
+              error: function(xhr, textStatus, errorThrown) {
+                  statusMessage('ERROR saving blog post: ' + textStatus, false);
+              },
+              complete: function(xhr, textStatus) {
+                  if (postedSuccessfully) {
+                      postedSuccessfully = false;
+                      var loc = xhr.getResponseHeader('location');
+                      reportSuccess(loc);
+                  }
+              },
+              success: function(data, textStatus) {
+                  postedSuccessfully = true;
+                  postedData = data;
+              }
+          });
+          statusMessage('Saving blog post...', true);
+          $("#blogtitle")[0].value = '';
+          $("#blogcontent")[0].value = '';
+      } else {
+          statusMessage('You must provide both a title and content', false);
+      }
+  }
+  function showPosts() {
+      var prefs = new gadgets.Prefs();
+      var blogusername = prefs.getString('blogusername');
+      var blogpassword = prefs.getString('blogpassword');
+      var blogendpoint = prefs.getString('blogendpoint');
+      var proxyurl = contextPath + '/get?uri=' + blogendpoint;
+
+      $.ajax({type: "GET", url: proxyurl,
+          timeout: 5000, async: true,
+          beforeSend: function(xhr) {
+              var creds = blogusername + ':' + blogpassword;
+              xhr.setRequestHeader("Authorization","Basic " + encode64(creds));
+              xhr.setRequestHeader("Content-type","application/atom+xml");
+          },
+          error: function(xhr, textStatus, errorThrown) {
+              statusMessage('ERROR getting recent posts', false);
+          },
+          complete: function(xhr, textStatus) {
+              var html = '<ul>';
+              var entries = $(xhr.responseXML).find('entry').each(function() {
+                  var title = $(this).find('title')[0];
+                  var link = $(this).find('link')[0];
+                  var updated = $(this).find('updated')[0];
+                  var content = $(this).find('content')[0];
+                  html = html + '<li><a href=\"' + $(link).attr('href') + '\" target=\"_blank\">'
+                     + $(title).text() + '</a> <i>(' + $(updated).text() + ')</i></li>';
+              });
+              html = html + '</ul>';
+              $("#blogPostsListing").html(html);
+          }
+      });
+  }
+  function reportSuccess(uri) {
+      var prefs = new gadgets.Prefs();
+      var blogusername = prefs.getString('blogusername');
+      var blogpassword = prefs.getString('blogpassword');
+      var proxyurl = contextPath + '/get?uri=' + uri;
+
+      $.ajax({type: "GET", url: proxyurl,
+          timeout: 5000, async: true,
+          beforeSend: function(xhr) {
+              var creds = blogusername + ':' + blogpassword;
+              xhr.setRequestHeader("Authorization","Basic " + encode64(creds));
+              xhr.setRequestHeader("Content-type","application/atom+xml");
+          },
+          error: function(xhr, textStatus, errorThrown) {
+              statusMessage('ERROR getting post permalink', false);
+          },
+          complete: function(xhr, textStatus) {
+              var entry = $(xhr.responseXML).find('entry')[0];
+              var link = $(entry).find('link')[0];
+              var permalink = $(link).attr('href');
+              writeActivity('posted a new Roller <a href=\"'  + permalink + '\">blog post</a>');
+          }
+      });
+  }
+  function writeActivity(title, link) {
+      var activity_params = { 'title': title, 'url': link };
+      var activity = opensocial.newActivity(activity_params);
+      opensocial.requestCreateActivity(activity, "HIGH");
+  }
+  gadgets.util.registerOnLoadHandler(getData);
+  </script>
+
+  <style type="text/css">
+      .label {width:30px;}
+  </style>
+
+  <table width="100%">
+  <tr>
+      <td width="20%">
+          <img src="../local_gadgets/files/roller-logo.jpg" />
+      </td>
+      <td width="80%" align="center">
+          <div id="message"></div>
+      </td>
+  </tr>
+  <tr>
+      <td colspan="2">
+          <div id="configForm" style="display:none">
+          <h3>Gadget Configuration</h3>
+          <table width="100%">
+              <tr>
+                  <td width="20%">Username:</td>
+                  <td width="80%"><input id="blogusername" type="text" /></td>
+              </tr>
+              <tr><td>Password:</td><td><input id="blogpassword" type="text" /></td></tr>
+              <tr><td>AtomPub URI:</td><td><input id="blogendpoint" type="text" size="50" /></td></tr>
+          </table>
+          <input type="button" value="Save" onclick="saveConfig()" />
+          <input type="button" value="Cancel" onclick="cancelConfig()" />
+          </div>
+
+          <div id="blogForm" style="display:none">
+          <h3>Create new blog post</h3>
+          <table width="100%">
+              <tr>
+                  <td width="20%">Title:</td>
+                  <td width="80%"><input id="blogtitle" type="text" size="50" /></td>
+              </tr>
+              <tr><td>Content:</td><td><textarea id="blogcontent" rows="10" cols="50"></textarea></td></tr>
+          </table>
+          <br />
+          <input type="button" value="Post" onclick="postBlog()" />
+          <input type="button" value="Settings" onclick="configure()" />
+          </div>
+
+          <div id="blogPosts" style="display:none">
+          <h3>Latest blog posts</h3>
+              <div id="blogPostsListing"></div>
+          </div>
+      </td>
+  </tr>
+  </table>
+ ]]>
+ </Content>
+</Module>

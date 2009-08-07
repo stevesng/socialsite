@@ -1,0 +1,385 @@
+#socialsiteWidget {
+    height: 95%;
+    padding: 0;
+    margin:  0;
+    border:  0;
+    color: #333;
+    background-color: #fff;
+    font-size: 12px;
+    font-family:"Trebuchet MS",Arial,Helvetica,sans-serif;
+}
+
+#socialsiteWidget a {
+    text-decoration: none;
+    color: #36546c;
+}
+
+#widgetHeading {
+    font-weight: bold;
+    /* border-bottom: 1px solid #9A9fa1; */
+}
+
+.filter {
+    float: right;
+    padding: 0 .5em .5em 0;
+}
+
+#widgetBody {
+    height: 100%;
+    overflow: auto;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+#widgetBody .noactivity {
+    font-weight: normal;
+    margin: 0;
+    padding: 10px 0px 0px 10px;
+    text-align: left;
+}
+
+#widgetBody .activity {
+    margin: 1px 0 0 0;
+    padding: 3px 0 4px 0;
+    text-align: left;
+}
+
+#widgetBody .friend {
+    margin: 2px 0 0 0;
+}
+
+#widgetBody .nofriends {
+    font-weight: normal;
+    margin: 0;
+    padding: 10px 0px 0px 10px;
+    text-align: left;
+}
+
+#widgetBody .nogroups {
+    font-weight: normal;
+    margin: 0;
+    padding: 10px 0px 0px 10px;
+    text-align: left;
+}
+
+#widgetBody .nomsgs {
+    font-weight: normal;
+    margin: 0;
+    padding: 10px 0px 0px 10px;
+    text-align: left;
+}
+
+#widgetBody .group {
+    margin: 1px 0 0 0;
+    padding: 3px 0 3px 0;
+    text-align: left;
+}
+
+#widgetBody hr {
+    height: 0;
+    width: 100%;
+    border: none;
+    border-style: solid;
+    border-width: 1px 0 0 0;
+    border-color: #e9edef;
+    margin: 5px 0 0 0;
+    padding: 0;
+}
+
+#widgetBody .icon {
+    float: left;
+    font-size: 1px;
+    line-height: 1px;
+    padding: 2px 0px 4px 7px;
+    display: inline;
+}
+
+#widgetBody .text {
+    display: inline;
+    float: left;
+    margin: 0 0 0 3px;
+    padding: 1px 0 4px 0;
+    width: 78%;
+}
+
+#widgetBody .text h2 {
+    font-size: 12px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0 0 3px 5px;
+    display: inline;
+}
+
+#widgetBody .location {
+    font-weight: normal;
+    display: inline;
+    padding: 0 0 3px 12px;
+}
+
+#widgetBody .text .status {
+    color: #000000;
+    margin: 0 0 0 5px;
+    padding: 0 0 0 0;
+}
+
+#widgetBody ul.options {
+    display: block;
+    float: right;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    padding: 0px 3px 0 0;
+}
+
+#widgetBody .options li {
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0 3px 0 0;
+}
+
+#widgetBody .options img {
+    display: inline;
+    border: none;
+}
+
+#widgetBody .mailFriend {
+    float: right;
+    font-size: 1px;
+    line-height: 1px;
+    padding: 3px 6px 1px 1px;
+}
+
+#widgetBody .mailFriend img {
+    display: inline;
+    border: none;
+}
+
+#widgetBody .inviteOption {
+    float: right;
+    padding: 3px 6px 1px 6px;
+}
+
+#widgetBody .groupProperties {
+    display: inline;
+    float: left;
+    margin: 0 0 0 5px;
+    padding: 10px 0 2px 0;
+    width: 60%;
+}
+
+#widgetBody .groupName {
+    font-weight: bold;
+    margin: 0;
+    padding: 0 0 5px 3px;
+}
+
+#widgetBody .propLabel {
+    margin: 0;
+    padding: 0 1px 1px 3px;
+}
+
+#widgetBody .propValue {
+    margin: 0;
+    padding: 0 0 1px 3px;
+}
+
+#widgetBody .notification {
+    margin: 1px 0 0 0;
+    padding: 3px 0 4px 0;
+    text-align: left;
+}
+
+#widgetBody .notification_read {
+    margin: 1px 0 0 0;
+    padding: 3px 0 4px 0;
+    text-align: left;
+}
+
+#widgetBody .notification_read .text {
+    font-weight: normal;
+    margin: 0;
+    padding: 0 0 3px 5px;
+    display: inline;
+    background-color: #eee;
+}
+
+#widgetBody .button {
+}
+
+#lightboxDiv {
+    padding: 4px;
+}
+
+.clearfloat {
+    clear: both;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: .3em 0 .3em 1.9em;
+    font-weight: normal;
+}
+
+.mugshot {
+    margin: 0 auto;
+}
+
+div#widgetFooter {
+    margin: 0 0 0 0;
+    padding: 3px 0 0 0;
+    /* border-top: 1px solid #9A9fa1; */
+}
+
+#widgetFooter ul {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 0;
+}
+
+#widgetFooter li {
+    display: inline;
+    padding: 0 10px 0 10px;
+    margin: 0;
+    border: none;
+}
+
+#widgetFooter img {
+    display: inline;
+    border: none;
+    margin: 0;
+    padding: 0;
+    vertical-align: bottom;
+}
+
+
+/*
+ * ----------------------------------
+ * Property Display and Editor Styles
+ * ----------------------------------
+ */
+
+#messageBox {
+    border: 1px solid #e5e5e5;
+    background: #f5f5f5;
+    width: 80%;
+    padding: 0.5em 0 0.5em 0.5em;
+    margin: 0.7em 0.7em 2em 0.7em;
+}
+#buttonBox {
+    float:right;
+    margin: 0.7em;
+}
+table.propertyTable {
+    width: 100%;
+}
+td.propertyLabel {
+    width: 15%;
+    font-size:11px;
+    font-weight: bold;
+}
+td.propertyValue {
+    font-size:11px;
+    width: 85%;
+}
+div.propertyObjectTitle {
+    font-size:12px;
+    font-weight: bold;
+    padding: 8px 0px 5px 3px;
+}
+span.propertyObjectMessage {
+    margin: 0 0 0 3em;
+}
+div.propertyObject {
+    border: solid 1px #ccc;
+    margin: 5px;
+    padding: 5px;
+}
+div.propertyObjectCollectionTitle {
+    font-size:12px;
+    font-weight: bold;
+    padding: 8px 0px 5px 3px;
+}
+span.propertyObjectCollectionMessage {
+    font-size:11px;
+    margin: 0 0 0 3em;
+}
+div.propertyObjectCollection {
+    border: solid 1px #ccc;
+    margin: 5px;
+    padding: 5px;
+}
+fieldset {
+    border: none;
+}
+label.formLabel {
+    text-align: right;
+    width: 130px;
+    margin: 4px;
+    display: block;
+    float: left;
+}
+input.formInput, textarea.formInput, select.formInput {
+    padding: 2px;
+    border: solid 1px #ccc;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-image: url('../../local_gadgets/files/field-bg.png');
+}
+img.linkIcon {
+    vertical-align:middle;
+}
+
+
+/*
+ * ----------------------------------
+ * Tabs
+ * ----------------------------------
+ */
+
+.tabWrapper {
+    margin: 2em 1em 0 1em;
+    border: 0;
+    padding: 0;
+}
+.tablib_content_container {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+.tablib_selected {
+    color: black;
+    background-color: transparent;
+    -moz-border-radius-topleft:5px;
+    -moz-border-radius-topright:5px;
+}
+.tablib_unselected {
+    color: black;
+    background-color: transparent;
+    -moz-border-radius-topleft:5px;
+    -moz-border-radius-topright:5px;
+}
+.tablib_table {
+   font-size: 11px;
+}
+
+ /*
+ * ----------------------------------
+ * Search Widget
+ * ----------------------------------
+ */
+
+.resultsText {
+    font-weight: normal;
+    display: inline;
+    float: left;
+    margin: 4px 0 0 3px;
+    padding: 1px 0 4px 0;
+    width: 78%;
+}
+
+.pageNav {
+    float: right;
+}

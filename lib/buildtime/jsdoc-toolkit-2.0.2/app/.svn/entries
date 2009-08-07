@@ -1,0 +1,94 @@
+8
+
+dir
+783
+https://socialsite.dev.java.net/svn/socialsite/trunk/lib/buildtime/jsdoc-toolkit-2.0.2/app
+https://socialsite.dev.java.net/svn/socialsite
+
+
+
+2008-11-25T20:58:06.472403Z
+583
+snoopdave
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+ff20f9fe-4f4a-0410-aef0-b8c762daf8db
+
+test
+dir
+
+run.js
+file
+
+
+
+
+2009-06-11T04:00:37.704309Z
+766b764b1ca2000b5cfd09f35ec7ddb0
+2008-11-25T20:58:06.472403Z
+583
+snoopdave
+
+main.js
+file
+
+
+
+
+2009-06-11T04:00:37.719909Z
+ebfff31c768caafc073def1c3dbb1576
+2008-11-25T20:58:06.472403Z
+583
+snoopdave
+
+handlers
+dir
+
+plugins
+dir
+
+t
+dir
+
+frame.js
+file
+
+
+
+
+2009-06-11T04:00:37.735509Z
+b9dc2209272601070efa54eebedaa04d
+2008-11-25T20:58:06.472403Z
+583
+snoopdave
+
+lib
+dir
+
+frame
+dir
+
+test.js
+file
+
+
+
+
+2009-06-11T04:00:37.782309Z
+d9058eb55e53ba95160e21b5740041c6
+2008-11-25T20:58:06.472403Z
+583
+snoopdave
+

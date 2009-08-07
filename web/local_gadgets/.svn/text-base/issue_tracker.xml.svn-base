@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+  Copyright 2007-2008 Sun Microsystems, Inc. All rights reserved.
+
+  The contents of this file are subject to the terms of either the GNU
+  General Public License Version 2 only ("GPL") or the Common Development
+  and Distribution License("CDDL") (collectively, the "License").  You
+  may not use this file except in compliance with the License. You can obtain
+  a copy of the License at https://socialsite.dev.java.net/legal/CDDL+GPL.html
+  or legal/LICENSE.txt.  See the License for the specific language governing
+  permissions and limitations under the License.
+
+  When distributing the software, include this License Header Notice in each
+  file and include the License file at legal/LICENSE.txt.  Sun designates this
+  particular file as subject to the "Classpath" exception as provided by Sun
+  in the GPL Version 2 section of the License file that accompanied this code.
+  If applicable, add the following below the License Header, with the fields
+  enclosed by brackets [] replaced by your own identifying information:
+  "Portions Copyrighted [year] [name of copyright owner]"
+
+  Contributor(s):
+
+  If you wish your version of this file to be governed by only the CDDL or
+  only the GPL Version 2, indicate your decision by adding "[Contributor]
+  elects to include this software in this distribution under the [CDDL or GPL
+  Version 2] license."  If you don't indicate a single choice of license, a
+  recipient has the option to distribute your version of this file under
+  either the CDDL, the GPL Version 2 or to extend the choice of license to
+  its licensees as provided above.  However, if you add GPL Version 2 code
+  and therefore, elected the GPL Version 2 license, then the option applies
+  only if the new code is made subject to such option by the copyright
+  holder.
+-->
+
+<Module>
+ <ModulePrefs title="Java.net IssueTracker" height="200" 
+  description="Shows IssueTracker data for a Java.net Project"
+  show_in_directory="true"
+  author="Project SocialSite"
+  author_email="dev@socialsite.dev.java.net"
+  thumbnail="../local_gadgets/thumbnails/issue_tracker.png">
+  <Require feature="opensocial-0.7"/>
+ </ModulePrefs>
+ <Content type="html">
+ <![CDATA[
+
+ <link rel="stylesheet" text="text/css" href="../local_gadgets/files/socialsite-gadgets.css" />
+ <style type="text/css">
+  #widgetBody {
+    overflow: hidden;
+  }
+  table {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-collapse: collapse;
+    font-size: 10px;
+  }
+  thead {
+    background-color: #cccccc;
+    border-bottom: 1px solid #9A9fa1;
+    font-weight: bold;
+  }
+  tbody {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  td {
+    padding: 3px;
+  }
+  .indicatorDiv {
+    z-index: 1;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .indicatorImg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100px;
+    width: 100px;
+    margin: -50px 0 0 -50px;
+  }
+ </style>
+
+ <div id="indicator" class="indicatorDiv" style="display: block;">
+  <img src="../local_gadgets/files/ajax-loader.gif" class="indicatorImg" />
+ </div>
+
+ <div id="socialsiteWidget" style="margin: 0; border: 0; padding: 0;">
+  <div id="widgetHeading" style="display: none;">
+   <form style="margin: 0; padding: 2px 1em;" onsubmit="setProjectName(document.getElementById('javanet.project').value); return false;">
+    Java.net Project Name:
+    <input type="text" id="javanet.project" />
+    <input type="submit" value="Save"
+   </form>
+  </div>
+  <div id="widgetBody">
+   <table id="issuesTable">
+    <thead>
+     <tr>
+      <td>ID</td>
+      <td>Status</td>
+      <td>Priority</td>
+      <td>Owner</td>
+      <td>Description</td>
+     </tr>
+    </thead>
+   </table>
+  </div>
+ </div>
+
+ <script type="text/javascript">
+
+  function updateLayout() {
+    var widgetBody = document.getElementById('widgetBody');
+    widgetBody.style.height = window.innerHeight - widgetBody.offsetTop;
+    var tbodyElements = document.getElementById('issuesTable').getElementsByTagName('tbody');
+    if (tbodyElements.length == 1) {
+      var issuesBody = tbodyElements.item(0);
+      if (issuesBody != null) {
+        issuesBody.style.height = window.innerHeight - widgetBody.offsetTop - issuesBody.offsetTop;
+        var scrollbarWidth = issuesBody.offsetWidth - issuesBody.clientWidth;
+        if (scrollbarWidth > 0) {
+          var tdElements = issuesBody.getElementsByTagName('td');
+          for (var i = 0; i < tdElements.length; i++) {
+            var td = tdElements.item(i);
+            if ('issue_shortDescription' == td.getAttribute('class')) {
+              td.style.paddingRight = 3 + scrollbarWidth;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  function clearDisplay() {
+    var issuesTable = document.getElementById('issuesTable');
+    var tbodyElements = issuesTable.getElementsByTagName('tbody');
+    for (var i = 0; i < tbodyElements.length; i++) {
+      issuesTable.removeChild(tbodyElements.item(i));
+    }
+    var widgetHeading = document.getElementById('widgetHeading');
+    widgetHeading.style.display = 'none';
+  }
+
+  function setProjectName(javanetProject) {
+    showIndicator();
+    clearDisplay();
+    var req = opensocial.newDataRequest();
+    req.add(req.newUpdatePersonAppDataRequest(opensocial.DataRequest.PersonId.OWNER, 'javanet.project', javanetProject));
+    function callback(response) {
+      getData();
+    }
+    req.send(callback);
+  }
+
+  function showIndicator() {
+    document.getElementById('indicator').style.display = 'block';
+  }
+
+  function hideIndicator() {
+    document.getElementById('indicator').style.display = 'none';
+  }
+
+  function getData() {
+    showIndicator();
+    function callback(response) {
+      var owner = response.get('owner').getData();
+      var data = response.get('data').getData();
+      var javanetProject = data[owner.getId()]['javanet.project'];
+      if (javanetProject != null) {
+        document.getElementById('javanet.project').value = javanetProject;
+        getIssues(javanetProject, 1, 100);
+      } else {
+        hideIndicator();
+      }
+      if (owner.isViewer()) {
+        document.getElementById('widgetHeading').style.display = '';
+        updateLayout();
+      }
+    }
+    var req = opensocial.newDataRequest();
+    req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.OWNER), 'owner');
+    req.add(req.newFetchPersonAppDataRequest(opensocial.DataRequest.PersonId.OWNER, 'javanet.project'), 'data');
+    req.send(callback);
+  }
+
+  function getIssues(javanetProject, first, max) {
+
+    showIndicator();
+
+    var projectUrl = 'https://'+encodeURIComponent(javanetProject)+'.dev.java.net';
+
+    function callback(response) {
+
+      if (response.data) {
+
+        var tbody = document.createElement('tbody');
+        document.getElementById('issuesTable').appendChild(tbody);
+
+        var issues = response.data.getElementsByTagName('issue');
+        for (i = 0; i < issues.length; i++) {
+
+          var issueEl = issues.item(i);
+          var issue = new Object();
+          issue.id = issueEl.getElementsByTagName('issue_id').item(0).firstChild.data;
+          issue.status = issueEl.getElementsByTagName('issue_status').item(0).firstChild.data;
+          issue.priority = issueEl.getElementsByTagName('priority').item(0).firstChild.data;
+          issue.owner = issueEl.getElementsByTagName('assigned_to').item(0).firstChild.data;
+          issue.shortDescription = issueEl.getElementsByTagName('short_desc').item(0).firstChild.data;
+
+          var tr = document.createElement('tr');
+          tbody.appendChild(tr);
+
+          var td = document.createElement('td');
+          tr.appendChild(td);
+          td.setAttribute('class', 'issue_id');
+          td.appendChild(document.createTextNode(issue.id));
+
+          td = document.createElement('td');
+          tr.appendChild(td);
+          td.setAttribute('class', 'issue_status');
+          td.appendChild(document.createTextNode(issue.status));
+
+          td = document.createElement('td');
+          tr.appendChild(td);
+          td.setAttribute('class', 'issue_priority');
+          td.appendChild(document.createTextNode(issue.priority));
+
+          td = document.createElement('td');
+          tr.appendChild(td);
+          td.setAttribute('class', 'issue_owner');
+          td.appendChild(document.createTextNode(issue.owner));
+
+          td = document.createElement('td');
+          tr.appendChild(td);
+          td.setAttribute('class', 'issue_shortDescription');
+          var a = document.createElement('a');
+          td.appendChild(a);
+          a.setAttribute('href', (projectUrl+'/issues/show_bug.cgi?id='+encodeURIComponent(issue.id)));
+          a.setAttribute('title', ('Issue '+issue.id));
+          a.setAttribute('target', '_parent');
+          a.appendChild(document.createTextNode(issue.shortDescription));
+
+        }
+
+      }
+
+      updateLayout();
+      hideIndicator();
+
+    }
+
+    var url = projectUrl + '/issues/xml.cgi?id='+encodeURIComponent(first+'-'+(first+max-1))+'&output_configured=true';
+    var params = {};
+    var postData = {};
+    postData['id'] = first + '-' + (first+max-1);
+    postData['output_configured'] = 'true';
+    params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
+    params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+    params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues(postData);
+    gadgets.io.makeRequest(url, callback, params);
+
+  }
+
+  gadgets.util.registerOnLoadHandler(getData);
+ </script>
+
+ ]]>
+ </Content>
+</Module>

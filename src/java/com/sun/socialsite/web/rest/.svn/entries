@@ -1,0 +1,43 @@
+8
+
+dir
+783
+https://socialsite.dev.java.net/svn/socialsite/trunk/src/java/com/sun/socialsite/web/rest
+https://socialsite.dev.java.net/svn/socialsite
+
+
+
+2009-03-22T15:26:36.066446Z
+782
+snoopdave
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+ff20f9fe-4f4a-0410-aef0-b8c762daf8db
+
+model
+dir
+
+config
+dir
+
+servlets
+dir
+
+core
+dir
+
+opensocial
+dir
+

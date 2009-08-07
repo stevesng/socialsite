@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/socialsite/!svn/ver/583/trunk/lib/buildtime/jsdoc-toolkit-2.0.2
+END
+changes.txt
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/socialsite/!svn/ver/583/trunk/lib/buildtime/jsdoc-toolkit-2.0.2/changes.txt
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/socialsite/!svn/ver/583/trunk/lib/buildtime/jsdoc-toolkit-2.0.2/README.txt
+END
+jsrun.jar
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/socialsite/!svn/ver/583/trunk/lib/buildtime/jsdoc-toolkit-2.0.2/jsrun.jar
+END
+jsdebug.jar
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/socialsite/!svn/ver/583/trunk/lib/buildtime/jsdoc-toolkit-2.0.2/jsdebug.jar
+END

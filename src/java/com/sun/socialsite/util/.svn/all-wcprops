@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/socialsite/!svn/ver/764/trunk/src/java/com/sun/socialsite/util
+END
+LeniantSSLProtocolSocketFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/socialsite/!svn/ver/485/trunk/src/java/com/sun/socialsite/util/LeniantSSLProtocolSocketFactory.java
+END
+StandaloneWebappClassLoader.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/socialsite/!svn/ver/485/trunk/src/java/com/sun/socialsite/util/StandaloneWebappClassLoader.java
+END
+RegexUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/socialsite/!svn/ver/485/trunk/src/java/com/sun/socialsite/util/RegexUtil.java
+END
+LRUCache2.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/socialsite/!svn/ver/485/trunk/src/java/com/sun/socialsite/util/LRUCache2.java
+END
+JSONWrapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/socialsite/!svn/ver/513/trunk/src/java/com/sun/socialsite/util/JSONWrapper.java
+END
+DateUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/socialsite/!svn/ver/24/trunk/src/java/com/sun/socialsite/util/DateUtil.java
+END
+PropertyExpander.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/socialsite/!svn/ver/24/trunk/src/java/com/sun/socialsite/util/PropertyExpander.java
+END
+Utilities.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/socialsite/!svn/ver/24/trunk/src/java/com/sun/socialsite/util/Utilities.java
+END
+LeniantX509TrustManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/socialsite/!svn/ver/24/trunk/src/java/com/sun/socialsite/util/LeniantX509TrustManager.java
+END
+ProxyUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/socialsite/!svn/ver/24/trunk/src/java/com/sun/socialsite/util/ProxyUtil.java
+END
+ImageUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/socialsite/!svn/ver/485/trunk/src/java/com/sun/socialsite/util/ImageUtil.java
+END
+MailUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/socialsite/!svn/ver/745/trunk/src/java/com/sun/socialsite/util/MailUtil.java
+END
+JSONBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/socialsite/!svn/ver/513/trunk/src/java/com/sun/socialsite/util/JSONBuilder.java
+END
+TextUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/socialsite/!svn/ver/655/trunk/src/java/com/sun/socialsite/util/TextUtil.java
+END
+ISO8601DateParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/socialsite/!svn/ver/24/trunk/src/java/com/sun/socialsite/util/ISO8601DateParser.java
+END
+UtilitiesModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/socialsite/!svn/ver/24/trunk/src/java/com/sun/socialsite/util/UtilitiesModel.java
+END
+DebugBeanJsonConverter.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/socialsite/!svn/ver/764/trunk/src/java/com/sun/socialsite/util/DebugBeanJsonConverter.java
+END

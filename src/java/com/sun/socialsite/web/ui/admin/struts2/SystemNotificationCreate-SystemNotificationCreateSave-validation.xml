@@ -1,0 +1,20 @@
+<!DOCTYPE validators PUBLIC
+        "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+        "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+
+  <field name="subject">
+    <field-validator type="requiredstring" short-circuit="true">
+      <param name="trim">true</param>
+      <message key="socialsite.form.subject.empty">Please enter a subject.</message>
+    </field-validator>
+  </field>
+
+  <field name="content">
+    <field-validator type="requiredstring" short-circuit="true">
+      <param name="trim">true</param>
+      <message key="socialsite.form.content.empty">Please enter message contents.</message>
+    </field-validator>
+  </field>
+</validators>

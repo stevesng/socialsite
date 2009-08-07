@@ -1,0 +1,832 @@
+# DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+#
+# Copyright 2007-2008 Sun Microsystems, Inc. All rights reserved.
+#
+# The contents of this file are subject to the terms of either the GNU
+# General Public License Version 2 only ("GPL") or the Common Development
+# and Distribution License("CDDL") (collectively, the "License").  You
+# may not use this file except in compliance with the License. You can obtain
+# a copy of the License at https://socialsite.dev.java.net/legal/CDDL+GPL.html
+# or legal/LICENSE.txt.  See the License for the specific language governing
+# permissions and limitations under the License.
+#
+# When distributing the software, include this License Header Notice in each
+# file and include the License file at legal/LICENSE.txt.  Sun designates this
+# particular file as subject to the "Classpath" exception as provided by Sun
+# in the GPL Version 2 section of the License file that accompanied this code.
+# If applicable, add the following below the License Header, with the fields
+# enclosed by brackets [] replaced by your own identifying information:
+# "Portions Copyrighted [year] [name of copyright owner]"
+#
+# Contributor(s):
+#
+# If you wish your version of this file to be governed by only the CDDL or
+# only the GPL Version 2, indicate your decision by adding "[Contributor]
+# elects to include this software in this distribution under the [CDDL or GPL
+# Version 2] license."  If you don't indicate a single choice of license, a
+# recipient has the option to distribute your version of this file under
+# either the CDDL, the GPL Version 2 or to extend the choice of license to
+# its licensees as provided above.  However, if you add GPL Version 2 code
+# and therefore, elected the GPL Version 2 license, then the option applies
+# only if the new code is made subject to such option by the copyright
+# holder.
+
+#----------------------------------------------------------------------------
+# General purpose keys for use on many views
+#----------------------------------------------------------------------------
+error=Error:
+warning=Warning:
+success=Success:
+saved=Changes successfully saved
+errorNotSaved=Error, changes not saved
+
+#----------------------------------------------------------------------------
+# Relationship level names
+#----------------------------------------------------------------------------
+relationshipLevel.none=None
+relationshipLevel.contact=Contact
+relationshipLevel.friend=Friend
+
+#----------------------------------------------------------------------------
+# Login
+#----------------------------------------------------------------------------
+Login.pageTitle=Login
+Login.adminPageTitle=Admin Console Login
+Login.tryAgain=Login failed.  Please try again.
+Login.username=User Name
+Login.password=Password
+Login.selfRegistration=Want to Register?
+Login.button=Login
+Logout.button=Logout
+
+#----------------------------------------------------------------------------
+# SelfRegistration
+#----------------------------------------------------------------------------
+SelfRegistration.pageTitle=Register
+SelfRegistration.heading=Enter registration details
+SelfRegistration.userid=Preferred User ID
+SelfRegistration.password=Password
+SelfRegistration.userFullName=Full Name
+SelfRegistration.error=Error while creating an account for you:
+
+#----------------------------------------------------------------------------
+# SelfRegistrationDone
+#----------------------------------------------------------------------------
+SelfRegistrationDone.pageTitle=Registration Complete
+SelfRegistrationDone.heading=Account created successfully; log in with your user ID and password
+SelfRegistrationDone.redirect=Click here to log in to SocialSite
+
+#----------------------------------------------------------------------------
+# Logout
+#----------------------------------------------------------------------------
+Logout.pageTitle=Logged out
+
+#----------------------------------------------------------------------------
+# Error
+#----------------------------------------------------------------------------
+Error.pageTitle=Error
+Error.heading=Error
+
+#----------------------------------------------------------------------------
+# Home
+#----------------------------------------------------------------------------
+Home.pageTitle=Welcome to SocialSite
+Home.heading=Welcome to SocialSite
+Home.mainRegistrationLink=Registration page
+Home.mainConsoleLink=SocialSite Admin Console
+
+#----------------------------------------------------------------------------
+# MenuBar (menu.jsp)
+#----------------------------------------------------------------------------
+MenuBar.home=Home
+MenuBar.profile=Your Profile
+MenuBar.people=People
+MenuBar.groups=Groups
+MenuBar.admin=Site Administration
+MenuBar.config=Configuration
+MenuBar.logout=Logout
+
+#----------------------------------------------------------------------------
+# Admin Banner
+#----------------------------------------------------------------------------
+Banner.user=User:
+Banner.server=Server:
+
+#----------------------------------------------------------------------------
+# ConfigForm
+#----------------------------------------------------------------------------
+ConfigForm.pageTitle=Configuration Settings
+ConfigForm.pageHelp=Set the title, description and administrator information to be used in all pages and feeds generated by SocialSite.
+ConfigForm.siteSettings=General Site Settings
+ConfigForm.title=Site Title
+ConfigForm.description=Site Description
+ConfigForm.adminName=Admin Name
+ConfigForm.adminEmail=Admin Email
+ConfigForm.absoluteUrl=Site URL
+ConfigForm.profileSettings=Profile Settings
+ConfigForm.profileAutoCreationEnabled=Enable Auto-Creation of Profiles
+ConfigForm.proxyHost=Proxy Host
+ConfigForm.proxyPort=Proxy Port
+ConfigForm.save=Save
+ConfigForm.message.saveSucceeded=Configuration saved.
+ConfigForm.error.saveFailed=Failed to save configuration.
+ConfigForm.formTitle=Configuration
+ConfigForm.formHelp=You can set the title, description and administrator information to be used in all pages and feeds generated by SocialSite.
+
+#----------------------------------------------------------------------------
+# FriendRequest
+#----------------------------------------------------------------------------
+FriendRequestCreate.pageTitle=Request Friendship
+FriendRequestCreate.heading=Request Friendship
+
+#----------------------------------------------------------------------------
+# Friends
+#----------------------------------------------------------------------------
+MyFriends.pageTitle=Your Friends
+MyFriends.heading=Your Friends
+
+#----------------------------------------------------------------------------
+# Gadget permissions
+#----------------------------------------------------------------------------
+GadgetPerms.pageHelp=Remove permission grants by selecting grants and submitting
+GadgetPerms.pageTitle=Permissions
+GadgetPerms.retError=Failed to retrieve gadget permissions
+GadgetPerms.addError=Failed to add permission grant
+GadgetPerms.remError=Failed to remove permission grant
+GadgetPerms.appTitle=Application Title
+GadgetPerms.appUrl=Application URL
+GadgetPerms.remove=Remove
+GadgetPerms.removeGrants=Remove selected permission grants
+GadgetPerms.saveSucceeded=Permissions saved
+GadgetPerms.appPerms=Application permissions
+GadgetPerms.appPermByProfileId=Application permissions by profile id:
+GadgetPerms.appPermByGroupHandle=Application permissions by group handle:
+GadgetPerms.featurePerms=Feature permissions
+GadgetPerms.featurePermHelp=A feature permission applies to a local gadget.
+GadgetPerms.httpPerms=HTTP request permissions
+GadgetPerms.httpPermsHelp=HTTP permissions grant access through the SocialSite proxy.
+GadgetPerms.httpPermsByApp=HTTP permissions by application:
+GadgetPerms.httpPermsByDomain=HTTP permissions by URL domain:
+GadgetPerms.newPerm=Enter new permission grant information
+GadgetPerms.newPermApp=Enter new Application Permission grant information.
+GadgetPerms.newPermFeature=Enter new Feature Permission grant information.
+GadgetPerms.newPermHttp=Enter new HTTP Permission grant information.
+GadgetPerms.addUrl=Add Permission Grant
+GadgetPerms.edit=Edit
+GadgetPerms.gadgetDomain=Gadget Domain
+GadgetPerms.profile=Profile ID
+GadgetPerms.group=Group Handle
+GadgetPerms.permissionActions=Actions
+GadgetPerms.permissionName=Name
+GadgetPerms.permissionUrl=URL
+GadgetPerms.createAction=Click here to create a new permission grant.
+GadgetPerms.createAppAction=Click here to create a new application permission grant.
+GadgetPerms.createFeatureAction=Click here to create a new feature permission grant.
+GadgetPerms.createHttpAction=Click here to create a new HTTP permission grant.
+GadgetPermsCreate.pageHelp=Manage permission grants for gadgets, profiles, or groups
+GadgetPermCreate.permissionType=Permission Type
+GadgetPermCreate.grantSubject=Grant Subject Type
+GadgetPermCreate.appOption=Application
+GadgetPermCreate.domainOption=Gadget Domain
+GadgetPermCreate.groupOption=Group
+GadgetPermCreate.profileOption=Profile
+GadgetPermCreate.name=URL Pattern (or *)
+GadgetPermCreate.actions=Actions
+GadgetPermCreate.chooseApp=Choose Installed Application
+GadgetPermCreate.submit=Create Permission Grant
+GadgetPermCreate.appListHeader=--
+GadgetPermCreate.idOrHandle=Profile ID or Group Handle (or *)
+GadgetPermCreate.chooseAppSubject=Grant Subject Application
+GadgetPermCreate.appSubjectAllOption=* (All Applications)
+GadgetPermCreate.chooseFeatureName=Feature Name
+
+GadgetPermCreateError.unknownPermissionType=Unknown permission type: {0}
+GadgetPermCreateError.unknownSubjectType=Unknown subject type.
+GadgetPermCreateError.noIdOrHandle=Please specify profile ID or group Handle.
+GadgetPermCreateError.noURLPattern=Please specify a URL pattern (or "*" for any URL).
+GadgetPermCreateError.noActions=Please specify one or more actions.
+GadgetPermCreateError.noAppChosen=Please specify an application from the list.
+GadgetPermCreateError.noGadgetDomain=Please specify a gadget domain.
+GadgetPermCreateError.noFeature=Please choose a SocialSite feature set to allow.
+GadgetPermCreateError.unknownProfileId=Unknown profile id: {0}
+GadgetPermCreateError.unknownGroupId=Unknown group handle: {0}
+
+#----------------------------------------------------------------------------
+# GadgetManagement
+#----------------------------------------------------------------------------
+GadgetManagement.pageTitle=System Notifications
+GadgetManagement.pageHelp=Gadget management for the system
+GadgetManagement.error=Error involving gadget management
+GadgetTheme.pageTitle=Gadget Theming
+GadgetTheme.gadgetSettings=Default Theme Settings
+GadgetTheme.anchorColor=Anchor Color
+GadgetTheme.bgColor=Background Color
+GadgetTheme.bgImage=Background Image
+GadgetTheme.fontColor=Font Color
+
+#----------------------------------------------------------------------------
+# GadgetRegistration
+#----------------------------------------------------------------------------
+
+GadgetRegistration.pageTitle=Gadget Registration
+GadgetRegistration.pageHelp=\
+This page allows you to approve, reject and manage third party Gadget \
+registrations made by users who have installed the SocailSite Developer Gadget \
+and registered Gadgets. Newly received Gadget Registrations are shown first in \
+the list.
+
+GadgetRegistration.approvedHeading=Approved Registrations
+GadgetRegistration.noApproved=There are no approved registrations.
+
+GadgetRegistration.pendingHeading=Pending Registrations
+GadgetRegistration.noPending=There are no pending registrations.
+
+GadgetRegistration.submitter=Submitter
+GadgetRegistration.details=Details
+GadgetRegistration.action=Action
+GadgetRegistration.status=Status
+GadgetRegistration.url=Gadget Spec URL
+GadgetRegistration.submitted=Submitted
+GadgetRegistration.review=Review
+GadgetRegistration.remove=Remove
+GadgetRegistration.updated=Updated
+GadgetRegistration.consumerKey=Consumer Key
+GadgetRegistration.consumerSecret=Consumer Secret
+GadgetRegistration.details=Details
+GadgetRegistration.comment=Comment
+
+GadgetRegistrationReview.pageTitle=Gadget Registration Review
+GadgetRegistrationReview.pageHelp=Review the Gadget and choose approve or reject
+
+GadgerRegistrationReview.needId=No registration ID specified
+GadgerRegistrationReview.badUrl=This registration\'s Gadget Spec URL is malformed
+GadgerRegistrationReview.cannotParseGadgetSpec=Error parsing Gadget Spec
+GadgerRegistrationReview.cannotFindRegistration=Cannot find registration specified
+
+GadgetRegistrationReview.gadgetDetails=Gadget Details
+GadgetRegistrationReview.gadget_title=Title
+GadgetRegistrationReview.title_url=Title URL
+GadgetRegistrationReview.description=Description
+GadgetRegistrationReview.author=Author
+GadgetRegistrationReview.author_email=Author Email
+GadgetRegistrationReview.screenshot=Screenshot
+GadgetRegistrationReview.thumbnail=Thumbnail
+GadgetRegistrationReview.errorReadingSpec=\
+There was a problem reading the Gadget Spec for this Application \
+Registration. Take a look at the error messages above. If you see a \
+"Premature end of file. At: (1,1)" error that probably means that the \
+Gadget Spec was not found at the URL specifed. Other errors probably \
+mean that the Gadget Spec itself is malformed in some way.
+
+
+GadgetRegistrationReview.removalPrompt=This Gadget is approved and visible in \
+the Gadget Directory. If you no longer approve of this Gadget then you can \
+choose to remove it's registration, which will both remove it from the Gadget \
+Directory and stop it from being able to call the SocialSite REST APIs.
+
+GadgetRegistrationReview.removalComment=\
+<b>Remove this Gadget?</b> If you do, add a comment for the user who submitted it
+
+GadgetRegistrationReview.rejectionPrompt=Review the Gadget Details below \
+and any error messages you see above. If this Gadget is unacceptible in any \
+way, then you should reject it so that it will not appear in the Gadget \
+directory or be allowed to call the REST API. Either way, add a comment for \
+the submitter to thank him or her for the submission.
+
+GadgetRegistrationReview.comment=Comment
+GadgetRegistrationReview.approved=Gadget has been approved.
+GadgetRegistrationReview.removed=Gadget has been removed.
+GadgetRegistrationReview.rejected=Gadge has been rejected.
+GadgetRegistrationReview.done=Operation complete. You may
+GadgetRegistrationReview.returnToRegistration=return to the Registration page
+
+#----------------------------------------------------------------------------
+# Group
+#----------------------------------------------------------------------------
+Group.founderId=User ID of Founder
+Group.name=Name
+Group.handle=Handle
+Group.description=Description
+Group.image=Image
+Group.admin=Admin
+Group.members=View Members
+Group.remove=Remove Membership
+Group.save=Save
+Group.pageHelp=To search for a group to administer, type the beginning of the group name in the text field and click Search Groups. Leave the field empty to see all groups.
+Group.pageTitle=Manage Groups
+
+#----------------------------------------------------------------------------
+# GroupCreate
+#----------------------------------------------------------------------------
+GroupCreate.pageTitle=Create Group
+GroupCreate.heading=Create a New Group
+GroupCreate.pageHelp=Enter details of the new group to be generated
+GroupCreate.createGroup=Click here to create a new group.
+
+#----------------------------------------------------------------------------
+# GroupEdit
+#----------------------------------------------------------------------------
+GroupEdit.pageTitle=Edit Group
+GroupEdit.heading=Edit Group
+
+#----------------------------------------------------------------------------
+# GroupDetails
+#----------------------------------------------------------------------------
+GroupDetails.pageTitle=Edit Group
+GroupDetails.heading=Group Details
+GroupMemberDetails.heading=Group Member Details
+
+#----------------------------------------------------------------------------
+# GroupRequestCreate
+#----------------------------------------------------------------------------
+GroupRequestCreate.pageTitle=Request Membership
+GroupRequestCreate.heading=Request Membership
+
+#----------------------------------------------------------------------------
+# Groups
+#----------------------------------------------------------------------------
+Groups.pageTitle=Groups
+Groups.heading=Groups
+Groups.error=Error involving groups
+Groups.noGroupFound=No matching group found
+
+#----------------------------------------------------------------------------
+# MyGroups
+#----------------------------------------------------------------------------
+MyGroups.pageTitle=Your Groups
+MyGroups.heading=Your Groups
+
+#----------------------------------------------------------------------------
+# GroupView
+#----------------------------------------------------------------------------
+GroupView.pageTitle=Group
+GroupView.heading=Group
+
+#----------------------------------------------------------------------------
+# GroupMembers
+#----------------------------------------------------------------------------
+GroupMembers.pageTitle=List Group Members
+GroupMembers.heading=Group Members
+GroupMembers.administer=Manage Member
+Group.newMember=Add Member
+Group.currentMembers=The following group members are currently registered:
+
+#----------------------------------------------------------------------------
+# GroupSearch
+#----------------------------------------------------------------------------
+GroupSearch.pageTitle=Search Groups
+GroupSearch.heading=Search All Groups
+GroupSearch.submit=Search Groups
+
+#----------------------------------------------------------------------------
+# GroupBrowse
+#----------------------------------------------------------------------------
+GroupBrowse.pageTitle=Browse Groups
+GroupBrowse.heading=Browse Groups
+
+#----------------------------------------------------------------------------
+# LdapImport
+#----------------------------------------------------------------------------
+LdapImport.pageTitle=LDAP Import
+LdapImport.heading=Import Users From LDAP
+LdapImport.searchString=Find Employee
+
+#----------------------------------------------------------------------------
+# People
+#----------------------------------------------------------------------------
+People.pageTitle=Manage Profiles
+People.heading=People
+People.details=User Details For 
+People.admin=Admin Capability
+People.enabled=User Enabled
+People.save=Save
+PeopleCreate.pageHelp=Enter details of the new user to be created.
+PeopleCreate.pageTitle=Create User
+PeopleCreate.error=Error while creating user: 
+PeopleCreate.saved=New user created
+
+#----------------------------------------------------------------------------
+# PeopleBrowse
+#----------------------------------------------------------------------------
+PeopleBrowse.pageTitle=Browse People
+PeopleBrowse.heading=Browse All Registered People
+
+#----------------------------------------------------------------------------
+# PeopleSearch
+#----------------------------------------------------------------------------
+PeopleSearch.pageTitle=Search People
+PeopleSearch.heading=Search All Registered People
+PeopleSearch.submit=Search People
+PeopleSearch.administer=Administer
+PeopleSearch.pageHelp=To search for a profile to administer, type the beginning of the profile id in the text field and click Search People. Leave the field empty to see all users.
+PeopleSearch.noMatchingProfiles=No matching profiles found.
+
+#----------------------------------------------------------------------------
+# ProfileCreate
+#----------------------------------------------------------------------------
+ProfileCreate.pageTitle=Create Profile
+ProfileCreate.heading=Create Your Profile
+
+#----------------------------------------------------------------------------
+# Profile
+#----------------------------------------------------------------------------
+Profile.firstName=First Name
+Profile.middleName=Middle Name
+Profile.lastName=Last Name
+Profile.primaryEmail=Email
+Profile.surtitle=Honorific Prefix
+Profile.title=Honorific Suffix
+Profile.displayName=Display Name
+Profile.nickName=Nickname
+Profile.image=Image
+
+#----------------------------------------------------------------------------
+# ProfileEdit
+#----------------------------------------------------------------------------
+ProfileEdit.pageTitle=Edit Profile
+ProfileEdit.heading=Edit Your Profile
+ProfileEdit.error.imageTooLarge=Image too large ({0})
+ProfileEdit.error.imageTruncated=Image truncated
+ProfileEdit.saveChanges=Save New Image
+
+#----------------------------------------------------------------------------
+# ProfileView
+#----------------------------------------------------------------------------
+ProfileView.pageTitle=Profile
+ProfileView.heading=Profile
+ProfileView.status=What are you doing right now?
+ProfileView.updateStatus=Update Status
+ProfileView.statusLabel=Status
+
+#----------------------------------------------------------------------------
+# ThemeSettings
+#----------------------------------------------------------------------------
+ThemeSettings.destination=Destination
+ThemeSettings.fontColor=Font Color
+ThemeSettings.anchorColor=Anchor Color
+ThemeSettings.backgroundColor=Background Color
+ThemeSettings.backgroundImage=Background Image
+ThemeSettings.pageTitle=Destination Theme Settings
+ThemeSettings.pageHelp=Set the appearance of Socialsite gadgets. Click a destination name to edit it or to make a copy. To remove one or more themes, select checkboxes and click Remove Selected Theme Settings.
+ThemeSettings.createAction=Click here to create new destination settings.
+ThemeSettings.defaultAction=Click here to change the default settings.
+ThemeSettings.saveSucceeded=Changes saved.
+ThemeSettings.remove=Remove
+ThemeSettings.removeSettings=Remove Selected Theme Settings
+#ThemeSettings.settings=
+ThemeSettings.error=An error occurred retrieving settings
+ThemeSettings.remError=An error occurred removing settings
+ThemeSettingsCreate.pageTitle=Create Theme Settings
+ThemeSettingsCreate.pageHelp=Create or edit theme settings for a destination. To create a new destination that is a copy of an existing one, change the name of the existing destination.
+ThemeSettings.newSettings=New Settings
+ThemeSettingsCreate.addTheme=Submit Theme Settings
+
+#----------------------------------------------------------------------------
+# SystemNotifications
+#----------------------------------------------------------------------------
+SystemNotifications.pageTitle=System Notifications
+SystemNotifications.pageHelp=System notifications sent to all users in the system:
+SystemNotifications.error=Error involving system notifications
+SystemNotifications.createLink=Click here to create a new system notification.
+
+#----------------------------------------------------------------------------
+# SystemNotificationCreate
+#----------------------------------------------------------------------------
+SystemNotificationCreate.pageTitle=Create System Notification
+SystemNotificationCreate.pageHelp=Create a system notification to be sent to all users in the system.
+SystemNotification.senderId=User ID of Sender
+SystemNotification.subject=Subject
+SystemNotification.message=Message
+
+#----------------------------------------------------------------------------
+# GroupNotification
+#----------------------------------------------------------------------------
+GroupNotification.pageHelp=Enter a group handle to view notifications for that group.
+GroupNotification.handle=Group Handle
+GroupNotification.get=Get Notifications
+GroupNotification.pageTitle=Group Notifications
+GroupNotification.createLink=Click here to create a new group notification.
+GroupNotification.senderId=User ID of Sender
+GroupNotificationCreate.pageTitle=Create Group Notification
+GroupNotificationCreate.pageHelp=Create a group notification to be sent to all users in the group.
+
+#----------------------------------------------------------------------------
+# For standard profiledefs.xml file
+#----------------------------------------------------------------------------
+
+
+#--- section
+socialsite.profile.displaysection.identification=Identification
+socialsite.profile.property.firstname=First name
+socialsite.profile.property.middlename=Middle name
+socialsite.profile.property.lastname=Last name
+socialsite.profile.property.surtitle=Surtitle
+socialsite.profile.property.nickname=Nickname
+socialsite.profile.property.displayname=Display name
+socialsite.profile.property.unstructured=Unstructured
+socialsite.profile.property.url=URL
+socialsite.profile.property.linktext=Link Title
+socialsite.profile.property.type=Type
+socialsite.profile.property.title=Title
+socialsite.profile.object.name=Name
+socialsite.profile.property.addresses=Addresses
+socialsite.profile.property.profile_song=Song
+socialsite.profile.property.profile_video=Video
+socialsite.profile.property.street_address=Street Address
+socialsite.profile.property.primary=Primary
+
+#--- section
+socialsite.profile.displaysection.contactInformation=Contact
+socialsite.profile.property.website=Web sites
+socialsite.profile.property.primaryemail=Primary email
+socialsite.profile.object.email=Email addresses
+socialsite.profile.property.emailaddress=Email Address
+socialsite.profile.property.emailtype=Type
+socialsite.profile.object.messenger=Instant Messenger accounts
+socialsite.profile.property.messenger.screename=Screenname
+socialsite.profile.property.messenger.service=Service
+socialsite.profile.property.value.aol=AOL
+socialsite.profile.property.value.gtalk=GTalk
+socialsite.profile.property.value.icq=ICQ
+socialsite.profile.property.value.yahooim=Yahoo IM
+socialsite.profile.property.value.sunim=Sun IM
+
+#--- section
+socialsite.profile.displaysection.extendedContactInformation=Extended
+socialsite.profile.property.currentLocation=Current Location
+socialsite.profile.property.primaryemail=Primary Email
+socialsite.profile.property.landphone=Land Phone
+socialsite.profile.property.cellphone=Cell Phone
+socialsite.profile.property.address=Street Address
+socialsite.profile.property.extendedAddress=Extended Address
+socialsite.profile.property.city=City
+socialsite.profile.property.state=State
+socialsite.profile.property.postcode=ZIP code
+socialsite.profile.property.country=Country
+socialsite.profile.property.phone=Additional phone numbers
+socialsite.profile.property.phonenumber=Number
+socialsite.profile.property.phonetype=Type
+socialsite.profile.property.value.home=Home
+socialsite.profile.property.value.fax=FAX
+socialsite.profile.property.value.work=Work
+socialsite.profile.property.value.mobile=Mobile
+socialsite.profile.property.value.other=Other
+
+#--- section
+socialsite.profile.displaysection.experience=Experience
+socialsite.profile.property.experience=Experiences
+socialsite.profile.property.experience.organization=Organization
+socialsite.profile.property.experience.title=Title
+socialsite.profile.property.experience.desc=Description
+socialsite.profile.property.experience.start=Start Date
+socialsite.profile.property.experience.end=End Date
+socialsite.profile.property.experience.name=Name
+socialsite.profile.property.experience.start_date=Start Date
+socialsite.profile.property.experience.end_date=End Date
+socialsite.profile.property.experience.field=Field of industry
+socialsite.profile.property.experience.sub_field=Sub-field
+socialsite.profile.property.experience.salary=Salary
+
+#--- section
+socialsite.profile.displaysection.education=Education
+socialsite.profile.property.school=School
+socialsite.profile.property.schools=Schools
+
+#--- section
+socialsite.profile.displaysection.favorites=Personal
+socialsite.profile.property.personal.gender=Gender
+socialsite.profile.property.value.male=Male
+socialsite.profile.property.value.female=Female
+socialsite.profile.property.personal.activities=Activities
+socialsite.profile.property.personal.interests=Interests
+socialsite.profile.property.personal.music=Music
+socialsite.profile.property.personal.tv=TV
+socialsite.profile.property.personal.movies=Movies
+socialsite.profile.property.personal.books=Books
+socialsite.profile.property.personal.quotes=Quotes
+socialsite.profile.property.personal.about=About Me
+socialsite.profile.property.personal.humor=Humor
+socialsite.profile.property.personal.food=Food
+socialsite.profile.property.personal.fashion=Fashion
+socialsite.profile.property.personal.cars=Cars
+socialsite.profile.property.personal.sports=Sports
+socialsite.profile.property.personal.heroes=Heroes
+socialsite.profile.property.personal.quotes=Quotes
+socialsite.profile.property.personal.religion=Religion
+socialsite.profile.property.personal.politicalViews=Political Views
+socialsite.profile.property.personal.happiestWhen=Happiest when
+socialsite.profile.property.personal.scaredOf=Scared of
+
+#--- section
+socialsite.profile.displaysection.morepersonal=More Personal
+socialsite.profile.property.personal.tags=Tags
+socialsite.profile.property.personal.drinker=Drinker
+socialsite.profile.property.personal.smoker=Smoker
+socialsite.profile.property.personal.bodytype=Body Type
+socialsite.profile.property.personal.ethnicity=Ethnicity
+socialsite.profile.property.personal.dateOfBirth=Birthday
+socialsite.profile.property.personal.age=Age
+socialsite.profile.property.personal.birthday=Birthday
+socialsite.profile.property.personal.relStatus=Relationship status
+socialsite.profile.property.personal.sexOrientation=Sexual orientation
+socialsite.profile.property.personal.children=Children
+socialsite.profile.property.personal.pets=Pets
+socialsite.profile.property.personal.livingArrange=Living arrangement
+socialsite.profile.property.personal.build=Build
+socialsite.profile.property.personal.eyeColor=Eye color
+socialsite.profile.property.personal.hairColor=Hair color
+socialsite.profile.property.personal.height=Height (meters)
+socialsite.profile.property.personal.weight=Height (kg)
+socialsite.profile.property.personal.romance=Romance
+socialsite.profile.property.personal.lookingFor=Looking for
+socialsite.profile.property.personal.turnOns=Turn ons
+socialsite.profile.property.personal.turnOffs=Turn offs
+socialsite.profile.property.value.heavily=Heavily
+socialsite.profile.property.value.no=No
+socialsite.profile.property.value.occaisionally=Occasionally
+socialsite.profile.property.value.quit=Quit
+socialsite.profile.property.value.quitting=Quitting
+socialsite.profile.property.value.regularly=Regularly
+socialsite.profile.property.value.socially=Socially
+socialsite.profile.property.value.yes=Yes
+
+# ---------------- Group properties -------------------------
+
+socialsite.groupProfile.displaysection.identification=Identification
+socialsite.groupProfile.property.name=Name
+socialsite.groupProfile.property.handle=Handle
+socialsite.groupProfile.property.description=Description
+socialsite.groupProfile.property.personal.tags=Tags
+socialsite.groupProfile.property.website=Web sites
+socialsite.groupProfile.property.formatted=Formatted
+socialsite.groupProfile.property.url=URL
+socialsite.groupProfile.property.linktext=Link Title
+socialsite.groupProfile.property.type=Type
+
+socialsite.groupProfile.property.title=Title
+socialsite.groupProfile.object.name=Name
+socialsite.groupProfile.object.url=URL
+
+#--- section
+socialsite.groupProfile.displaysection.contactInformation=Contact
+socialsite.groupProfile.property.primaryemail=Primary email
+socialsite.groupProfile.object.email=Additional Email addresses
+socialsite.groupProfile.property.emailaddress=Email Address
+socialsite.groupProfile.property.emailtype=Type
+
+socialsite.groupProfile.property.thumbnailUrl=Thumbnail URL
+socialsite.groupProfile.property.viewUrl=View URL
+
+#--- section
+socialsite.groupProfile.displaysection.extendedContactInformation=Extended
+socialsite.groupProfile.property.currentLocation=Current Location
+socialsite.groupProfile.property.primaryemail=Primary Email
+socialsite.groupProfile.property.landphone=Land Phone
+socialsite.groupProfile.property.cellphone=Cell Phone
+socialsite.groupProfile.property.address=Street Address
+socialsite.groupProfile.property.extendedAddress=Extended Address
+socialsite.groupProfile.property.city=City
+socialsite.groupProfile.property.state=State
+socialsite.groupProfile.property.postcode=ZIP code
+socialsite.groupProfile.property.country=Country
+socialsite.groupProfile.property.phone=Additional phone numbers
+socialsite.groupProfile.property.phonenumber=Number
+socialsite.groupProfile.property.phonetype=Type
+
+socialsite.groupProfile.property.value.home=Home
+socialsite.groupProfile.property.value.fax=FAX
+socialsite.groupProfile.property.value.work=Work
+socialsite.groupProfile.property.value.mobile=Mobile
+socialsite.groupProfile.property.value.other=Other
+
+# ---------------------- Group properties end -------------------------------
+
+#----------------------------------------------------------------------------
+# Tabbed menu
+#----------------------------------------------------------------------------
+
+tabbedmenu.configuration=Configuration
+tabbedmenu.settings=Configuration Settings
+tabbedmenu.themesettings=Theme Settings
+
+tabbedmenu.management=Management
+tabbedmenu.profileaccess=Profiles
+tabbedmenu.groupslist=Groups
+tabbedmenu.groupedit=Edit Group
+tabbedmenu.groupsearch=Search Group
+tabbedmenu.usermetrics=User Metrics
+tabbedmenu.gadgetRegistration=Gadget Registration
+tabbedmenu.gadgetPermissions=Gadget Permissions
+
+tabbedmenu.notifications=Notifications
+tabbedmenu.listSysNotifications=System Notifications
+tabbedmenu.listGpNotifications=Group Notifications
+
+
+#----------------------------------------------------------------------------
+# Notifications
+#----------------------------------------------------------------------------
+
+socialsite.notifications.email.friendrequest.subject=New Friendship Request
+# {0}: toUser's first name
+# {1}: toUser's full name
+# {2}: fromUser's first name
+# {3}: fromUser's full name
+# {4}: URL to manage the request
+socialsite.notifications.email.friendrequest.body=Hi {0},\n\n{3} would like to be friends with you.\n\nTo accept or decline this invitation, go to: <{4}>.
+
+socialsite.notifications.email.grouprequest.subject=New Group Membership Request
+# {0}: group founder's first name
+# {1}: group founder's full name
+# {2}: fromUser's first name
+# {3}: fromUser's full name
+# {4}: group's full name
+# {5}: URL to manage the request
+socialsite.notifications.email.grouprequest.body=Hi {0},\n\n{3} would like to join the "{4}" group.\n\nTo accept or decline this request, go to: <{5}>.
+
+socialsite.notifications.email.appRequestConfirm.subject=\
+Confirmation from {0}: Gadget registration recieved
+socialsite.notifications.email.appRequestConfirm.body=\
+{0}, thank you for submitting your OpenSocial Application, with the URL shown below.\n\
+\n\
+   Gadget spec URL: {1}\n\
+\n\
+This email is to confirm that we have your registration and will review it as \
+soon as possible. You will be notified as soon as we have decided whether or \
+not to approve your application for use on our site.
+
+socialsite.notifications.email.appRequestNotification.subject=\
+Notification from {0}: Gadget registration recieved
+socialsite.notifications.email.appRequestNotification.body=\
+User {0} has submitted an OpenSocial Application for your consideration.\
+Please follow the link below to the SocialSite Admin Console and either \
+approve or reject the application.\n\
+\n\
+{1}\n\
+
+socialsite.notifications.email.appRequestApproved.subject=\
+Approval from {0}: Gadget registration approved
+socialsite.notifications.email.appRequestApproved.body=\
+{0}, Congratulations. This email is to notify you that that we have approved \
+your application, with the URL below, for use on our site.\n\
+\n\
+   Gadget spec URL: {1}\n\
+\n\
+Visit the Developer Gadget if you need to obtain the OAuth Shared Secret Key \
+needed to call the OpenSocial and SocialSite REST API.
+
+socialsite.notifications.email.appRequestRejected.subject=\
+Notification from {0}: Gadget registration not approved
+socialsite.notifications.email.appRequestRejected.body=\
+{0}, thank you for submitting your OpenSocial Application, with the URL shown \
+below, but we cannot approve this gadget for use on our site.\n\
+\n\
+   Gadget spec URL: {1}\n\
+\n\
+The reason stated by the site admin is "{2}".
+
+socialsite.notifications.email.appRequestRemoved.subject=\
+Confirmation from {0}: Gadget registration removed
+socialsite.notifications.email.appRequestRemoved.body=\
+{0}, this email is to notifiy you that your OpenSocial Application, with the \
+URL shown below, has been removed from our site.\n\
+\n\
+   Gadget spec URL: {1}\n\
+
+
+#----------------------------------------------------------------------------
+# Activity title and body
+#----------------------------------------------------------------------------
+
+socialsite.activity.title.profile_edit=<img src=\"{0}/app-ui/images/vcard_edit.png\" alt=\"icon\"/> <a href=\"{1}\">{2}</a> edited profile.
+socialsite.activity.title.new_membership=<img src=\"{0}/app-ui/images/group_add.png\" alt=\"icon\"/> <a href=\"{1}\">{2}</a> joined group <a href=\"{3}\">{4}</a>.
+socialsite.activity.title.new_admin=<img src=\"{0}/app-ui/images/group_add.png\" alt=\"icon\"/> <a href=\"{1}\">{2}</a> is now an administrator of group <a href=\"{3}\">{4}</a>.
+socialsite.activity.title.left_group=<img src=\"{0}/app-ui/images/group_add.png\" alt=\"icon\"/> <a href=\"{1}\">{2}</a> has left group <a href=\"{3}\">{4}</a>.
+socialsite.activity.title.created_group=<img src=\"{0}/app-ui/images/world_add.png\" alt=\"icon\"/> <a href=\"{1}\">{2}</a> created group <a href=\"{3}\">{4}</a>.
+socialsite.activity.title.new_friendship=<img src=\"{0}/app-ui/images/emoticon_smile.png\" alt=\"icon\"/> <a href=\"{1}\">{2}</a> is now friends with <a href=\"{3}\">{4}</a>.
+socialsite.activity.title.status=<img src=\"{0}/app-ui/images/comment.png\" alt=\"icon\"/> <a href=\"{1}\">{2}</a> new status: {3}
+socialsite.activity.title.app_message=<img src=\"{0}/app-ui/images/email.png\" alt=\"icon\"/> <a href=\"{1}\">{2}</a> notification: {3}
+
+socialsite.activity.body.profile_edit=<img src=\"{0}/app-ui/images/vcard_edit.png\" alt=\"icon\"/> <a href=\"{1}\">{2}</a> edited profile.
+socialsite.activity.body.new_membership=<img src=\"{0}/app-ui/images/group_add.png\" alt=\"icon\"/> <a href=\"{1}\">{2}</a> joined group <a href=\"{3}\">{4}</a>.
+socialsite.activity.body.new_admin=<img src=\"{0}/app-ui/images/group_add.png\" alt=\"icon\"/> <a href=\"{1}\">{2}</a> is now an administrator of group <a href=\"{3}\">{4}</a>.
+socialsite.activity.body.left_group=<img src=\"{0}/app-ui/images/group_add.png\" alt=\"icon\"/> <a href=\"{1}\">{2}</a> has left group <a href=\"{3}\">{4}</a>.
+socialsite.activity.body.created_group=<img src=\"{0}/app-ui/images/world_add.png\" alt=\"icon\"/> <a href=\"{1}\">{2}</a> created group <a href=\"{3}\">{4}</a>.
+socialsite.activity.body.new_friendship=<img src=\"{0}/app-ui/images/emoticon_smile.png\" alt=\"icon\"/> <a href=\"{1}\">{2}</a> is now friends with <a href=\"{3}\">{4}</a>.
+socialsite.activity.body.status=<img src=\"{0}/app-ui/images/comment.png\" alt=\"icon\"/> <a href=\"{1}\">{2}</a> new status: {3}
+socialsite.activity.body.app_message=<img src=\"{0}/app-ui/images/email.png\" alt=\"icon\"/> <a href=\"{1}\">{2}</a> notification: {3}
+
+#----------------------------------------------------------------------------
+# Text for general form field validators
+#----------------------------------------------------------------------------
+socialsite.form.userid.empty=Please enter a user ID.
+socialsite.form.userid.unknown=No known user with ID {0}.
+socialsite.form.userid.exists=Profile ID {0} already exists.
+socialsite.form.group.handle.empty=Please enter a group handle.
+socialsite.form.group.handle.unknown=No known group with handle {0}.
+socialsite.form.group.handle.exists=The group handle {0} is already in use.
+socialsite.form.group.name.empty=Please enter a group name.
+socialsite.form.group.userIsMember=User {0} is already a member of group {1}.
+socialsite.form.group.userIsNotMember=User {0} is not a member of group {1}.
+socialsite.form.subject.empty=Please enter a subject.
+socialsite.form.content.empty=Please enter message contents.

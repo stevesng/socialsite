@@ -1,0 +1,46 @@
+<!DOCTYPE validators PUBLIC
+        "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+        "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+
+  <field name="senderId">
+    <field-validator type="requiredstring" short-circuit="true">
+      <param name="trim">true</param>
+      <message key="socialsite.form.userid.empty">Please enter a user ID.</message>
+    </field-validator>
+    <field-validator type="profileValidator" short-circuit="true">
+      <param name="mustExist">true</param>
+      <message>User unknown for given ID.</message>
+    </field-validator>
+    <field-validator type="groupMemberValidator">
+      <param name="mustBeMember">true</param>
+      <message>User not in group.</message>
+    </field-validator>
+  </field>
+
+  <field name="handle">
+    <field-validator type="requiredstring" short-circuit="true">
+      <param name="trim">true</param>
+      <message key="socialsite.form.group.handle.empty">Please enter a group handle.</message>
+    </field-validator>
+    <field-validator type="groupValidator">
+      <param name="mustExist">true</param>
+      <message>Group does not exist.</message>
+    </field-validator>
+  </field>
+
+  <field name="subject">
+    <field-validator type="requiredstring" short-circuit="true">
+      <param name="trim">true</param>
+      <message key="socialsite.form.subject.empty">Please enter a subject.</message>
+    </field-validator>
+  </field>
+
+  <field name="content">
+    <field-validator type="requiredstring" short-circuit="true">
+      <param name="trim">true</param>
+      <message key="socialsite.form.content.empty">Please enter message contents.</message>
+    </field-validator>
+  </field>
+</validators>

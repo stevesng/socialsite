@@ -1,0 +1,197 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/socialsite/!svn/ver/775/trunk/src/java/com/sun/socialsite/pojos
+END
+Profile.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/socialsite/!svn/ver/756/trunk/src/java/com/sun/socialsite/pojos/Profile.java
+END
+OAuthEntryRecord.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/socialsite/!svn/ver/771/trunk/src/java/com/sun/socialsite/pojos/OAuthEntryRecord.java
+END
+ProfileProperty.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/socialsite/!svn/ver/485/trunk/src/java/com/sun/socialsite/pojos/ProfileProperty.java
+END
+ProfileDefinition.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/socialsite/!svn/ver/513/trunk/src/java/com/sun/socialsite/pojos/ProfileDefinition.java
+END
+RelationshipRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/socialsite/!svn/ver/407/trunk/src/java/com/sun/socialsite/pojos/RelationshipRequest.java
+END
+AppData.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/socialsite/!svn/ver/404/trunk/src/java/com/sun/socialsite/pojos/AppData.java
+END
+AppRegistration.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/socialsite/!svn/ver/775/trunk/src/java/com/sun/socialsite/pojos/AppRegistration.java
+END
+SocialSiteActivity.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/socialsite/!svn/ver/526/trunk/src/java/com/sun/socialsite/pojos/SocialSiteActivity.java
+END
+ContextRule.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/socialsite/!svn/ver/751/trunk/src/java/com/sun/socialsite/pojos/ContextRule.java
+END
+Category.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/socialsite/!svn/ver/404/trunk/src/java/com/sun/socialsite/pojos/Category.java
+END
+SocialSiteMediaItem.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/socialsite/!svn/ver/429/trunk/src/java/com/sun/socialsite/pojos/SocialSiteMediaItem.java
+END
+RuntimeConfigProperty.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/socialsite/!svn/ver/404/trunk/src/java/com/sun/socialsite/pojos/RuntimeConfigProperty.java
+END
+MessageContent.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/socialsite/!svn/ver/769/trunk/src/java/com/sun/socialsite/pojos/MessageContent.java
+END
+App.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/socialsite/!svn/ver/577/trunk/src/java/com/sun/socialsite/pojos/App.java
+END
+ThemeSettings.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/socialsite/!svn/ver/532/trunk/src/java/com/sun/socialsite/pojos/ThemeSettings.java
+END
+PermissionGrant.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/socialsite/!svn/ver/725/trunk/src/java/com/sun/socialsite/pojos/PermissionGrant.java
+END
+Group.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/socialsite/!svn/ver/756/trunk/src/java/com/sun/socialsite/pojos/Group.java
+END
+GroupProperty.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/socialsite/!svn/ver/404/trunk/src/java/com/sun/socialsite/pojos/GroupProperty.java
+END
+Relationship.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/socialsite/!svn/ver/407/trunk/src/java/com/sun/socialsite/pojos/Relationship.java
+END
+OAuthAccessorRecord.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/socialsite/!svn/ver/771/trunk/src/java/com/sun/socialsite/pojos/OAuthAccessorRecord.java
+END
+SectionPrivacy.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/socialsite/!svn/ver/736/trunk/src/java/com/sun/socialsite/pojos/SectionPrivacy.java
+END
+GroupRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/socialsite/!svn/ver/407/trunk/src/java/com/sun/socialsite/pojos/GroupRequest.java
+END
+GroupDefinition.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/socialsite/!svn/ver/404/trunk/src/java/com/sun/socialsite/pojos/GroupDefinition.java
+END
+AppInstance.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/socialsite/!svn/ver/404/trunk/src/java/com/sun/socialsite/pojos/AppInstance.java
+END
+Content.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/socialsite/!svn/ver/404/trunk/src/java/com/sun/socialsite/pojos/Content.java
+END
+TemplateParameter.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/socialsite/!svn/ver/526/trunk/src/java/com/sun/socialsite/pojos/TemplateParameter.java
+END
+GroupRelationship.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/socialsite/!svn/ver/407/trunk/src/java/com/sun/socialsite/pojos/GroupRelationship.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/socialsite/!svn/ver/24/trunk/src/java/com/sun/socialsite/pojos/package.html
+END
+MessageContentState.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/socialsite/!svn/ver/404/trunk/src/java/com/sun/socialsite/pojos/MessageContentState.java
+END
+SocialRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/socialsite/!svn/ver/416/trunk/src/java/com/sun/socialsite/pojos/SocialRequest.java
+END
+PropDefinition.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/socialsite/!svn/ver/485/trunk/src/java/com/sun/socialsite/pojos/PropDefinition.java
+END
+OAuthConsumerRecord.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/socialsite/!svn/ver/771/trunk/src/java/com/sun/socialsite/pojos/OAuthConsumerRecord.java
+END

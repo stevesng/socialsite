@@ -1,0 +1,140 @@
+#banner {
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
+}
+.bannerBox {
+    width: 100%;
+    border-bottom: 2px black solid;
+    color: #666666;
+}
+.bannerStatusBox {
+    width: 100%;
+    background: #dde6ec;
+    color: #666666;
+}
+.bannerLeft {
+    padding: 4px 15px 4px 10px;
+    font-weight: bold;
+    text-align: left;
+}
+.bannerRight {
+    padding: 4px 10px 4px 15px;
+    font-weight: bold;
+    text-align: right;
+}
+#footer {
+    clear: both;
+    padding: 15px 0px 15px 0px;
+    font-size: smaller;
+    text-align: center;
+    border: none;
+    color: #5d7992;
+}
+a {
+	color: #35556B;
+}
+a:link {
+	color: #35556B;
+}
+a:visited {
+	color: #35556B;
+}
+a:hover {
+	color: #35556B;
+}
+a:active {
+	color: #35556B;
+}
+
+.loginbody {
+    background-color: #D9E6EC;
+    color: #000;
+    font-family: Verdana, Arial, sans-serif;
+    margin: 10px }
+
+.text {
+    padding: 10px 20px;
+    line-height: 1.5em;
+    text-align: center;
+}
+
+.serviceColor { color: #003399 }
+
+.main { background: #FFF; padding: 15px }
+
+.socialLogin { background: #FFF; padding: 4px }
+
+.loginFooter {
+    background-color: #D2D9E1;
+    margin: 10px 0 0 0;
+    padding: 5px;
+    text-align: center;
+}
+
+
+
+/* ----------------------------------------------------------------------
+Table styles
+---------------------------------------------------------------------- */
+
+div.tablenav {
+   font-size: 110%
+}
+table.socialsiteTable {
+    border-collapse: collapse;
+    width: 100%;
+}
+table.socialsiteTable th {
+    border: 1px solid #ccc;
+    font-size: 110%;
+    padding: 3px;
+}
+table.socialsiteTable th {
+    color: white;
+}
+table.socialsiteTable td, table.socialsiteTable tbody td {
+    vertical-align: top;
+}
+table.socialsiteTable tbody td {
+    padding: 3px;
+}
+table.socialsiteTable td.center {
+    text-align: center;
+}
+td.field span.fixedAttr {
+  font-style: italic;
+  font-weight: bold;
+  color: red;
+}
+.socialsiteTable_even td {
+    border: 1px solid #ccc;
+    background: #EEEEEE;
+    color: black;
+    vertical-align: top;
+}
+.socialsiteTable_odd td{
+    border: 1px solid #ccc;
+    background: inherit;
+    vertical-align: top;
+    color: black;
+}
+.socialsiteTable_pending td {
+    border: 1px solid #ccc;
+    background: #ffffcc;
+    color: black;
+    vertical-align: top;
+}
+td.socialsiteTable_entry, div.socialsiteTable_entry {
+    border: 1px solid #ccc;
+    background: inherit;
+    padding: 5px;
+    vertical-align: top;
+}
+
+table.socialsiteTable th, table.socialsiteTable th {
+    background-color:#7196B0;
+    border: 1px solid #52829c;
+}
+table.socialsiteTable td, table.socialsiteTable tbody td {
+    border: 1px solid #52829c;
+}

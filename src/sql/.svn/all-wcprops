@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/socialsite/!svn/ver/775/trunk/src/sql
+END
+control.vm
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/socialsite/!svn/ver/24/trunk/src/sql/control.vm
+END
+dbscripts.properties
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/socialsite/!svn/ver/24/trunk/src/sql/dbscripts.properties
+END
+createdb.vm
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/socialsite/!svn/ver/775/trunk/src/sql/createdb.vm
+END
+droptables.sql
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/socialsite/!svn/ver/751/trunk/src/sql/droptables.sql
+END

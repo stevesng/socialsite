@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/socialsite/!svn/ver/725/trunk/src/java/com/sun/socialsite/web/ui/core/struts2
+END
+CustomizedActionSupport.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/socialsite/!svn/ver/725/trunk/src/java/com/sun/socialsite/web/ui/core/struts2/CustomizedActionSupport.java
+END
+DefaultAction.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/socialsite/!svn/ver/654/trunk/src/java/com/sun/socialsite/web/ui/core/struts2/DefaultAction.java
+END
+SessionContextInterceptor.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/socialsite/!svn/ver/725/trunk/src/java/com/sun/socialsite/web/ui/core/struts2/SessionContextInterceptor.java
+END
+Login.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/socialsite/!svn/ver/712/trunk/src/java/com/sun/socialsite/web/ui/core/struts2/Login.java
+END

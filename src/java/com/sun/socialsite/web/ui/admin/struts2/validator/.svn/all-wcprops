@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/socialsite/!svn/ver/723/trunk/src/java/com/sun/socialsite/web/ui/admin/struts2/validator
+END
+GroupValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/socialsite/!svn/ver/715/trunk/src/java/com/sun/socialsite/web/ui/admin/struts2/validator/GroupValidator.java
+END
+ProfileValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/socialsite/!svn/ver/715/trunk/src/java/com/sun/socialsite/web/ui/admin/struts2/validator/ProfileValidator.java
+END
+AbstractValidatorSupport.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/socialsite/!svn/ver/715/trunk/src/java/com/sun/socialsite/web/ui/admin/struts2/validator/AbstractValidatorSupport.java
+END
+GroupMemberValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/socialsite/!svn/ver/723/trunk/src/java/com/sun/socialsite/web/ui/admin/struts2/validator/GroupMemberValidator.java
+END

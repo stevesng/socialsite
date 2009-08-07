@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/socialsite/!svn/ver/775/trunk/src/java/com/sun/socialsite/web/rest/opensocial/oauth
+END
+SocialSiteOAuthServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/socialsite/!svn/ver/764/trunk/src/java/com/sun/socialsite/web/rest/opensocial/oauth/SocialSiteOAuthServlet.java
+END
+SocialSiteOAuthModule.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/socialsite/!svn/ver/775/trunk/src/java/com/sun/socialsite/web/rest/opensocial/oauth/SocialSiteOAuthModule.java
+END
+SocialSiteOAuthDataStore.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/socialsite/!svn/ver/775/trunk/src/java/com/sun/socialsite/web/rest/opensocial/oauth/SocialSiteOAuthDataStore.java
+END

@@ -1,0 +1,11 @@
+K 10
+svn:ignore
+V 106
+.groups.xml.swp
+.people.xml.swp
+.profile.xml.swp
+.profileedit.xml.swp
+.profileedit.js.swp
+.profile.js.swp
+
+END

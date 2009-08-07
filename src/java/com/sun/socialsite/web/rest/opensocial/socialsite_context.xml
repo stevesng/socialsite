@@ -1,0 +1,22 @@
+<rules>
+
+  <rule>
+    <sources>
+      <indirect>*</indirect>
+    </sources>
+    <assertions>
+      <reject>*</reject>
+    </assertions>
+  </rule>
+
+  <rule>
+    <sources>
+      <direct>${socialsite.base.url}/socialsite_context.jsp</direct>
+      <direct>*</direct>
+    </sources>
+    <assertions>
+      <accept>*</accept>
+    </assertions>
+  </rule>
+
+</rules>

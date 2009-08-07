@@ -1,0 +1,161 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/socialsite/!svn/ver/775/trunk/src/java/com/sun/socialsite/business
+END
+SocialSite.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/socialsite/!svn/ver/771/trunk/src/java/com/sun/socialsite/business/SocialSite.java
+END
+SearchManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/socialsite/!svn/ver/464/trunk/src/java/com/sun/socialsite/business/SearchManager.java
+END
+ContentManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/socialsite/!svn/ver/464/trunk/src/java/com/sun/socialsite/business/ContentManager.java
+END
+InitializationException.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/socialsite/!svn/ver/24/trunk/src/java/com/sun/socialsite/business/InitializationException.java
+END
+ExtensionManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/socialsite/!svn/ver/586/trunk/src/java/com/sun/socialsite/business/ExtensionManager.java
+END
+SocialSiteActivityManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/socialsite/!svn/ver/464/trunk/src/java/com/sun/socialsite/business/SocialSiteActivityManager.java
+END
+Factory.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/socialsite/!svn/ver/24/trunk/src/java/com/sun/socialsite/business/Factory.java
+END
+ContextRuleManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/socialsite/!svn/ver/751/trunk/src/java/com/sun/socialsite/business/ContextRuleManager.java
+END
+MessageContentManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/socialsite/!svn/ver/464/trunk/src/java/com/sun/socialsite/business/MessageContentManager.java
+END
+Manager.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/socialsite/!svn/ver/24/trunk/src/java/com/sun/socialsite/business/Manager.java
+END
+AppManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/socialsite/!svn/ver/775/trunk/src/java/com/sun/socialsite/business/AppManager.java
+END
+ConfigPropertiesManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/socialsite/!svn/ver/464/trunk/src/java/com/sun/socialsite/business/ConfigPropertiesManager.java
+END
+ThemeSettingsManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/socialsite/!svn/ver/506/trunk/src/java/com/sun/socialsite/business/ThemeSettingsManager.java
+END
+DatabaseProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/socialsite/!svn/ver/24/trunk/src/java/com/sun/socialsite/business/DatabaseProvider.java
+END
+AbstractManagerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/socialsite/!svn/ver/464/trunk/src/java/com/sun/socialsite/business/AbstractManagerImpl.java
+END
+ListenerManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/socialsite/!svn/ver/464/trunk/src/java/com/sun/socialsite/business/ListenerManager.java
+END
+NotificationManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/socialsite/!svn/ver/735/trunk/src/java/com/sun/socialsite/business/NotificationManager.java
+END
+EmfProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/socialsite/!svn/ver/692/trunk/src/java/com/sun/socialsite/business/EmfProvider.java
+END
+PermissionManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/socialsite/!svn/ver/725/trunk/src/java/com/sun/socialsite/business/PermissionManager.java
+END
+URLStrategy.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/socialsite/!svn/ver/667/trunk/src/java/com/sun/socialsite/business/URLStrategy.java
+END
+GroupManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/socialsite/!svn/ver/537/trunk/src/java/com/sun/socialsite/business/GroupManager.java
+END
+DefaultURLStrategy.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/socialsite/!svn/ver/667/trunk/src/java/com/sun/socialsite/business/DefaultURLStrategy.java
+END
+ProfileManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/socialsite/!svn/ver/756/trunk/src/java/com/sun/socialsite/business/ProfileManager.java
+END
+BootstrapException.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/socialsite/!svn/ver/24/trunk/src/java/com/sun/socialsite/business/BootstrapException.java
+END
+RelationshipManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/socialsite/!svn/ver/596/trunk/src/java/com/sun/socialsite/business/RelationshipManager.java
+END
+MailProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/socialsite/!svn/ver/745/trunk/src/java/com/sun/socialsite/business/MailProvider.java
+END

@@ -1,0 +1,49 @@
+.jmk-wt-lightbox-titlebar {
+    height : 18px;
+    color : #FFF;
+    padding-top: 2px;
+}
+.jmk-wt-lightbox-titlebar-blue {
+    background: #4199DA url(images/bg-webtop-blue.png);
+    background-repeat: repeat-x;
+}
+
+.jmk-wt-lightbox-titlebar-green {
+    background: #11d516 url(images/bg-webtop-green.png);
+    background-repeat: repeat-x;
+}
+
+.jmk-wt-lightbox-title {
+    float : left;
+    font-size : 12px;
+}
+
+.jmk-wt-lightbox-icons {
+    float : right;
+    margin-top: 0px;
+    padding-right: 3px;
+    height : 18px;  
+    width : 15px;  
+}
+
+.jmk-wt-lightbox-icons img {
+    padding: 1px;
+    height : 15px;
+    width : 15px;
+    cursor : pointer;
+}
+
+.jmk-wt-lightbox-icons div {
+    padding: 1px;
+    height : 15px;
+    width : 15px;
+    cursor : pointer;
+}
+
+.jmk-wt-lightbox {
+    z-index : 10000;
+    border : 1px solid #000;
+    background : #FFF;
+    margin-top: 2px;
+    position : absolute;
+}

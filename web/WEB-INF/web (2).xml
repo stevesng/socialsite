@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+  Copyright 2007-2008 Sun Microsystems, Inc. All rights reserved.
+
+  The contents of this file are subject to the terms of either the GNU
+  General Public License Version 2 only ("GPL") or the Common Development
+  and Distribution License("CDDL") (collectively, the "License").  You
+  may not use this file except in compliance with the License. You can obtain
+  a copy of the License at https://socialsite.dev.java.net/legal/CDDL+GPL.html
+  or legal/LICENSE.txt.  See the License for the specific language governing
+  permissions and limitations under the License.
+
+  When distributing the software, include this License Header Notice in each
+  file and include the License file at legal/LICENSE.txt.  Sun designates this
+  particular file as subject to the "Classpath" exception as provided by Sun
+  in the GPL Version 2 section of the License file that accompanied this code.
+  If applicable, add the following below the License Header, with the fields
+  enclosed by brackets [] replaced by your own identifying information:
+  "Portions Copyrighted [year] [name of copyright owner]"
+
+  Contributor(s):
+
+  If you wish your version of this file to be governed by only the CDDL or
+  only the GPL Version 2, indicate your decision by adding "[Contributor]
+  elects to include this software in this distribution under the [CDDL or GPL
+  Version 2] license."  If you don't indicate a single choice of license, a
+  recipient has the option to distribute your version of this file under
+  either the CDDL, the GPL Version 2 or to extend the choice of license to
+  its licensees as provided above.  However, if you add GPL Version 2 code
+  and therefore, elected the GPL Version 2 license, then the option applies
+  only if the new code is made subject to such option by the copyright
+  holder.
+-->
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+    <display-name>SocialSite</display-name>
+
+    <!-- Shindig: Guice module[s] (accepts a colon-separated list). -->
+    <context-param>
+        <param-name>guice-modules</param-name>
+        <param-value>
+            org.apache.shindig.gadgets.DefaultGuiceModule:
+            org.apache.shindig.common.cache.ehcache.EhCacheModule:
+            com.sun.socialsite.web.rest.opensocial.oauth.SocialSiteOAuthModule:
+            com.sun.socialsite.web.rest.config.SocialSiteGuiceModule
+        </param-value>
+    </context-param>
+
+    <filter>
+        <filter-name>RedirectorFilter</filter-name>
+        <filter-class>com.sun.socialsite.web.filters.RedirectorFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>DebugFilter</filter-name>
+        <filter-class>com.sun.socialsite.web.filters.DebugFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>SessionFilter</filter-name>
+        <filter-class>com.sun.socialsite.web.filters.SessionFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>ThreadContextFilter</filter-name>
+        <filter-class>com.sun.socialsite.web.filters.ThreadContextFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>PageCache</filter-name>
+        <filter-class>com.sun.socialsite.web.filters.CustomizedPageCachingFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>IncludesCache</filter-name>
+        <filter-class>com.sun.socialsite.web.filters.CustomizedPageFragmentCachingFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>authFilter</filter-name>
+        <filter-class>org.apache.shindig.auth.AuthenticationServletFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>anonymousAccessFilter</filter-name>
+        <filter-class>com.sun.socialsite.web.filters.AnonymousAccessFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>xrdsFilter</filter-name>
+        <filter-class>com.sun.socialsite.web.rest.core.XrdsFilter</filter-class>
+    </filter>
+
+   <!--
+    <filter-mapping>
+        <filter-name>DebugFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+   -->
+
+    <filter-mapping>
+        <filter-name>xrdsFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+<!-- first, the Shindig filter adds the security token -->
+    <filter-mapping>
+        <filter-name>authFilter</filter-name>
+        <url-pattern>/social/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>authFilter</filter-name>
+        <url-pattern>/gadgets/ifr</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>authFilter</filter-name>
+        <url-pattern>/gadgets/makeRequest</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>authFilter</filter-name>
+        <url-pattern>/uploads/*</url-pattern>
+    </filter-mapping>
+
+<!-- next, anonymous access filter enforces our anonymous access rule (see socialsite.properties) -->
+    <filter-mapping>
+        <filter-name>anonymousAccessFilter</filter-name>
+        <url-pattern>/social/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>anonymousAccessFilter</filter-name>
+        <url-pattern>/gadgets/makeRequest</url-pattern>
+    </filter-mapping> 
+
+    <filter-mapping>
+        <filter-name>anonymousAccessFilter</filter-name>
+        <url-pattern>/uploads/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>RedirectorFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>SessionFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>ThreadContextFilter</filter-name>
+        <url-pattern>/app-ui/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>ThreadContextFilter</filter-name>
+        <url-pattern>/gadgets/social/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>ThreadContextFilter</filter-name>
+        <url-pattern>/social/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <!--
+      * For now, we need to be careful to just map the Struts2 filter
+      * to paths that will contain _only_ Struts actions.  We may be
+      * able to remove this restriction later by implementing our own
+      * Struts ActionMapper.
+     -->
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/app-ui/login</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/app-ui/logout</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/app-ui/admin/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/app-ui/raw/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/selfregistration/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>PageCache</filter-name>
+        <url-pattern>/gadgets/ifr</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>PageCache</filter-name>
+        <url-pattern>/images/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>PageCache</filter-name>
+        <url-pattern>/js/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>PageCache</filter-name>
+        <url-pattern>/thumbnails/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>PageCache</filter-name>
+        <url-pattern>*.css</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>PageCache</filter-name>
+        <url-pattern>*.js</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>PageCache</filter-name>
+        <url-pattern>*.gif</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>PageCache</filter-name>
+        <url-pattern>*.jpg</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>PageCache</filter-name>
+        <url-pattern>*.png</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>IncludesCache</filter-name>
+        <url-pattern>/WEB-INF/jsps/tiles/menu.jsp</url-pattern>
+        <dispatcher>INCLUDE</dispatcher>
+    </filter-mapping>
+
+    <listener>
+        <listener-class>com.sun.socialsite.web.listeners.ContextListener</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>com.sun.socialsite.web.listeners.SessionListener</listener-class>
+    </listener>
+
+    <!-- Shindig: Listener -->
+    <listener>
+        <listener-class>org.apache.shindig.common.servlet.GuiceServletContextListener</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>org.apache.tiles.web.startup.TilesListener</listener-class>
+    </listener>
+
+    <!-- Shindig REST API -->
+    <servlet>
+        <servlet-name>restapiServlet</servlet-name>
+        <servlet-class>org.apache.shindig.protocol.DataServiceServlet</servlet-class>
+    </servlet>
+    
+    <!-- Shindig RPC API -->
+    <servlet>
+        <servlet-name>jsonRpcServlet</servlet-name>
+        <servlet-class>
+            org.apache.shindig.protocol.JsonRpcServlet
+        </servlet-class>
+    </servlet>
+
+    <!-- GadgetizerData Service (a SocialSite extension to Shindig) -->
+    <servlet>
+        <servlet-name>gadgetizerdata</servlet-name>
+        <servlet-class>com.sun.socialsite.web.rest.servlets.GadgetizerDataServlet</servlet-class>
+    </servlet>
+
+    <!-- Old and deprecated SocailSite REST API -->
+    <servlet>
+        <servlet-name>socialdata</servlet-name>
+        <servlet-class>com.sun.socialsite.web.rest.opensocial.deprecated.SocialSiteGadgetDataServlet</servlet-class>
+    </servlet>
+    
+    <!-- Shindig: Render a Gadget -->
+    <servlet>
+        <servlet-name>xml-to-html</servlet-name>
+        <servlet-class>org.apache.shindig.gadgets.servlet.GadgetRenderingServlet</servlet-class>
+    </servlet>
+
+    <!-- Shindig: Proxy -->
+    <servlet>
+        <servlet-name>proxy</servlet-name>
+        <servlet-class>org.apache.shindig.gadgets.servlet.ProxyServlet</servlet-class>
+    </servlet>
+
+    <!-- Shindig: makeRequest -->
+    <servlet>
+        <servlet-name>makeRequest</servlet-name>
+        <servlet-class>org.apache.shindig.gadgets.servlet.MakeRequestServlet</servlet-class>
+    </servlet>
+
+    <!-- Shindig: Concat -->
+    <servlet>
+        <servlet-name>concat</servlet-name>
+        <servlet-class>org.apache.shindig.gadgets.servlet.ConcatProxyServlet</servlet-class>
+    </servlet>
+
+    <!-- OAuth callback -->
+    <servlet>
+        <servlet-name>oauthCallback</servlet-name>
+        <servlet-class>
+            org.apache.shindig.gadgets.servlet.OAuthCallbackServlet
+        </servlet-class>
+    </servlet>
+
+    <!-- Shindig: Metadata RPC -->
+    <servlet>
+        <servlet-name>metadata</servlet-name>
+        <servlet-class>org.apache.shindig.gadgets.servlet.RpcServlet</servlet-class>
+    </servlet>
+
+    <!-- Shindig: Javascript Serving -->
+    <servlet>
+        <servlet-name>js</servlet-name>
+        <servlet-class>org.apache.shindig.gadgets.servlet.JsServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>UserImageServlet</servlet-name>
+        <servlet-class>com.sun.socialsite.web.rest.servlets.ProfileImageServlet</servlet-class>
+        <init-param>
+            <param-name>default-image</param-name>
+            <param-value>/app-ui/images/user_silhouette.png</param-value>
+        </init-param>
+        <init-param>
+            <param-name>image-width</param-name>
+            <param-value>100</param-value>
+        </init-param>
+        <init-param>
+            <param-name>image-height</param-name>
+            <param-value>100</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>UserThumbnailServlet</servlet-name>
+        <servlet-class>com.sun.socialsite.web.rest.servlets.ProfileImageServlet</servlet-class>
+        <init-param>
+            <param-name>default-image</param-name>
+            <param-value>/app-ui/images/user_silhouette_thumbnail.png</param-value>
+        </init-param>
+        <init-param>
+            <param-name>image-width</param-name>
+            <param-value>30</param-value>
+        </init-param>
+        <init-param>
+            <param-name>image-height</param-name>
+            <param-value>30</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>GroupImageServlet</servlet-name>
+        <servlet-class>com.sun.socialsite.web.rest.servlets.GroupImageServlet</servlet-class>
+        <init-param>
+            <param-name>default-image</param-name>
+            <param-value>/app-ui/images/network_icon.png</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>GroupThumbnailServlet</servlet-name>
+        <servlet-class>com.sun.socialsite.web.rest.servlets.GroupImageServlet</servlet-class>
+        <init-param>
+            <param-name>default-image</param-name>
+            <param-value>/app-ui/images/network_thumbnail.png</param-value>
+        </init-param>
+        <init-param>
+            <param-name>image-width</param-name>
+            <param-value>30</param-value>
+        </init-param>
+        <init-param>
+            <param-name>image-height</param-name>
+            <param-value>30</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>UploadServlet</servlet-name>
+        <servlet-class>com.sun.socialsite.web.rest.servlets.UploadServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>ProxyServlet</servlet-name>
+        <servlet-class>com.sun.socialsite.web.rest.servlets.ProxyServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>SocialSiteOAuthServlet</servlet-name>
+        <servlet-class>com.sun.socialsite.web.rest.opensocial.oauth.SocialSiteOAuthServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>restapiServlet</servlet-name>
+        <url-pattern>/social/rest/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>jsonRpcServlet</servlet-name>
+        <url-pattern>/social/rpc/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>socialdata</servlet-name>
+        <url-pattern>/gadgets/social/data/rest/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>socialdata</servlet-name>
+        <url-pattern>/gadgets/social/data/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>gadgetizerdata</servlet-name>
+        <url-pattern>/gadgetizerdata</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+       <servlet-name>oauthCallback</servlet-name>
+       <url-pattern>/gadgets/oauthcallback</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>xml-to-html</servlet-name>
+        <url-pattern>/gadgets/ifr</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>proxy</servlet-name>
+        <url-pattern>/gadgets/proxy</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>makeRequest</servlet-name>
+        <url-pattern>/gadgets/makeRequest</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>concat</servlet-name>
+        <url-pattern>/gadgets/concat</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>metadata</servlet-name>
+        <url-pattern>/gadgets/metadata</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>js</servlet-name>
+        <url-pattern>/gadgets/js/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>UserImageServlet</servlet-name>
+        <url-pattern>/images/person/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>UserThumbnailServlet</servlet-name>
+        <url-pattern>/thumbnails/person/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>GroupImageServlet</servlet-name>
+        <url-pattern>/images/group/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>GroupThumbnailServlet</servlet-name>
+        <url-pattern>/thumbnails/group/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>UploadServlet</servlet-name>
+        <url-pattern>/uploads/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ProxyServlet</servlet-name>
+        <url-pattern>/get</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SocialSiteOAuthServlet</servlet-name>
+        <url-pattern>/oauth/*</url-pattern>
+    </servlet-mapping>
+
+    <resource-ref>
+        <res-ref-name>jdbc/SocialSite_DB</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
+
+    <resource-ref>
+        <res-ref-name>mail/SocialSite/Session</res-ref-name>
+        <res-type>javax.mail.Session</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <security-constraint>
+        <display-name>app-ui</display-name>
+        <web-resource-collection>
+            <web-resource-name>app-ui</web-resource-name>
+            <url-pattern>/app-ui/admin/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <!-- Constraint to define SSL on login page -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>login</web-resource-name>
+            <url-pattern>/app-ui/login</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <!-- no HTTPS on v3 yet?
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint> -->
+    </security-constraint>
+
+    <security-role>
+        <description/>
+        <role-name>user</role-name>
+    </security-role>
+
+    <security-role>
+        <description/>
+        <role-name>admin</role-name>
+    </security-role>
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>SocialSite_AdminRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/app-ui/login</form-login-page>
+            <form-error-page>/app-ui/login?failed=true</form-error-page>
+        </form-login-config>
+    </login-config>
+
+</web-app>

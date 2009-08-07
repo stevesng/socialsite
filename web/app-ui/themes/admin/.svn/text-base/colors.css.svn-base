@@ -1,0 +1,127 @@
+/*
+ * Portions Copyright 2007-2008 Sun Microsystems, Inc. All rights reserved.
+ */
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ *  contributor license agreements.  The ASF licenses this file to You
+ * under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.  For additional information regarding
+ * copyright in this work, please see the NOTICE file in the top level
+ * directory of this distribution.
+ */
+
+/* SUN : Customizable colors and images */
+
+@import url(typography.css);
+@import url(colorAndMedia.css);
+@import url(site_style.css);
+@import url(css_ns6up.css);
+@import url(layout_gf.css);
+
+span.MstLbl_sun4,
+span.MstTxt_sun4,
+span.MstTxt_sun4>a:link,
+span.MstTxt_sun4>a:visited,
+span.MstTxt_sun4>a:hover,
+span.MstTxt_sun4>a:active {
+    color: white;
+    vertical-align:top;
+}
+
+/* ------------------------------------------------------------------------ */
+
+a:link {color:#003399;text-decoration:none}
+a:visited {color:#003399;text-decoration:none}
+a:hover {color:#003399;text-decoration:underline}
+a:active {color:#003399;text-decoration:none}
+
+
+#logobackground {
+    background: #e77100 !important;
+}
+
+.bannerBox {
+    background: url("dot.gif") repeat-x top;
+    border-bottom: 2px black solid;
+    color: #666666;
+}
+
+#footer {
+    border: none;
+    color: #5d7992;
+}
+
+p.subtitle {
+    color: #000000;
+}
+.subtitle span {
+    color: #52829c;
+}
+
+.sidebarBodyHead {
+    background: #E5E9ED;
+    color: white;
+}
+.searchSidebarBodyHead h3 {
+    color: black;
+}
+.sidebarBodyHead h3 {
+    color: white;
+}
+.sidebarFade, div.sidebarBody {
+    background: #E5E9ED;
+    color: #666666;
+}
+.searchSidebarHead {
+    background: #E5E9ED;
+}
+.searchSidebarBody {
+    background: #E5E9ED;
+}
+
+/* ------------------------------------------------------------------------ */
+
+#appRegistrationTable .detail {
+    color: #444;
+    font-size: small;
+    margin-left: 2em;
+}
+
+#appRegistrationTable .inactiveUrl {
+    color: blue;
+    font-size: small;
+    margin-left: 2em;
+}
+
+/* ------------------------------------------------------------------------ */
+
+/* Error messages for struts form field validation */
+.errorMessage {
+    color: red;
+    font-weight: bold;
+}
+
+div.actionErrors {
+    color: red;
+    background: #ffc0c0;
+    padding: 0.5em;
+    border: 1px red solid;
+}
+
+div.actionMessages {
+    color: green;
+    background: #c0ffc0;
+    padding: 0.5em;
+    border: 1px green solid;
+}
+

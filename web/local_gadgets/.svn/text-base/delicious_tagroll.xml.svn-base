@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+  Copyright 2007-2008 Sun Microsystems, Inc. All rights reserved.
+
+  The contents of this file are subject to the terms of either the GNU
+  General Public License Version 2 only ("GPL") or the Common Development
+  and Distribution License("CDDL") (collectively, the "License").  You
+  may not use this file except in compliance with the License. You can obtain
+  a copy of the License at https://socialsite.dev.java.net/legal/CDDL+GPL.html
+  or legal/LICENSE.txt.  See the License for the specific language governing
+  permissions and limitations under the License.
+
+  When distributing the software, include this License Header Notice in each
+  file and include the License file at legal/LICENSE.txt.  Sun designates this
+  particular file as subject to the "Classpath" exception as provided by Sun
+  in the GPL Version 2 section of the License file that accompanied this code.
+  If applicable, add the following below the License Header, with the fields
+  enclosed by brackets [] replaced by your own identifying information:
+  "Portions Copyrighted [year] [name of copyright owner]"
+
+  Contributor(s):
+
+  If you wish your version of this file to be governed by only the CDDL or
+  only the GPL Version 2, indicate your decision by adding "[Contributor]
+  elects to include this software in this distribution under the [CDDL or GPL
+  Version 2] license."  If you don't indicate a single choice of license, a
+  recipient has the option to distribute your version of this file under
+  either the CDDL, the GPL Version 2 or to extend the choice of license to
+  its licensees as provided above.  However, if you add GPL Version 2 code
+  and therefore, elected the GPL Version 2 license, then the option applies
+  only if the new code is made subject to such option by the copyright
+  holder.
+-->
+
+<Module>
+ <ModulePrefs title="Delicious Tagroll" height="200"
+        description="Shows Your del.icio.us Tags"
+        show_in_directory="true"
+        author="Project SocialSite"
+        author_email="dev@socialsite.dev.java.net"
+        thumbnail="../local_gadgets/thumbnails/delicious_tagroll.png">
+  <Require feature="opensocial-0.7"/>
+ </ModulePrefs>
+ <Content type="html">
+ <![CDATA[
+
+ <link rel="stylesheet" text="text/css" href="../local_gadgets/files/socialsite-gadgets.css" />
+
+ <div id="socialsiteWidget" style="margin: 0; border: 0; padding: 0;">
+  <div id="widgetHeading" style="display: none;">
+   <form style="margin: 0; padding: 2px 1em;" action="" onsubmit="setDeliciousUserName(document.getElementById('delicious.username').value); return false;">
+    Your Delicious UserName:
+    <input type="text" id="delicious.username" />
+    <input type="submit" value="Save"
+   </form>
+  </div>
+  <div id="widgetBody" style="height: 100%; overflow: auto;"></div>
+ </div>
+
+ <script type="text/javascript">
+
+  function updateLayout() {
+    var widgetBody = document.getElementById('widgetBody');
+    widgetBody.style.height = window.innerHeight - widgetBody.offsetTop;
+  }
+
+  function clearDisplay() {
+    var widgetBody = document.getElementById('widgetBody');
+    while (widgetBody.childNodes.length >= 1) {
+      widgetBody.removeChild(widgetBody.firstChild);
+    }
+    var widgetHeading = document.getElementById('widgetHeading');
+    widgetHeading.style.display = 'none';
+  }
+
+  function setDeliciousUserName(deliciousUserName) {
+    var req = opensocial.newDataRequest();
+    req.add(req.newUpdatePersonAppDataRequest(opensocial.DataRequest.PersonId.OWNER, 'delicious.username', deliciousUserName));
+    function callback(response) {
+      clearDisplay();
+      getData();
+    }
+    req.send(callback);
+  }
+
+  function getData() {
+    function callback(response) {
+      var owner = response.get('owner').getData();
+      var data = response.get('data').getData();
+      var deliciousUserName = data[owner.getId()]['delicious.username'];
+      if (deliciousUserName != null) {
+        document.getElementById('delicious.username').value = deliciousUserName;
+        getTags(deliciousUserName, 50);
+      }
+      if (owner.isViewer()) {
+        document.getElementById('widgetHeading').style.display = '';
+        updateLayout();
+      }
+    }
+    var req = opensocial.newDataRequest();
+    req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.OWNER), 'owner');
+    req.add(req.newFetchPersonAppDataRequest(opensocial.DataRequest.PersonId.OWNER, 'delicious.username'), 'data');
+    req.send(callback);
+  }
+
+  function getTags(deliciousUserName, maxTags) {
+    function callback(response) {
+      var tagNames = [];
+      var minCount = null;
+      var maxCount = null;
+      var minFontSize = 12;
+      var maxFontSize = 24;
+      for (var key in response.data) {
+        tagNames.push(key);
+        if ((minCount == null) || (response.data[key] < minCount)) minCount = response.data[key];
+        if ((maxCount == null) || (response.data[key] > maxCount)) maxCount = response.data[key];
+      }
+      var tagsList = document.createElement('div');
+      tagsList.setAttribute('style', 'padding: 5px;');
+      for (var key in tagNames.sort(function(s1,s2) { return s1.toLowerCase() - s2.toLowerCase(); })) {
+        var tagName = tagNames[key];
+        var count = response.data[tagName];
+        var weight = (Math.log(count)-Math.log(minCount))/(Math.log(maxCount)-Math.log(minCount));
+        var fontSize = minFontSize+Math.round((maxFontSize-minFontSize)*weight)+'px';
+        var a = document.createElement('a');
+        a.setAttribute('href', 'http://del.icio.us/'+encodeURIComponent(deliciousUserName)+'/'+tagName);
+        a.setAttribute('title', 'uses: ' + count);
+        a.setAttribute('style', 'font-size: '+fontSize+';');
+        a.setAttribute('target', '_parent');
+        a.appendChild(document.createTextNode(tagName));
+        tagsList.appendChild(a);
+        tagsList.appendChild(document.createTextNode(' '));
+      }
+      var widgetBody = document.getElementById('widgetBody');
+      widgetBody.appendChild(tagsList);
+    }
+    var url = 'http://feeds.delicious.com/feeds/json/tags/'+encodeURIComponent(deliciousUserName)+'?count='+encodeURIComponent(maxTags)+'&sort=count&raw';
+    var headers = {};
+    headers["Cache-Control"] = "no-cache"; // NOTE: sometimes saw errors without this.  TODO: remove?
+    var params = {};
+    params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+    params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+    params[gadgets.io.RequestParameters.HEADERS] = headers;
+    gadgets.io.makeRequest(url, callback, params);
+  }
+  gadgets.util.registerOnLoadHandler(getData);
+ </script>
+
+ ]]>
+ </Content>
+</Module>

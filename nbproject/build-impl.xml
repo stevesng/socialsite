@@ -17,7 +17,7 @@
         - cleanup
 
         -->
-<project xmlns:webproject1="http://www.netbeans.org/ns/web-project/1" xmlns:webproject2="http://www.netbeans.org/ns/web-project/2" xmlns:webproject3="http://www.netbeans.org/ns/web-project/3" basedir=".." default="default" name="BaboonzaGit-impl">
+<project xmlns:webproject1="http://www.netbeans.org/ns/web-project/1" xmlns:webproject2="http://www.netbeans.org/ns/web-project/2" xmlns:webproject3="http://www.netbeans.org/ns/web-project/3" basedir=".." default="default" name="socialsite-impl">
     <import file="ant-deploy.xml"/>
     <target depends="dist,javadoc" description="Build whole project." name="default"/>
     <!--
@@ -95,12 +95,21 @@
         <condition property="do.compile.jsps">
             <istrue value="${compile.jsps}"/>
         </condition>
+        <condition property="enable.jsdebugger">
+            <and>
+                <isset property="debug.client.available"/>
+                <istrue value="${debug.client.available}"/>
+            </and>
+        </condition>
         <condition property="do.debug.server">
             <or>
                 <not>
                     <isset property="debug.server"/>
                 </not>
                 <istrue value="${debug.server}"/>
+                <not>
+                    <isset property="enable.jsdebugger"/>
+                </not>
                 <and>
                     <not>
                         <istrue value="${debug.server}"/>
@@ -112,7 +121,10 @@
             </or>
         </condition>
         <condition property="do.debug.client">
-            <istrue value="${debug.client}"/>
+            <and>
+                <istrue value="${debug.client}"/>
+                <isset property="enable.jsdebugger"/>
+            </and>
         </condition>
         <condition property="do.display.browser">
             <istrue value="${display.browser}"/>
@@ -126,7 +138,7 @@
             </and>
         </condition>
         <available file="${conf.dir}/MANIFEST.MF" property="has.custom.manifest"/>
-        <available file="${persistence.xml.dir}/persistence.xml" property="has.persistence.xml"/>
+        <available file="${conf.dir}/persistence.xml" property="has.persistence.xml"/>
         <condition property="do.war.package.with.custom.manifest">
             <isset property="has.custom.manifest"/>
         </condition>
@@ -168,19 +180,11 @@
             </and>
         </condition>
         <property name="javadoc.encoding.used" value="${source.encoding}"/>
-        <property name="includes" value="**"/>
-        <property name="excludes" value=""/>
         <condition else="" property="javac.compilerargs.jaxws" value="-Djava.endorsed.dirs='${jaxws.endorsed.dir}'">
             <and>
                 <isset property="jaxws.endorsed.dir"/>
                 <available file="nbproject/jaxws-build.xml"/>
             </and>
-        </condition>
-        <property name="runmain.jvmargs" value=""/>
-    </target>
-    <target depends="init" name="-init-cos" unless="deploy.on.save">
-        <condition property="deploy.on.save" value="true">
-            <istrue value="${j2ee.deploy.on.save}"/>
         </condition>
     </target>
     <target name="-post-init">
@@ -222,12 +226,10 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
             <attribute default="${src.dir}" name="srcdir"/>
             <attribute default="${build.classes.dir}" name="destdir"/>
             <attribute default="${javac.classpath}:${j2ee.platform.classpath}" name="classpath"/>
-            <attribute default="${includes}" name="includes"/>
-            <attribute default="${excludes}" name="excludes"/>
             <attribute default="${javac.debug}" name="debug"/>
             <element name="customize" optional="true"/>
             <sequential>
-                <javac debug="@{debug}" deprecation="${javac.deprecation}" destdir="@{destdir}" encoding="${source.encoding}" excludes="@{excludes}" includeantruntime="false" includes="@{includes}" source="${javac.source}" srcdir="@{srcdir}" target="${javac.target}">
+                <javac debug="@{debug}" deprecation="${javac.deprecation}" destdir="@{destdir}" encoding="${source.encoding}" includeantruntime="false" source="${javac.source}" srcdir="@{srcdir}" target="${javac.target}">
                     <classpath>
                         <path path="@{classpath}"/>
                     </classpath>
@@ -239,15 +241,11 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
     </target>
     <target name="-init-macrodef-junit">
         <macrodef name="junit" uri="http://www.netbeans.org/ns/web-project/2">
-            <attribute default="${includes}" name="includes"/>
-            <attribute default="${excludes}" name="excludes"/>
-            <attribute default="**" name="testincludes"/>
+            <attribute default="**/*Test.java" name="includes"/>
             <sequential>
                 <junit dir="${basedir}" errorproperty="tests.failed" failureproperty="tests.failed" fork="true" showoutput="true">
                     <batchtest todir="${build.test.results.dir}">
-                        <fileset dir="${test.src.dir}" excludes="@{excludes},${excludes}" includes="@{includes}">
-                            <filename name="@{testincludes}"/>
-                        </fileset>
+                        <fileset dir="${test.src.dir}" includes="@{includes}"/>
                     </batchtest>
                     <classpath>
                         <path path="${run.test.classpath}:${j2ee.platform.classpath}"/>
@@ -258,7 +256,6 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
                     </syspropertyset>
                     <formatter type="brief" usefile="false"/>
                     <formatter type="xml"/>
-                    <jvmarg line="${runmain.jvmargs}"/>
                 </junit>
             </sequential>
         </macrodef>
@@ -282,7 +279,7 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
             </sequential>
         </macrodef>
     </target>
-    <target name="-init-macrodef-nbjsdebug">
+    <target if="enable.jsdebugger" name="-init-macrodef-nbjsdebug">
         <macrodef name="nbjsdebugstart" uri="http://www.netbeans.org/ns/web-project/1">
             <attribute default="${client.url}" name="webUrl"/>
             <sequential>
@@ -290,12 +287,12 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
             </sequential>
         </macrodef>
     </target>
-    <target depends="-init-debug-args" name="-init-macrodef-nbjpda">
+    <target name="-init-macrodef-nbjpda">
         <macrodef name="nbjpdastart" uri="http://www.netbeans.org/ns/web-project/1">
             <attribute default="${main.class}" name="name"/>
             <attribute default="${debug.classpath}:${j2ee.platform.classpath}" name="classpath"/>
             <sequential>
-                <nbjpdastart addressproperty="jpda.address" name="@{name}" transport="${debug-transport}">
+                <nbjpdastart addressproperty="jpda.address" name="@{name}" transport="dt_socket">
                     <classpath>
                         <path path="@{classpath}"/>
                     </classpath>
@@ -331,12 +328,6 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
         <condition else="-Xdebug" property="debug-args-line" value="-Xdebug -Xnoagent -Djava.compiler=none">
             <istrue value="${have-jdk-older-than-1.4}"/>
         </condition>
-        <condition else="dt_socket" property="debug-transport-by-os" value="dt_shmem">
-            <os family="windows"/>
-        </condition>
-        <condition else="${debug-transport-by-os}" property="debug-transport" value="${debug.transport}">
-            <isset property="debug.transport"/>
-        </condition>
     </target>
     <target depends="-init-debug-args" name="-init-macrodef-debug">
         <macrodef name="debug" uri="http://www.netbeans.org/ns/web-project/1">
@@ -347,7 +338,7 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
             <sequential>
                 <java classname="@{classname}" fork="true">
                     <jvmarg line="${debug-args-line}"/>
-                    <jvmarg value="-Xrunjdwp:transport=${debug-transport},address=${jpda.address}"/>
+                    <jvmarg value="-Xrunjdwp:transport=dt_socket,address=${jpda.address}"/>
                     <jvmarg line="${runmain.jvmargs}"/>
                     <classpath>
                         <path path="@{classpath}"/>
@@ -362,20 +353,38 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
             </sequential>
         </macrodef>
     </target>
-    <target name="-init-taskdefs">
-        <fail unless="libs.CopyLibs.classpath">
-The libs.CopyLibs.classpath property is not set up.
-This property must point to 
-org-netbeans-modules-java-j2seproject-copylibstask.jar file which is part
-of NetBeans IDE installation and is usually located at 
-&lt;netbeans_installation&gt;/java&lt;version&gt;/ant/extra folder.
-Either open the project in the IDE and make sure CopyLibs library
-exists or setup the property manually. For example like this:
- ant -Dlibs.CopyLibs.classpath=a/path/to/org-netbeans-modules-java-j2seproject-copylibstask.jar
-                </fail>
-        <taskdef classpath="${libs.CopyLibs.classpath}" resource="org/netbeans/modules/java/j2seproject/copylibstask/antlib.xml"/>
+    <target name="-init-macrodef-copy-ear-war">
+        <macrodef name="copy-ear-war">
+            <attribute name="file"/>
+            <attribute name="propname"/>
+            <sequential>
+                <basename file="@{file}" property="base_@{propname}"/>
+                <zipfileset id="tld.files_@{propname}" includes="META-INF/*.tld META-INF/tlds/*.tld" src="@{file}"/>
+                <pathconvert property="tld.files.path_@{propname}" refid="tld.files_@{propname}"/>
+                <condition property="hastlds_@{propname}" value="yes">
+                    <contains casesensitive="false" string="${tld.files.path_@{propname}}" substring=".tld"/>
+                </condition>
+                <condition property="copy.to.dir_@{propname}" value="${build.web.dir}/WEB-INF/lib">
+                    <isset property="hastlds_@{propname}"/>
+                </condition>
+                <condition property="copy.to.dir_@{propname}" value="${dist.ear.dir}">
+                    <not>
+                        <isset property="hastlds_@{propname}"/>
+                    </not>
+                </condition>
+                <copy file="@{file}" todir="${copy.to.dir_@{propname}}"/>
+                <condition property="@{propname}" value="${base_@{propname}}">
+                    <not>
+                        <isset property="hastlds_@{propname}"/>
+                    </not>
+                </condition>
+                <condition property="@{propname}" value="">
+                    <isset property="hastlds_@{propname}"/>
+                </condition>
+            </sequential>
+        </macrodef>
     </target>
-    <target depends="-pre-init,-init-private,-init-libraries,-init-user,-init-project,-do-init,-post-init,-init-check,-init-macrodef-property,-init-macrodef-javac,-init-macrodef-junit,-init-macrodef-java,-init-macrodef-nbjpda,-init-macrodef-nbjsdebug,-init-macrodef-debug,-init-taskdefs" name="init"/>
+    <target depends="-pre-init,-init-private,-init-libraries,-init-user,-init-project,-do-init,-post-init,-init-check,-init-macrodef-property,-init-macrodef-javac,-init-macrodef-junit,-init-macrodef-java,-init-macrodef-nbjpda,-init-macrodef-nbjsdebug,-init-macrodef-debug,-init-macrodef-copy-ear-war" name="init"/>
     <!--
                 COMPILATION SECTION
             -->
@@ -391,7 +400,7 @@ exists or setup the property manually. For example like this:
     </target>
     <target name="-copy-webdir">
         <copy todir="${build.web.dir}">
-            <fileset dir="${web.docbase.dir}" excludes="${build.web.excludes},${excludes}" includes="${includes}"/>
+            <fileset dir="${web.docbase.dir}" excludes="${build.web.excludes}"/>
         </copy>
         <copy todir="${build.web.dir}/WEB-INF">
             <fileset dir="${webinf.dir}" excludes="${build.web.excludes}"/>
@@ -401,7 +410,7 @@ exists or setup the property manually. For example like this:
     <target depends="init, deps-jar, -pre-pre-compile, -pre-compile, -copy-manifest, -copy-persistence-xml, -copy-webdir, library-inclusion-in-archive,library-inclusion-in-manifest,-do-ws-compile" if="have.sources" name="-do-compile">
         <webproject2:javac destdir="${build.classes.dir}"/>
         <copy todir="${build.classes.dir}">
-            <fileset dir="${src.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
+            <fileset dir="${src.dir}" excludes="${build.classes.excludes}"/>
         </copy>
     </target>
     <target if="has.custom.manifest" name="-copy-manifest">
@@ -413,7 +422,7 @@ exists or setup the property manually. For example like this:
     <target if="has.persistence.xml" name="-copy-persistence-xml">
         <mkdir dir="${build.web.dir}/WEB-INF/classes/META-INF"/>
         <copy todir="${build.web.dir}/WEB-INF/classes/META-INF">
-            <fileset dir="${persistence.xml.dir}" includes="persistence.xml"/>
+            <fileset dir="${conf.dir}" includes="persistence.xml"/>
         </copy>
     </target>
     <target name="-post-compile">
@@ -427,9 +436,13 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="init,deps-jar,-pre-pre-compile" name="-do-compile-single">
         <fail unless="javac.includes">Must select some files in the IDE or set javac.includes</fail>
-        <webproject2:javac excludes="" includes="${javac.includes}"/>
+        <webproject2:javac>
+            <customize>
+                <patternset includes="${javac.includes}"/>
+            </customize>
+        </webproject2:javac>
         <copy todir="${build.classes.dir}">
-            <fileset dir="${src.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
+            <fileset dir="${src.dir}" excludes="${build.classes.excludes}"/>
         </copy>
     </target>
     <target name="-post-compile-single">
@@ -447,8 +460,7 @@ exists or setup the property manually. For example like this:
             <arg value="-die1"/>
             <arg value="-compilerSourceVM ${javac.source}"/>
             <arg value="-compilerTargetVM ${javac.target}"/>
-            <arg value="-javaEncoding ${source.encoding}"/>
-            <classpath path="${java.home}/../lib/tools.jar:${jspctask.classpath}:${jspcompilation.classpath}"/>
+            <classpath path="${java.home}/../lib/tools.jar:${copyfiles.classpath}:${jspcompilation.classpath}"/>
         </java>
         <mkdir dir="${build.generated.dir}/classes"/>
         <webproject2:javac classpath="${j2ee.platform.classpath}:${build.classes.dir}:${jspcompilation.classpath}" destdir="${build.generated.dir}/classes" srcdir="${build.generated.dir}/src"/>
@@ -466,8 +478,7 @@ exists or setup the property manually. For example like this:
             <arg path="${jsp.includes}"/>
             <arg value="-compilerSourceVM ${javac.source}"/>
             <arg value="-compilerTargetVM ${javac.target}"/>
-            <arg value="-javaEncoding ${source.encoding}"/>
-            <classpath path="${java.home}/../lib/tools.jar:${jspctask.classpath}:${jspcompilation.classpath}"/>
+            <classpath path="${java.home}/../lib/tools.jar:${copyfiles.classpath}:${jspcompilation.classpath}"/>
         </java>
         <mkdir dir="${build.generated.dir}/classes"/>
         <webproject2:javac classpath="${j2ee.platform.classpath}:${build.classes.dir}:${jspcompilation.classpath}" destdir="${build.generated.dir}/classes" srcdir="${build.generated.dir}/src">
@@ -517,14 +528,229 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,-do-dist-with-manifest,-do-dist-without-manifest" name="do-dist"/>
     <target depends="init" if="dist.ear.dir" name="library-inclusion-in-manifest">
-        <copyfiles files="${libs.struts2lib-2-0-11-basic.classpath}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.libs.struts2lib-2-0-11-basic.classpath" todir="${dist.ear.dir}"/>
+        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.14}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.14"/>
+        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.13}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.13"/>
+        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.12}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.12"/>
+        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.11}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.11"/>
+        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.10}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.10"/>
+        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.9}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.9"/>
+        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.8}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.8"/>
+        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.7}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.7"/>
+        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.6}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.6"/>
+        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.5}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.5"/>
+        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.4}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.4"/>
+        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.3}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.3"/>
+        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.2}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.2"/>
+        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.1}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.1"/>
+        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.14}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.14.X"/>
+        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.13}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.13.X"/>
+        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.12}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.12.X"/>
+        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.11}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.11.X"/>
+        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.10}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.10.X"/>
+        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.9}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.9.X"/>
+        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.8}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.8.X"/>
+        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.7}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.7.X"/>
+        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.6}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.6.X"/>
+        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.5}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.5.X"/>
+        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.4}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.4.X"/>
+        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.3}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.3.X"/>
+        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.2}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.2.X"/>
+        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.1}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.1.X"/>
+        <basename file="${libs.SocialSite.classpath.libfile.14}" property="included.lib.libs.SocialSite.classpath.14"/>
+        <basename file="${libs.SocialSite.classpath.libfile.13}" property="included.lib.libs.SocialSite.classpath.13"/>
+        <basename file="${libs.SocialSite.classpath.libfile.12}" property="included.lib.libs.SocialSite.classpath.12"/>
+        <basename file="${libs.SocialSite.classpath.libfile.11}" property="included.lib.libs.SocialSite.classpath.11"/>
+        <basename file="${libs.SocialSite.classpath.libfile.10}" property="included.lib.libs.SocialSite.classpath.10"/>
+        <basename file="${libs.SocialSite.classpath.libfile.9}" property="included.lib.libs.SocialSite.classpath.9"/>
+        <basename file="${libs.SocialSite.classpath.libfile.8}" property="included.lib.libs.SocialSite.classpath.8"/>
+        <basename file="${libs.SocialSite.classpath.libfile.7}" property="included.lib.libs.SocialSite.classpath.7"/>
+        <basename file="${libs.SocialSite.classpath.libfile.6}" property="included.lib.libs.SocialSite.classpath.6"/>
+        <basename file="${libs.SocialSite.classpath.libfile.5}" property="included.lib.libs.SocialSite.classpath.5"/>
+        <basename file="${libs.SocialSite.classpath.libfile.4}" property="included.lib.libs.SocialSite.classpath.4"/>
+        <basename file="${libs.SocialSite.classpath.libfile.3}" property="included.lib.libs.SocialSite.classpath.3"/>
+        <basename file="${libs.SocialSite.classpath.libfile.2}" property="included.lib.libs.SocialSite.classpath.2"/>
+        <basename file="${libs.SocialSite.classpath.libfile.1}" property="included.lib.libs.SocialSite.classpath.1"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.14}" propname="included.lib.libs.SocialSite.classpath.14.X"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.13}" propname="included.lib.libs.SocialSite.classpath.13.X"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.12}" propname="included.lib.libs.SocialSite.classpath.12.X"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.11}" propname="included.lib.libs.SocialSite.classpath.11.X"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.10}" propname="included.lib.libs.SocialSite.classpath.10.X"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.9}" propname="included.lib.libs.SocialSite.classpath.9.X"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.8}" propname="included.lib.libs.SocialSite.classpath.8.X"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.7}" propname="included.lib.libs.SocialSite.classpath.7.X"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.6}" propname="included.lib.libs.SocialSite.classpath.6.X"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.5}" propname="included.lib.libs.SocialSite.classpath.5.X"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.4}" propname="included.lib.libs.SocialSite.classpath.4.X"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.3}" propname="included.lib.libs.SocialSite.classpath.3.X"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.2}" propname="included.lib.libs.SocialSite.classpath.2.X"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.1}" propname="included.lib.libs.SocialSite.classpath.1.X"/>
+        <basename file="${libs.Shindig.classpath.libfile.40}" property="included.lib.libs.Shindig.classpath.40"/>
+        <basename file="${libs.Shindig.classpath.libfile.39}" property="included.lib.libs.Shindig.classpath.39"/>
+        <basename file="${libs.Shindig.classpath.libfile.38}" property="included.lib.libs.Shindig.classpath.38"/>
+        <basename file="${libs.Shindig.classpath.libfile.37}" property="included.lib.libs.Shindig.classpath.37"/>
+        <basename file="${libs.Shindig.classpath.libfile.36}" property="included.lib.libs.Shindig.classpath.36"/>
+        <basename file="${libs.Shindig.classpath.libfile.35}" property="included.lib.libs.Shindig.classpath.35"/>
+        <basename file="${libs.Shindig.classpath.libfile.34}" property="included.lib.libs.Shindig.classpath.34"/>
+        <basename file="${libs.Shindig.classpath.libfile.33}" property="included.lib.libs.Shindig.classpath.33"/>
+        <basename file="${libs.Shindig.classpath.libfile.32}" property="included.lib.libs.Shindig.classpath.32"/>
+        <basename file="${libs.Shindig.classpath.libfile.31}" property="included.lib.libs.Shindig.classpath.31"/>
+        <basename file="${libs.Shindig.classpath.libfile.30}" property="included.lib.libs.Shindig.classpath.30"/>
+        <basename file="${libs.Shindig.classpath.libfile.29}" property="included.lib.libs.Shindig.classpath.29"/>
+        <basename file="${libs.Shindig.classpath.libfile.28}" property="included.lib.libs.Shindig.classpath.28"/>
+        <basename file="${libs.Shindig.classpath.libfile.27}" property="included.lib.libs.Shindig.classpath.27"/>
+        <basename file="${libs.Shindig.classpath.libfile.26}" property="included.lib.libs.Shindig.classpath.26"/>
+        <basename file="${libs.Shindig.classpath.libfile.25}" property="included.lib.libs.Shindig.classpath.25"/>
+        <basename file="${libs.Shindig.classpath.libfile.24}" property="included.lib.libs.Shindig.classpath.24"/>
+        <basename file="${libs.Shindig.classpath.libfile.23}" property="included.lib.libs.Shindig.classpath.23"/>
+        <basename file="${libs.Shindig.classpath.libfile.22}" property="included.lib.libs.Shindig.classpath.22"/>
+        <basename file="${libs.Shindig.classpath.libfile.21}" property="included.lib.libs.Shindig.classpath.21"/>
+        <basename file="${libs.Shindig.classpath.libfile.20}" property="included.lib.libs.Shindig.classpath.20"/>
+        <basename file="${libs.Shindig.classpath.libfile.19}" property="included.lib.libs.Shindig.classpath.19"/>
+        <basename file="${libs.Shindig.classpath.libfile.18}" property="included.lib.libs.Shindig.classpath.18"/>
+        <basename file="${libs.Shindig.classpath.libfile.17}" property="included.lib.libs.Shindig.classpath.17"/>
+        <basename file="${libs.Shindig.classpath.libfile.16}" property="included.lib.libs.Shindig.classpath.16"/>
+        <basename file="${libs.Shindig.classpath.libfile.15}" property="included.lib.libs.Shindig.classpath.15"/>
+        <basename file="${libs.Shindig.classpath.libfile.14}" property="included.lib.libs.Shindig.classpath.14"/>
+        <basename file="${libs.Shindig.classpath.libfile.13}" property="included.lib.libs.Shindig.classpath.13"/>
+        <basename file="${libs.Shindig.classpath.libfile.12}" property="included.lib.libs.Shindig.classpath.12"/>
+        <basename file="${libs.Shindig.classpath.libfile.11}" property="included.lib.libs.Shindig.classpath.11"/>
+        <basename file="${libs.Shindig.classpath.libfile.10}" property="included.lib.libs.Shindig.classpath.10"/>
+        <basename file="${libs.Shindig.classpath.libfile.9}" property="included.lib.libs.Shindig.classpath.9"/>
+        <basename file="${libs.Shindig.classpath.libfile.8}" property="included.lib.libs.Shindig.classpath.8"/>
+        <basename file="${libs.Shindig.classpath.libfile.7}" property="included.lib.libs.Shindig.classpath.7"/>
+        <basename file="${libs.Shindig.classpath.libfile.6}" property="included.lib.libs.Shindig.classpath.6"/>
+        <basename file="${libs.Shindig.classpath.libfile.5}" property="included.lib.libs.Shindig.classpath.5"/>
+        <basename file="${libs.Shindig.classpath.libfile.4}" property="included.lib.libs.Shindig.classpath.4"/>
+        <basename file="${libs.Shindig.classpath.libfile.3}" property="included.lib.libs.Shindig.classpath.3"/>
+        <basename file="${libs.Shindig.classpath.libfile.2}" property="included.lib.libs.Shindig.classpath.2"/>
+        <basename file="${libs.Shindig.classpath.libfile.1}" property="included.lib.libs.Shindig.classpath.1"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.40}" propname="included.lib.libs.Shindig.classpath.40.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.39}" propname="included.lib.libs.Shindig.classpath.39.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.38}" propname="included.lib.libs.Shindig.classpath.38.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.37}" propname="included.lib.libs.Shindig.classpath.37.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.36}" propname="included.lib.libs.Shindig.classpath.36.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.35}" propname="included.lib.libs.Shindig.classpath.35.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.34}" propname="included.lib.libs.Shindig.classpath.34.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.33}" propname="included.lib.libs.Shindig.classpath.33.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.32}" propname="included.lib.libs.Shindig.classpath.32.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.31}" propname="included.lib.libs.Shindig.classpath.31.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.30}" propname="included.lib.libs.Shindig.classpath.30.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.29}" propname="included.lib.libs.Shindig.classpath.29.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.28}" propname="included.lib.libs.Shindig.classpath.28.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.27}" propname="included.lib.libs.Shindig.classpath.27.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.26}" propname="included.lib.libs.Shindig.classpath.26.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.25}" propname="included.lib.libs.Shindig.classpath.25.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.24}" propname="included.lib.libs.Shindig.classpath.24.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.23}" propname="included.lib.libs.Shindig.classpath.23.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.22}" propname="included.lib.libs.Shindig.classpath.22.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.21}" propname="included.lib.libs.Shindig.classpath.21.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.20}" propname="included.lib.libs.Shindig.classpath.20.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.19}" propname="included.lib.libs.Shindig.classpath.19.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.18}" propname="included.lib.libs.Shindig.classpath.18.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.17}" propname="included.lib.libs.Shindig.classpath.17.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.16}" propname="included.lib.libs.Shindig.classpath.16.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.15}" propname="included.lib.libs.Shindig.classpath.15.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.14}" propname="included.lib.libs.Shindig.classpath.14.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.13}" propname="included.lib.libs.Shindig.classpath.13.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.12}" propname="included.lib.libs.Shindig.classpath.12.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.11}" propname="included.lib.libs.Shindig.classpath.11.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.10}" propname="included.lib.libs.Shindig.classpath.10.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.9}" propname="included.lib.libs.Shindig.classpath.9.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.8}" propname="included.lib.libs.Shindig.classpath.8.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.7}" propname="included.lib.libs.Shindig.classpath.7.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.6}" propname="included.lib.libs.Shindig.classpath.6.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.5}" propname="included.lib.libs.Shindig.classpath.5.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.4}" propname="included.lib.libs.Shindig.classpath.4.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.3}" propname="included.lib.libs.Shindig.classpath.3.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.2}" propname="included.lib.libs.Shindig.classpath.2.X"/>
+        <copy-ear-war file="${libs.Shindig.classpath.libfile.1}" propname="included.lib.libs.Shindig.classpath.1.X"/>
+        <basename file="${libs.SocialSite2.classpath.libfile.4}" property="included.lib.libs.SocialSite2.classpath.4"/>
+        <basename file="${libs.SocialSite2.classpath.libfile.3}" property="included.lib.libs.SocialSite2.classpath.3"/>
+        <basename file="${libs.SocialSite2.classpath.libfile.2}" property="included.lib.libs.SocialSite2.classpath.2"/>
+        <basename file="${libs.SocialSite2.classpath.libfile.1}" property="included.lib.libs.SocialSite2.classpath.1"/>
+        <copy-ear-war file="${libs.SocialSite2.classpath.libfile.4}" propname="included.lib.libs.SocialSite2.classpath.4.X"/>
+        <copy-ear-war file="${libs.SocialSite2.classpath.libfile.3}" propname="included.lib.libs.SocialSite2.classpath.3.X"/>
+        <copy-ear-war file="${libs.SocialSite2.classpath.libfile.2}" propname="included.lib.libs.SocialSite2.classpath.2.X"/>
+        <copy-ear-war file="${libs.SocialSite2.classpath.libfile.1}" propname="included.lib.libs.SocialSite2.classpath.1.X"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.libs.struts2lib-2-0-11-basic.classpath} "/>
+            <attribute name="Class-Path" value="${included.lib.libs.struts2lib-2-0-11-basic.classpath.1.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.2.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.3.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.4.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.5.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.6.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.7.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.8.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.9.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.10.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.11.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.12.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.13.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.14.X} ${included.lib.libs.SocialSite.classpath.1.X} ${included.lib.libs.SocialSite.classpath.2.X} ${included.lib.libs.SocialSite.classpath.3.X} ${included.lib.libs.SocialSite.classpath.4.X} ${included.lib.libs.SocialSite.classpath.5.X} ${included.lib.libs.SocialSite.classpath.6.X} ${included.lib.libs.SocialSite.classpath.7.X} ${included.lib.libs.SocialSite.classpath.8.X} ${included.lib.libs.SocialSite.classpath.9.X} ${included.lib.libs.SocialSite.classpath.10.X} ${included.lib.libs.SocialSite.classpath.11.X} ${included.lib.libs.SocialSite.classpath.12.X} ${included.lib.libs.SocialSite.classpath.13.X} ${included.lib.libs.SocialSite.classpath.14.X} ${included.lib.libs.Shindig.classpath.1.X} ${included.lib.libs.Shindig.classpath.2.X} ${included.lib.libs.Shindig.classpath.3.X} ${included.lib.libs.Shindig.classpath.4.X} ${included.lib.libs.Shindig.classpath.5.X} ${included.lib.libs.Shindig.classpath.6.X} ${included.lib.libs.Shindig.classpath.7.X} ${included.lib.libs.Shindig.classpath.8.X} ${included.lib.libs.Shindig.classpath.9.X} ${included.lib.libs.Shindig.classpath.10.X} ${included.lib.libs.Shindig.classpath.11.X} ${included.lib.libs.Shindig.classpath.12.X} ${included.lib.libs.Shindig.classpath.13.X} ${included.lib.libs.Shindig.classpath.14.X} ${included.lib.libs.Shindig.classpath.15.X} ${included.lib.libs.Shindig.classpath.16.X} ${included.lib.libs.Shindig.classpath.17.X} ${included.lib.libs.Shindig.classpath.18.X} ${included.lib.libs.Shindig.classpath.19.X} ${included.lib.libs.Shindig.classpath.20.X} ${included.lib.libs.Shindig.classpath.21.X} ${included.lib.libs.Shindig.classpath.22.X} ${included.lib.libs.Shindig.classpath.23.X} ${included.lib.libs.Shindig.classpath.24.X} ${included.lib.libs.Shindig.classpath.25.X} ${included.lib.libs.Shindig.classpath.26.X} ${included.lib.libs.Shindig.classpath.27.X} ${included.lib.libs.Shindig.classpath.28.X} ${included.lib.libs.Shindig.classpath.29.X} ${included.lib.libs.Shindig.classpath.30.X} ${included.lib.libs.Shindig.classpath.31.X} ${included.lib.libs.Shindig.classpath.32.X} ${included.lib.libs.Shindig.classpath.33.X} ${included.lib.libs.Shindig.classpath.34.X} ${included.lib.libs.Shindig.classpath.35.X} ${included.lib.libs.Shindig.classpath.36.X} ${included.lib.libs.Shindig.classpath.37.X} ${included.lib.libs.Shindig.classpath.38.X} ${included.lib.libs.Shindig.classpath.39.X} ${included.lib.libs.Shindig.classpath.40.X} ${included.lib.libs.SocialSite2.classpath.1.X} ${included.lib.libs.SocialSite2.classpath.2.X} ${included.lib.libs.SocialSite2.classpath.3.X} ${included.lib.libs.SocialSite2.classpath.4.X} "/>
         </manifest>
+        <delete dir="${dist.ear.dir}/temp"/>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
-        <copyfiles files="${libs.struts2lib-2-0-11-basic.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.14}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.13}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.12}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.11}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.10}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.9}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.8}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.7}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.6}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.5}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.4}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.3}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.2}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.1}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.14}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.13}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.12}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.11}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.10}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.9}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.8}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.7}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.6}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.5}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.4}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.3}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.2}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.1}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.40}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.39}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.38}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.37}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.36}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.35}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.34}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.33}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.32}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.31}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.30}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.29}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.28}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.27}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.26}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.25}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.24}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.23}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.22}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.21}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.20}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.19}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.18}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.17}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.16}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.15}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.14}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.13}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.12}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.11}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.10}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.9}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.8}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.7}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.6}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.5}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.4}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.3}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.2}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Shindig.classpath.libfile.1}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite2.classpath.libfile.4}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite2.classpath.libfile.3}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite2.classpath.libfile.2}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite2.classpath.libfile.1}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,library-inclusion-in-manifest" name="do-ear-dist">
         <dirname file="${dist.ear.war}" property="dist.jar.dir"/>
@@ -538,7 +764,7 @@ exists or setup the property manually. For example like this:
         <!-- You can override this target in the ../build.xml file. -->
     </target>
     <target depends="init,compile,-pre-dist,do-dist,-post-dist" description="Build distribution (WAR)." name="dist"/>
-    <target depends="init,-init-cos,compile,-pre-dist,do-ear-dist,-post-dist" description="Build distribution (WAR) to be packaged into an EAR." name="dist-ear"/>
+    <target depends="init,compile,-pre-dist,do-ear-dist,-post-dist" description="Build distribution (WAR) to be packaged into an EAR." name="dist-ear"/>
     <!--
                 EXECUTION SECTION
             -->
@@ -562,7 +788,7 @@ exists or setup the property manually. For example like this:
     <target name="-run-deploy-am">
         <!-- Task to deploy to the Access Manager runtime. -->
     </target>
-    <target depends="init,-init-cos,compile,compile-jsps,-do-compile-single-jsp,-pre-dist,-do-tmp-dist-with-manifest,-do-tmp-dist-without-manifest,-pre-run-deploy,-pre-nbmodule-run-deploy,-run-deploy-nb,-init-deploy-ant,-deploy-ant,-run-deploy-am,-post-nbmodule-run-deploy,-post-run-deploy" name="run-deploy">
+    <target depends="init,compile,compile-jsps,-do-compile-single-jsp,-pre-dist,-do-tmp-dist-with-manifest,-do-tmp-dist-without-manifest,-pre-run-deploy,-pre-nbmodule-run-deploy,-run-deploy-nb,-init-deploy-ant,-deploy-ant,-run-deploy-am,-post-nbmodule-run-deploy,-post-run-deploy" name="run-deploy">
         <nbjpdaappreloaded/>
     </target>
     <target if="netbeans.home" name="-run-deploy-nb">
@@ -642,7 +868,7 @@ exists or setup the property manually. For example like this:
             <arg line="${browser.args} ${browse.url}"/>
         </exec>
     </target>
-    <target depends="init,-init-cos,compile-single" name="run-main">
+    <target depends="init,compile-single" name="run-main">
         <fail unless="run.class">Must select one file in the IDE or set run.class</fail>
         <webproject1:java classname="${run.class}"/>
     </target>
@@ -658,10 +884,10 @@ exists or setup the property manually. For example like this:
     <target if="do.debug.server" name="connect-debugger" unless="is.debugged">
         <nbjpdaconnect address="${jpda.address}" host="${jpda.host}" name="${name}" transport="${jpda.transport}">
             <classpath>
-                <path path="${debug.classpath}:${j2ee.platform.classpath}"/>
+                <path path="${debug.classpath}:${j2ee.platform.classpath}:${ws.debug.classpaths}"/>
             </classpath>
             <sourcepath>
-                <path path="${web.docbase.dir}"/>
+                <path path="${web.docbase.dir}:${ws.web.docbase.dirs}"/>
             </sourcepath>
         </nbjpdaconnect>
     </target>
@@ -697,9 +923,11 @@ exists or setup the property manually. For example like this:
             <classpath>
                 <path path="${javac.classpath}:${j2ee.platform.classpath}"/>
             </classpath>
-            <fileset dir="${src.dir}" excludes="${excludes}" includes="${includes}">
-                <filename name="**/*.java"/>
-            </fileset>
+            <sourcepath>
+                <pathelement location="${src.dir}"/>
+            </sourcepath>
+            <packageset dir="${src.dir}" includes="*/**"/>
+            <fileset dir="${src.dir}" includes="*.java"/>
         </javadoc>
     </target>
     <target depends="init,javadoc-build" if="netbeans.home" name="javadoc-browse" unless="no.javadoc.preview">
@@ -720,7 +948,7 @@ exists or setup the property manually. For example like this:
     <target depends="init,compile,-pre-pre-compile-test,-pre-compile-test" if="have.tests" name="-do-compile-test">
         <webproject2:javac classpath="${javac.test.classpath}:${j2ee.platform.classpath}" debug="true" destdir="${build.test.classes.dir}" srcdir="${test.src.dir}"/>
         <copy todir="${build.test.classes.dir}">
-            <fileset dir="${test.src.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
+            <fileset dir="${test.src.dir}" excludes="**/*.java"/>
         </copy>
     </target>
     <target name="-post-compile-test">
@@ -734,9 +962,13 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="init,compile,-pre-pre-compile-test,-pre-compile-test-single" if="have.tests" name="-do-compile-test-single">
         <fail unless="javac.includes">Must select some files in the IDE or set javac.includes</fail>
-        <webproject2:javac classpath="${javac.test.classpath}:${j2ee.platform.classpath}" debug="true" destdir="${build.test.classes.dir}" excludes="" includes="${javac.includes}" srcdir="${test.src.dir}"/>
+        <webproject2:javac classpath="${javac.test.classpath}:${j2ee.platform.classpath}" debug="true" destdir="${build.test.classes.dir}" srcdir="${test.src.dir}">
+            <customize>
+                <patternset includes="${javac.includes}"/>
+            </customize>
+        </webproject2:javac>
         <copy todir="${build.test.classes.dir}">
-            <fileset dir="${test.src.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
+            <fileset dir="${test.src.dir}" excludes="**/*.java"/>
         </copy>
     </target>
     <target name="-post-compile-test-single">
@@ -752,7 +984,7 @@ exists or setup the property manually. For example like this:
         <mkdir dir="${build.test.results.dir}"/>
     </target>
     <target depends="init,compile-test,-pre-test-run" if="have.tests" name="-do-test-run">
-        <webproject2:junit testincludes="**/*Test.java"/>
+        <webproject2:junit/>
     </target>
     <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
         <fail if="tests.failed">Some tests failed; see details above.</fail>
@@ -765,7 +997,7 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="init,compile-test-single,-pre-test-run-single" if="have.tests" name="-do-test-run-single">
         <fail unless="test.includes">Must select some files in the IDE or set test.includes</fail>
-        <webproject2:junit excludes="" includes="${test.includes}"/>
+        <webproject2:junit includes="${test.includes}"/>
     </target>
     <target depends="init,compile-test-single,-pre-test-run-single,-do-test-run-single" if="have.tests" name="-post-test-run-single">
         <fail if="tests.failed">Some tests failed; see details above.</fail>
@@ -818,13 +1050,10 @@ exists or setup the property manually. For example like this:
         <echo message="Warning: unable to delete some files in ${build.web.dir}/WEB-INF/lib - they are probably locked by the J2EE server. "/>
         <echo level="info" message="To delete all files undeploy the module from Server Registry in Runtime tab and then use Clean again."/>
     </target>
-    <target depends="init" if="netbeans.home" name="undeploy-clean">
-        <nbundeploy failOnError="false" startServer="false"/>
-    </target>
     <target name="-post-clean">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target depends="init,undeploy-clean,deps-clean,do-clean,check-clean,-post-clean" description="Clean build products." name="clean"/>
+    <target depends="init,deps-clean,do-clean,check-clean,-post-clean" description="Clean build products." name="clean"/>
     <target depends="clean" description="Clean build products." name="clean-ear"/>
 </project>

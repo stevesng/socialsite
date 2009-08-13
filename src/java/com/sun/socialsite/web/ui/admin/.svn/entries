@@ -1,34 +1,0 @@
-8
-
-dir
-783
-https://socialsite.dev.java.net/svn/socialsite/trunk/src/java/com/sun/socialsite/web/ui/admin
-https://socialsite.dev.java.net/svn/socialsite
-
-
-
-2009-01-22T18:39:15.163668Z
-750
-bbissett
-
-
-svn:special svn:externals svn:needs-lock
-
-
-
-
-
-
-
-
-
-
-
-ff20f9fe-4f4a-0410-aef0-b8c762daf8db
-
-menu
-dir
-
-struts2
-dir
-

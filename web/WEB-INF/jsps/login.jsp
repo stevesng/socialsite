@@ -30,6 +30,7 @@
   window.onload = function() { document.getElementById('j_username').focus(); }
 </script>
 
+<h1><s:text name="Login.pageTitle" /></h1>
 <s:text name="Login.extraText"><span style="display:none;"></span></s:text>
 
 <c:if test="${failed}">
@@ -49,5 +50,16 @@
       <td>&nbsp;</td>
       <td><button type="submit"><s:text name="Login.button" /></button></td>
     </tr>
+    <c:if test="${selfRegistrationEnabled}">
+      <tr>
+        <td>&nbsp;</td>
+        <td>
+          <br />
+          <a href='<s:url namespace="/selfregistration" action="SelfRegistration" />'>
+            <s:text name="Login.selfRegistration"/>
+          </a>
+        </td>
+      </tr>
+    </c:if>
   </table>
 </form>

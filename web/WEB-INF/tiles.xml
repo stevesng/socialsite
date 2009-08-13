@@ -37,6 +37,41 @@
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
 
+    <!-- Core pages -->
+
+    <definition name=".core-basepage" template="/WEB-INF/jsps/tiles/core/tiles-basepage.jsp">
+        <put-attribute name="menu"    value="/WEB-INF/jsps/tiles/core/menu.jsp" />
+        <put-attribute name="sidebar" value="/WEB-INF/jsps/tiles/core/sidebar.jsp" />
+        <put-attribute name="content" value="${content}" />
+    </definition>
+
+    <definition name=".Login" extends=".core-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/login.jsp" />
+    </definition>
+
+    <definition name=".Home" extends=".core-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/core/Home.jsp" />
+    </definition>
+
+    <definition name=".GroupView" extends=".core-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/core/GroupView.jsp" />
+    </definition>
+
+    <definition name=".ProfileView" extends=".core-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/core/ProfileView.jsp" />
+    </definition>
+
+    <definition name=".SelfRegistration" extends=".core-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/SelfRegistration.jsp" />
+    </definition>
+
+    <definition name=".SelfRegistrationDone" extends=".core-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/SelfRegistrationDone.jsp" />
+    </definition>
+
+
+    <!-- Admin pages -->
+
     <definition name=".admin-basepage" template="/WEB-INF/jsps/tiles/admin/tiles-basepage.jsp">
         <put-attribute name="bannerStatus" value="/WEB-INF/jsps/tiles/admin/bannerStatus.jsp" />
         <put-attribute name="head"         value="/WEB-INF/jsps/tiles/admin/head.jsp" />
@@ -48,7 +83,9 @@
         <put-attribute name="content"      value="${content}" />
     </definition>
 
-    <!-- Admin pages -->
+    <definition name=".AdminLogin" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/login.jsp" />
+    </definition>
 
     <definition name=".Config" extends=".admin-basepage" >
         <put-attribute name="content" value="/WEB-INF/jsps/admin/Config.jsp" />
@@ -138,12 +175,8 @@
         <put-attribute name="content" value="/WEB-INF/jsps/admin/GadgetRegistrationReview.jsp" />
     </definition>
 
-    <!-- Core pages -->
 
-    <definition name=".Login" extends=".admin-basepage" >
-        <put-attribute name="content" value="/WEB-INF/jsps/login.jsp" />
-    </definition>
-
+    <!-- Common pages -->
     <definition name=".Logout" template="/WEB-INF/jsps/logout.jsp">
     </definition>
 

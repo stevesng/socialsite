@@ -1,0 +1,432 @@
+/*
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+*/
+
+/* Elements */
+
+body {
+	margin: 20px 0;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: #A1A1A1;
+}
+
+h1 {
+text-size:180%;
+}
+
+h2 {
+text-size:140%;
+}
+
+h3 {
+text-size:120%;
+padding: 1em 0 1em 0;
+}
+
+h2, h3, h4, h5, h6, h3>a {
+	text-decoration: none;
+	color: #2582A4;
+}
+
+p, ol, ul {
+	text-align: justify;
+}
+
+strong {
+	font-weight: bold;
+	color: #808080;
+}
+
+a {
+	color: #87A019;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #2582A4;
+}
+
+.box {
+	margin-bottom: 0;
+	padding-bottom: 0;
+	background: url(images/img07.gif) repeat-x left bottom;
+}
+
+.bottom {
+	display: block;
+	margin-bottom: 0;
+	padding-bottom: 10px;
+	background: url(images/img08.gif) no-repeat left bottom;
+}
+
+.image {
+	float: left;
+	margin: 3px 0 0 0;
+	padding: 0;
+}
+
+.indent {
+	margin-left: 125px;
+}
+
+/* Header */
+
+#header {
+	width: 928px;
+	height: 37px;
+	margin: 0 auto;
+	background: #BECF74 url(images/img01.gif) repeat-x;
+	border-bottom: 3px solid #FFFFFF;
+}
+
+/* Menu */
+
+#menu {
+	float: left;
+	width: 600px;
+	height: 37px;
+	margin: 0;
+	padding: 0 0 0 10px;
+	list-style: none;
+	background: url(images/img02.gif) no-repeat;
+}
+
+#menu li {
+	display: inline;
+}
+
+#menu a {
+	display: block;
+	float: left;
+	height: 27px;
+	padding: 10px 15px 0px 15px;
+	text-transform: lowercase;
+	text-decoration: none;
+	font-size: 12px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+#menu a:hover {
+	background: #A4B74C url(images/img04.gif) repeat-x;
+}
+
+/* Search */
+
+#search {
+	float: right;
+	height: 28px;
+	margin: 0;
+	padding: 9px 25px 0 0;
+	background: url(images/img03.gif) no-repeat right top;
+}
+
+#search fieldset {
+	display: inline;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+#input1 {
+	width: 164px;
+	padding: 2px 5px;
+	background: #FFFFFF;
+	border: none;
+}
+
+#input2 {
+	height: 20px;
+	background: #87C4DB;
+	border: none;
+	text-transform: lowercase;
+	font-size: 10px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+/* Content */
+
+#content {
+	width: 928px;
+	margin: 0 auto;
+}
+
+#colOne {
+	float: left;
+	width: 238px;
+	background: url(images/img05.gif) repeat-x;
+}
+
+#colOne h3 {
+	padding: 0 20px;
+}
+
+#colOne ul {
+	margin-left: 0;
+	padding-left: 20px;
+	padding-right: 20px;
+	list-style: none;
+}
+
+#colOne li {
+	padding: 5px 0;
+	border-top: 1px solid #EFEFEF;
+}
+
+#colOne li.first {
+	border: none;
+}
+
+#colTwo {
+	float: right;
+	width: 617px;
+	padding: 10px 40px 0 30px;
+	background: url(images/img09.gif) repeat-x;
+}
+
+#colTwo h2 {
+	margin-top: 0;
+	font-size: 26px;
+}
+
+#colTwo h3 {
+	margin-bottom: 0;
+	font-size: 18px;
+}
+
+#colTwo h4 {
+	margin-top: 0;
+	font-size: 14px;
+	font-weight: normal;
+}
+
+#colTwo .box {
+	margin: 0 -30px 30px -20px;
+	padding: 0 30px 0 20px;
+}
+
+#colTwo .bottom {
+	margin: 0 0 20px -20px;
+	padding: 0 0 20px 20px;
+}
+
+/* Logo */
+
+#logo {
+	height: 150px;
+	background: url(images/img06.gif) no-repeat;
+}
+
+#logo h1, #logo h2, #logo a {
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	text-transform: lowercase;
+	text-align: center;
+	color: #FFFFFF;
+}
+
+#logo h1 {
+	padding-top: 25px;
+	font-size: 34px;
+}
+
+#logo h2 {
+	margin-top: -5px;
+	font-size: 12px;
+}
+
+#logo h3 {
+	margin-top: -5px;
+	font-size: 9px;
+}
+
+/* Footer */
+
+#footer {
+	clear: both;
+	width: 928px;
+	margin: 0 auto;
+	padding-top: 40px;
+	background: url(images/img11.gif) repeat-x;
+}
+
+#footer p {
+	margin: 0;
+	text-align: center;
+}
+
+
+
+/* SocialFish table style */
+
+td.tdLabel {
+    vertical-align:top;
+}
+
+table.form {
+    width: 80%
+}
+table.data {
+    width: 100%;
+    font-size: small;
+    border-collapse: collapse;
+    border: 1px solid #a0a0a0;
+}
+table.data td {
+    text-align:left;
+    border-collapse: collapse;
+    border: 1px solid #a0a0a0;
+    padding: 3px;
+ }
+table.data th {
+    text-align:left;
+    border-collapse: collapse;
+    border: 1px solid #a0a0a0;
+    padding: 3px;
+    font-size:120%;
+    color: #2582A4;
+}
+td.narrowColumn {
+    width: 15%;
+}
+td.labelColumn {
+    width: 25%;
+}
+td.valueColumn {
+    width: 75%;
+}
+tr.evenRow {
+    background: #f5f5f5;
+}
+table.data>thead>tr>th {
+    background-image: url(images/th-bg-grey.png);
+}
+
+/* comments ----------------------------------------------- */
+
+p.comment-details {
+    font-size: 80%;
+    color: #999;
+}
+.comments-head {
+    border-top: 1px solid gainsboro;
+    font-size: 120%;
+    padding: 5px;
+    margin-top: 1em;
+    font-weight: bolder;
+}
+.comments .even {
+     padding: 5px 10px;
+}
+.comments .odd {
+     background: #eee;
+     padding: 5px 10px;
+     border-top: 1px solid silver;
+     border-bottom: 1px solid silver;
+}
+.comment .comment-details {
+    padding-left: 3px;
+    margin-bottom: 0 !important;
+}
+.comments-syntax-indicator {
+    font-weight: bold;
+}
+.comments-syntax-indicator .enabled {
+    color: green;
+    font-style: italic;
+}
+.comments-syntax-indicator .disabled {
+    color: red;
+    font-style: italic;
+}
+div#commentAuthenticator p {
+    font-size: 11px;
+}
+form#commentForm textarea {
+    width: 100%;
+}
+
+form ul{ position: relative; list-style: none; width: 100%; }
+form li{ line-height: 2em; margin: 0; padding: 1px 1px 6px 9px; }
+form li.focused{ background-color: #fff7c0 !important; }
+form li p{ font-size: 9px; line-height: 13px; color: #444; }
+/* form li{ display: inline-block; } */
+form[id] li{ display: block; }
+
+form li div{ display: inline-block; }
+
+form[id] li div{ display: inline; }
+form .left{ float: left !important; margin: 0; }
+form .right{ float: right !important; margin: 0; }
+form .clear{ clear: both; } 
+form li div p{ margin: 0 0 5px 0; }
+form div.left{ margin-right: 2px !important; }
+form div.left[class]{ margin-right: 4px !important; }
+form div.left img{ margin: 0 0 -2px 0; }
+form h2{ font-size: 1.8em; clear: left; } 
+form .info { display: inline-block; margin: 0 0 10px 0; padding: 0 0 4px 0; !important; }
+form .info[class]{ display: block; }
+form .info p{ font-size: 1em; line-height: 1.3em; margin: 0 0 8px 0; }
+textarea.textarea{margin-bottom: 1px;}
+textarea.textarea[class]{font-family: "Lucida Grande", Tahoma, "Trebuchet MS", Verdana, sans-serif;}
+select.select{ padding: 1px 0 0 0; margin: 1px 0 3px 0; }
+select.select[class]{ margin: 0; padding: 1px 0 1px 0; }
+form .small{ width: 70px; }
+form .medium{ width: 170px; }
+form .large, form textarea.textarea{ width: 340px; }
+form .tags{ width: 320px; }
+form textarea.small{ height: 5.5em; }
+form textarea.medium{ height: 10em; }
+form textarea.large{ height: 20em; }
+.choices input{ width: 200px; margin-right: 3px; }
+.choices ol{ margin: 10px 0 0 0; }
+.choices[class] ol{ margin: 0 !important; }
+.choices img{ margin: 0 0 1px 0; }
+fieldset ol li{ display: list-item !important; margin: 0 5px 2px 3px !important; padding: 0 !important; list-style: inside decimal; }
+input.button, button { width: 6em; padding: 2px 2px 0 0; /* fix for IE */ }
+/* revert to normal for Firefox */
+li>input.button, li>button, input.button>input.button, button>button { padding: 2px; }
+label.desc{
+    margin: 4px 0 3px 0;
+    border: 0;
+    color: #444;
+    font-size: 1em;
+    line-height: 1.3em;
+    display: block;
+    font-weight: bold;
+}
+input.text, input.number, input.url, input.email, input.password, input.file, 
+textarea.textarea, select.select{
+    font-size: 1.2em;
+    border-top: 1px solid #7c7c7c;
+    border-left: 1px solid #c3c3c3;
+    border-right: 1px solid #c3c3c3;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+input.text, input.number, input.url, input.email, input.password, input.file{ padding: 2px; }
+input.currency{ text-align: right; }
+input.checkbox, input.radio{
+    display: block;
+    line-height: 1.4em;
+    margin: 8px 0 0 3px;
+    width: 13px;
+    height: 13px;
+}
+input.focus, textarea.focus { background: #ffd; color: #000; }
+label.choice{
+    display: block;
+    line-height: 1.4em;
+    margin: -19px 0 0 25px;
+    padding: 4px 0 5px 0;
+    color: #444;
+    width: 80%;
+}
+
+
+
+

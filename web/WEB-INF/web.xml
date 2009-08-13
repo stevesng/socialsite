@@ -207,6 +207,13 @@
     
     <filter-mapping>
         <filter-name>struts2</filter-name>
+        <url-pattern>/app-ui/core/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
         <url-pattern>/app-ui/raw/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
@@ -559,6 +566,20 @@
         <display-name>app-ui</display-name>
         <web-resource-collection>
             <web-resource-name>app-ui</web-resource-name>
+            <url-pattern>/app-ui/core/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>user</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <display-name>app-ui</display-name>
+        <web-resource-collection>
+            <web-resource-name>app-ui</web-resource-name>
             <url-pattern>/app-ui/admin/*</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
@@ -595,7 +616,8 @@
 
     <login-config>
         <auth-method>FORM</auth-method>
-        <realm-name>SocialSite_AdminRealm</realm-name>
+        <realm-name>SocialSite_UserRealm</realm-name>
+        <!-- <realm-name>SocialSite_AdminRealm</realm-name> -->
         <form-login-config>
             <form-login-page>/app-ui/login</form-login-page>
             <form-error-page>/app-ui/login?failed=true</form-error-page>

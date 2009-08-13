@@ -35,4 +35,4 @@
 
 <%@ page language="java" %>
 
-<% response.sendRedirect("app-ui/admin/Config"); %>
+<% response.sendRedirect("app-ui/core/"); %>

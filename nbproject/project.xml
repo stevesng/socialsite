@@ -7,19 +7,15 @@
             <minimum-ant-version>1.6</minimum-ant-version>
             <web-module-libraries>
                 <library files="14">
-                    <file>${libs.struts2lib-2-0-11-basic.classpath}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library files="14">
-                    <file>${libs.SocialSite.classpath}</file>
+                    <file>${libs.Struts.classpath}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library files="40">
                     <file>${libs.Shindig.classpath}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library files="4">
-                    <file>${libs.SocialSite2.classpath}</file>
+                <library files="6">
+                    <file>${libs.SocialSite.classpath}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>

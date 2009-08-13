@@ -1,0 +1,70 @@
+body { font-size: 12px; }
+
+img { vertical-align: middle; }
+
+#colTwo h2 {
+    font-size: 20px;
+    margin: 0;
+    padding: 10px 0 0 0;
+}
+
+#colTwo h3 {
+    font-size: 16px;
+}
+
+#colTwo h4 {
+    font-size: 12px;
+}
+
+
+/* SocialFish table style */
+table {
+    font-size: 12px;
+}
+td.tdLabel {
+    vertical-align: middle;
+}
+table.form {
+    width: 80%
+}
+table.data {
+    width: 100%;
+    font-size: small;
+    border-collapse: collapse;
+    border: 1px solid #a0a0a0;
+}
+table.data td {
+    text-align:left;
+    border-collapse: collapse;
+    border: 1px solid #a0a0a0;
+    padding: 3px;
+ }
+table.data th {
+    text-align:left;
+    border-collapse: collapse;
+    border: 1px solid #a0a0a0;
+    padding: 3px;
+    font-size:120%;
+    color: #2582A4;
+}
+td.narrowColumn {
+    width: 15%;
+}
+td.labelColumn {
+    width: 25%;
+}
+td.valueColumn {
+    width: 75%;
+}
+tr.evenRow {
+    background: #f5f5f5;
+}
+table.data>thead>tr>th {
+    background-image: url(images/th-bg-grey.png);
+}
+label {
+    font-size: 12px;
+}
+input, input.text, input.number, input.url, input.email, input.password, input.file, textarea.textarea, select.select {
+    font-size: 12px;
+}

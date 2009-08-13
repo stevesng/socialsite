@@ -528,62 +528,34 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,-do-dist-with-manifest,-do-dist-without-manifest" name="do-dist"/>
     <target depends="init" if="dist.ear.dir" name="library-inclusion-in-manifest">
-        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.14}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.14"/>
-        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.13}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.13"/>
-        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.12}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.12"/>
-        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.11}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.11"/>
-        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.10}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.10"/>
-        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.9}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.9"/>
-        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.8}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.8"/>
-        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.7}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.7"/>
-        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.6}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.6"/>
-        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.5}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.5"/>
-        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.4}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.4"/>
-        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.3}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.3"/>
-        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.2}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.2"/>
-        <basename file="${libs.struts2lib-2-0-11-basic.classpath.libfile.1}" property="included.lib.libs.struts2lib-2-0-11-basic.classpath.1"/>
-        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.14}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.14.X"/>
-        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.13}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.13.X"/>
-        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.12}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.12.X"/>
-        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.11}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.11.X"/>
-        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.10}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.10.X"/>
-        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.9}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.9.X"/>
-        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.8}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.8.X"/>
-        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.7}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.7.X"/>
-        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.6}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.6.X"/>
-        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.5}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.5.X"/>
-        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.4}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.4.X"/>
-        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.3}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.3.X"/>
-        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.2}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.2.X"/>
-        <copy-ear-war file="${libs.struts2lib-2-0-11-basic.classpath.libfile.1}" propname="included.lib.libs.struts2lib-2-0-11-basic.classpath.1.X"/>
-        <basename file="${libs.SocialSite.classpath.libfile.14}" property="included.lib.libs.SocialSite.classpath.14"/>
-        <basename file="${libs.SocialSite.classpath.libfile.13}" property="included.lib.libs.SocialSite.classpath.13"/>
-        <basename file="${libs.SocialSite.classpath.libfile.12}" property="included.lib.libs.SocialSite.classpath.12"/>
-        <basename file="${libs.SocialSite.classpath.libfile.11}" property="included.lib.libs.SocialSite.classpath.11"/>
-        <basename file="${libs.SocialSite.classpath.libfile.10}" property="included.lib.libs.SocialSite.classpath.10"/>
-        <basename file="${libs.SocialSite.classpath.libfile.9}" property="included.lib.libs.SocialSite.classpath.9"/>
-        <basename file="${libs.SocialSite.classpath.libfile.8}" property="included.lib.libs.SocialSite.classpath.8"/>
-        <basename file="${libs.SocialSite.classpath.libfile.7}" property="included.lib.libs.SocialSite.classpath.7"/>
-        <basename file="${libs.SocialSite.classpath.libfile.6}" property="included.lib.libs.SocialSite.classpath.6"/>
-        <basename file="${libs.SocialSite.classpath.libfile.5}" property="included.lib.libs.SocialSite.classpath.5"/>
-        <basename file="${libs.SocialSite.classpath.libfile.4}" property="included.lib.libs.SocialSite.classpath.4"/>
-        <basename file="${libs.SocialSite.classpath.libfile.3}" property="included.lib.libs.SocialSite.classpath.3"/>
-        <basename file="${libs.SocialSite.classpath.libfile.2}" property="included.lib.libs.SocialSite.classpath.2"/>
-        <basename file="${libs.SocialSite.classpath.libfile.1}" property="included.lib.libs.SocialSite.classpath.1"/>
-        <copy-ear-war file="${libs.SocialSite.classpath.libfile.14}" propname="included.lib.libs.SocialSite.classpath.14.X"/>
-        <copy-ear-war file="${libs.SocialSite.classpath.libfile.13}" propname="included.lib.libs.SocialSite.classpath.13.X"/>
-        <copy-ear-war file="${libs.SocialSite.classpath.libfile.12}" propname="included.lib.libs.SocialSite.classpath.12.X"/>
-        <copy-ear-war file="${libs.SocialSite.classpath.libfile.11}" propname="included.lib.libs.SocialSite.classpath.11.X"/>
-        <copy-ear-war file="${libs.SocialSite.classpath.libfile.10}" propname="included.lib.libs.SocialSite.classpath.10.X"/>
-        <copy-ear-war file="${libs.SocialSite.classpath.libfile.9}" propname="included.lib.libs.SocialSite.classpath.9.X"/>
-        <copy-ear-war file="${libs.SocialSite.classpath.libfile.8}" propname="included.lib.libs.SocialSite.classpath.8.X"/>
-        <copy-ear-war file="${libs.SocialSite.classpath.libfile.7}" propname="included.lib.libs.SocialSite.classpath.7.X"/>
-        <copy-ear-war file="${libs.SocialSite.classpath.libfile.6}" propname="included.lib.libs.SocialSite.classpath.6.X"/>
-        <copy-ear-war file="${libs.SocialSite.classpath.libfile.5}" propname="included.lib.libs.SocialSite.classpath.5.X"/>
-        <copy-ear-war file="${libs.SocialSite.classpath.libfile.4}" propname="included.lib.libs.SocialSite.classpath.4.X"/>
-        <copy-ear-war file="${libs.SocialSite.classpath.libfile.3}" propname="included.lib.libs.SocialSite.classpath.3.X"/>
-        <copy-ear-war file="${libs.SocialSite.classpath.libfile.2}" propname="included.lib.libs.SocialSite.classpath.2.X"/>
-        <copy-ear-war file="${libs.SocialSite.classpath.libfile.1}" propname="included.lib.libs.SocialSite.classpath.1.X"/>
+        <basename file="${libs.Struts.classpath.libfile.14}" property="included.lib.libs.Struts.classpath.14"/>
+        <basename file="${libs.Struts.classpath.libfile.13}" property="included.lib.libs.Struts.classpath.13"/>
+        <basename file="${libs.Struts.classpath.libfile.12}" property="included.lib.libs.Struts.classpath.12"/>
+        <basename file="${libs.Struts.classpath.libfile.11}" property="included.lib.libs.Struts.classpath.11"/>
+        <basename file="${libs.Struts.classpath.libfile.10}" property="included.lib.libs.Struts.classpath.10"/>
+        <basename file="${libs.Struts.classpath.libfile.9}" property="included.lib.libs.Struts.classpath.9"/>
+        <basename file="${libs.Struts.classpath.libfile.8}" property="included.lib.libs.Struts.classpath.8"/>
+        <basename file="${libs.Struts.classpath.libfile.7}" property="included.lib.libs.Struts.classpath.7"/>
+        <basename file="${libs.Struts.classpath.libfile.6}" property="included.lib.libs.Struts.classpath.6"/>
+        <basename file="${libs.Struts.classpath.libfile.5}" property="included.lib.libs.Struts.classpath.5"/>
+        <basename file="${libs.Struts.classpath.libfile.4}" property="included.lib.libs.Struts.classpath.4"/>
+        <basename file="${libs.Struts.classpath.libfile.3}" property="included.lib.libs.Struts.classpath.3"/>
+        <basename file="${libs.Struts.classpath.libfile.2}" property="included.lib.libs.Struts.classpath.2"/>
+        <basename file="${libs.Struts.classpath.libfile.1}" property="included.lib.libs.Struts.classpath.1"/>
+        <copy-ear-war file="${libs.Struts.classpath.libfile.14}" propname="included.lib.libs.Struts.classpath.14.X"/>
+        <copy-ear-war file="${libs.Struts.classpath.libfile.13}" propname="included.lib.libs.Struts.classpath.13.X"/>
+        <copy-ear-war file="${libs.Struts.classpath.libfile.12}" propname="included.lib.libs.Struts.classpath.12.X"/>
+        <copy-ear-war file="${libs.Struts.classpath.libfile.11}" propname="included.lib.libs.Struts.classpath.11.X"/>
+        <copy-ear-war file="${libs.Struts.classpath.libfile.10}" propname="included.lib.libs.Struts.classpath.10.X"/>
+        <copy-ear-war file="${libs.Struts.classpath.libfile.9}" propname="included.lib.libs.Struts.classpath.9.X"/>
+        <copy-ear-war file="${libs.Struts.classpath.libfile.8}" propname="included.lib.libs.Struts.classpath.8.X"/>
+        <copy-ear-war file="${libs.Struts.classpath.libfile.7}" propname="included.lib.libs.Struts.classpath.7.X"/>
+        <copy-ear-war file="${libs.Struts.classpath.libfile.6}" propname="included.lib.libs.Struts.classpath.6.X"/>
+        <copy-ear-war file="${libs.Struts.classpath.libfile.5}" propname="included.lib.libs.Struts.classpath.5.X"/>
+        <copy-ear-war file="${libs.Struts.classpath.libfile.4}" propname="included.lib.libs.Struts.classpath.4.X"/>
+        <copy-ear-war file="${libs.Struts.classpath.libfile.3}" propname="included.lib.libs.Struts.classpath.3.X"/>
+        <copy-ear-war file="${libs.Struts.classpath.libfile.2}" propname="included.lib.libs.Struts.classpath.2.X"/>
+        <copy-ear-war file="${libs.Struts.classpath.libfile.1}" propname="included.lib.libs.Struts.classpath.1.X"/>
         <basename file="${libs.Shindig.classpath.libfile.40}" property="included.lib.libs.Shindig.classpath.40"/>
         <basename file="${libs.Shindig.classpath.libfile.39}" property="included.lib.libs.Shindig.classpath.39"/>
         <basename file="${libs.Shindig.classpath.libfile.38}" property="included.lib.libs.Shindig.classpath.38"/>
@@ -664,49 +636,39 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
         <copy-ear-war file="${libs.Shindig.classpath.libfile.3}" propname="included.lib.libs.Shindig.classpath.3.X"/>
         <copy-ear-war file="${libs.Shindig.classpath.libfile.2}" propname="included.lib.libs.Shindig.classpath.2.X"/>
         <copy-ear-war file="${libs.Shindig.classpath.libfile.1}" propname="included.lib.libs.Shindig.classpath.1.X"/>
-        <basename file="${libs.SocialSite2.classpath.libfile.4}" property="included.lib.libs.SocialSite2.classpath.4"/>
-        <basename file="${libs.SocialSite2.classpath.libfile.3}" property="included.lib.libs.SocialSite2.classpath.3"/>
-        <basename file="${libs.SocialSite2.classpath.libfile.2}" property="included.lib.libs.SocialSite2.classpath.2"/>
-        <basename file="${libs.SocialSite2.classpath.libfile.1}" property="included.lib.libs.SocialSite2.classpath.1"/>
-        <copy-ear-war file="${libs.SocialSite2.classpath.libfile.4}" propname="included.lib.libs.SocialSite2.classpath.4.X"/>
-        <copy-ear-war file="${libs.SocialSite2.classpath.libfile.3}" propname="included.lib.libs.SocialSite2.classpath.3.X"/>
-        <copy-ear-war file="${libs.SocialSite2.classpath.libfile.2}" propname="included.lib.libs.SocialSite2.classpath.2.X"/>
-        <copy-ear-war file="${libs.SocialSite2.classpath.libfile.1}" propname="included.lib.libs.SocialSite2.classpath.1.X"/>
+        <basename file="${libs.SocialSite.classpath.libfile.6}" property="included.lib.libs.SocialSite.classpath.6"/>
+        <basename file="${libs.SocialSite.classpath.libfile.5}" property="included.lib.libs.SocialSite.classpath.5"/>
+        <basename file="${libs.SocialSite.classpath.libfile.4}" property="included.lib.libs.SocialSite.classpath.4"/>
+        <basename file="${libs.SocialSite.classpath.libfile.3}" property="included.lib.libs.SocialSite.classpath.3"/>
+        <basename file="${libs.SocialSite.classpath.libfile.2}" property="included.lib.libs.SocialSite.classpath.2"/>
+        <basename file="${libs.SocialSite.classpath.libfile.1}" property="included.lib.libs.SocialSite.classpath.1"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.6}" propname="included.lib.libs.SocialSite.classpath.6.X"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.5}" propname="included.lib.libs.SocialSite.classpath.5.X"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.4}" propname="included.lib.libs.SocialSite.classpath.4.X"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.3}" propname="included.lib.libs.SocialSite.classpath.3.X"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.2}" propname="included.lib.libs.SocialSite.classpath.2.X"/>
+        <copy-ear-war file="${libs.SocialSite.classpath.libfile.1}" propname="included.lib.libs.SocialSite.classpath.1.X"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${included.lib.libs.struts2lib-2-0-11-basic.classpath.1.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.2.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.3.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.4.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.5.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.6.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.7.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.8.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.9.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.10.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.11.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.12.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.13.X} ${included.lib.libs.struts2lib-2-0-11-basic.classpath.14.X} ${included.lib.libs.SocialSite.classpath.1.X} ${included.lib.libs.SocialSite.classpath.2.X} ${included.lib.libs.SocialSite.classpath.3.X} ${included.lib.libs.SocialSite.classpath.4.X} ${included.lib.libs.SocialSite.classpath.5.X} ${included.lib.libs.SocialSite.classpath.6.X} ${included.lib.libs.SocialSite.classpath.7.X} ${included.lib.libs.SocialSite.classpath.8.X} ${included.lib.libs.SocialSite.classpath.9.X} ${included.lib.libs.SocialSite.classpath.10.X} ${included.lib.libs.SocialSite.classpath.11.X} ${included.lib.libs.SocialSite.classpath.12.X} ${included.lib.libs.SocialSite.classpath.13.X} ${included.lib.libs.SocialSite.classpath.14.X} ${included.lib.libs.Shindig.classpath.1.X} ${included.lib.libs.Shindig.classpath.2.X} ${included.lib.libs.Shindig.classpath.3.X} ${included.lib.libs.Shindig.classpath.4.X} ${included.lib.libs.Shindig.classpath.5.X} ${included.lib.libs.Shindig.classpath.6.X} ${included.lib.libs.Shindig.classpath.7.X} ${included.lib.libs.Shindig.classpath.8.X} ${included.lib.libs.Shindig.classpath.9.X} ${included.lib.libs.Shindig.classpath.10.X} ${included.lib.libs.Shindig.classpath.11.X} ${included.lib.libs.Shindig.classpath.12.X} ${included.lib.libs.Shindig.classpath.13.X} ${included.lib.libs.Shindig.classpath.14.X} ${included.lib.libs.Shindig.classpath.15.X} ${included.lib.libs.Shindig.classpath.16.X} ${included.lib.libs.Shindig.classpath.17.X} ${included.lib.libs.Shindig.classpath.18.X} ${included.lib.libs.Shindig.classpath.19.X} ${included.lib.libs.Shindig.classpath.20.X} ${included.lib.libs.Shindig.classpath.21.X} ${included.lib.libs.Shindig.classpath.22.X} ${included.lib.libs.Shindig.classpath.23.X} ${included.lib.libs.Shindig.classpath.24.X} ${included.lib.libs.Shindig.classpath.25.X} ${included.lib.libs.Shindig.classpath.26.X} ${included.lib.libs.Shindig.classpath.27.X} ${included.lib.libs.Shindig.classpath.28.X} ${included.lib.libs.Shindig.classpath.29.X} ${included.lib.libs.Shindig.classpath.30.X} ${included.lib.libs.Shindig.classpath.31.X} ${included.lib.libs.Shindig.classpath.32.X} ${included.lib.libs.Shindig.classpath.33.X} ${included.lib.libs.Shindig.classpath.34.X} ${included.lib.libs.Shindig.classpath.35.X} ${included.lib.libs.Shindig.classpath.36.X} ${included.lib.libs.Shindig.classpath.37.X} ${included.lib.libs.Shindig.classpath.38.X} ${included.lib.libs.Shindig.classpath.39.X} ${included.lib.libs.Shindig.classpath.40.X} ${included.lib.libs.SocialSite2.classpath.1.X} ${included.lib.libs.SocialSite2.classpath.2.X} ${included.lib.libs.SocialSite2.classpath.3.X} ${included.lib.libs.SocialSite2.classpath.4.X} "/>
+            <attribute name="Class-Path" value="${included.lib.libs.Struts.classpath.1.X} ${included.lib.libs.Struts.classpath.2.X} ${included.lib.libs.Struts.classpath.3.X} ${included.lib.libs.Struts.classpath.4.X} ${included.lib.libs.Struts.classpath.5.X} ${included.lib.libs.Struts.classpath.6.X} ${included.lib.libs.Struts.classpath.7.X} ${included.lib.libs.Struts.classpath.8.X} ${included.lib.libs.Struts.classpath.9.X} ${included.lib.libs.Struts.classpath.10.X} ${included.lib.libs.Struts.classpath.11.X} ${included.lib.libs.Struts.classpath.12.X} ${included.lib.libs.Struts.classpath.13.X} ${included.lib.libs.Struts.classpath.14.X} ${included.lib.libs.Shindig.classpath.1.X} ${included.lib.libs.Shindig.classpath.2.X} ${included.lib.libs.Shindig.classpath.3.X} ${included.lib.libs.Shindig.classpath.4.X} ${included.lib.libs.Shindig.classpath.5.X} ${included.lib.libs.Shindig.classpath.6.X} ${included.lib.libs.Shindig.classpath.7.X} ${included.lib.libs.Shindig.classpath.8.X} ${included.lib.libs.Shindig.classpath.9.X} ${included.lib.libs.Shindig.classpath.10.X} ${included.lib.libs.Shindig.classpath.11.X} ${included.lib.libs.Shindig.classpath.12.X} ${included.lib.libs.Shindig.classpath.13.X} ${included.lib.libs.Shindig.classpath.14.X} ${included.lib.libs.Shindig.classpath.15.X} ${included.lib.libs.Shindig.classpath.16.X} ${included.lib.libs.Shindig.classpath.17.X} ${included.lib.libs.Shindig.classpath.18.X} ${included.lib.libs.Shindig.classpath.19.X} ${included.lib.libs.Shindig.classpath.20.X} ${included.lib.libs.Shindig.classpath.21.X} ${included.lib.libs.Shindig.classpath.22.X} ${included.lib.libs.Shindig.classpath.23.X} ${included.lib.libs.Shindig.classpath.24.X} ${included.lib.libs.Shindig.classpath.25.X} ${included.lib.libs.Shindig.classpath.26.X} ${included.lib.libs.Shindig.classpath.27.X} ${included.lib.libs.Shindig.classpath.28.X} ${included.lib.libs.Shindig.classpath.29.X} ${included.lib.libs.Shindig.classpath.30.X} ${included.lib.libs.Shindig.classpath.31.X} ${included.lib.libs.Shindig.classpath.32.X} ${included.lib.libs.Shindig.classpath.33.X} ${included.lib.libs.Shindig.classpath.34.X} ${included.lib.libs.Shindig.classpath.35.X} ${included.lib.libs.Shindig.classpath.36.X} ${included.lib.libs.Shindig.classpath.37.X} ${included.lib.libs.Shindig.classpath.38.X} ${included.lib.libs.Shindig.classpath.39.X} ${included.lib.libs.Shindig.classpath.40.X} ${included.lib.libs.SocialSite.classpath.1.X} ${included.lib.libs.SocialSite.classpath.2.X} ${included.lib.libs.SocialSite.classpath.3.X} ${included.lib.libs.SocialSite.classpath.4.X} ${included.lib.libs.SocialSite.classpath.5.X} ${included.lib.libs.SocialSite.classpath.6.X} "/>
         </manifest>
         <delete dir="${dist.ear.dir}/temp"/>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
-        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.14}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.13}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.12}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.11}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.10}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.9}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.8}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.7}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.6}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.5}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.4}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.3}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.2}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.struts2lib-2-0-11-basic.classpath.libfile.1}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.SocialSite.classpath.libfile.14}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.SocialSite.classpath.libfile.13}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.SocialSite.classpath.libfile.12}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.SocialSite.classpath.libfile.11}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.SocialSite.classpath.libfile.10}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.SocialSite.classpath.libfile.9}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.SocialSite.classpath.libfile.8}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.SocialSite.classpath.libfile.7}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.SocialSite.classpath.libfile.6}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.SocialSite.classpath.libfile.5}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.SocialSite.classpath.libfile.4}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.SocialSite.classpath.libfile.3}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.SocialSite.classpath.libfile.2}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.SocialSite.classpath.libfile.1}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Struts.classpath.libfile.14}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Struts.classpath.libfile.13}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Struts.classpath.libfile.12}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Struts.classpath.libfile.11}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Struts.classpath.libfile.10}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Struts.classpath.libfile.9}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Struts.classpath.libfile.8}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Struts.classpath.libfile.7}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Struts.classpath.libfile.6}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Struts.classpath.libfile.5}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Struts.classpath.libfile.4}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Struts.classpath.libfile.3}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Struts.classpath.libfile.2}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.Struts.classpath.libfile.1}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copy file="${libs.Shindig.classpath.libfile.40}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copy file="${libs.Shindig.classpath.libfile.39}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copy file="${libs.Shindig.classpath.libfile.38}" todir="${build.web.dir}/WEB-INF/lib"/>
@@ -747,10 +709,12 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
         <copy file="${libs.Shindig.classpath.libfile.3}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copy file="${libs.Shindig.classpath.libfile.2}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copy file="${libs.Shindig.classpath.libfile.1}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.SocialSite2.classpath.libfile.4}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.SocialSite2.classpath.libfile.3}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.SocialSite2.classpath.libfile.2}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${libs.SocialSite2.classpath.libfile.1}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.6}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.5}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.4}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.3}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.2}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${libs.SocialSite.classpath.libfile.1}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,library-inclusion-in-manifest" name="do-ear-dist">
         <dirname file="${dist.ear.war}" property="dist.jar.dir"/>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+ DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+ Copyright 2007-2008 Sun Microsystems, Inc. All rights reserved.
+
+ The contents of this file are subject to the terms of either the GNU
+ General Public License Version 2 only ("GPL") or the Common Development
+ and Distribution License("CDDL") (collectively, the "License").  You
+ may not use this file except in compliance with the License. You can obtain
+ a copy of the License at https://socialsite.dev.java.net/legal/CDDL+GPL.html
+ or legal/LICENSE.txt.  See the License for the specific language governing
+ permissions and limitations under the License.
+
+ When distributing the software, include this License Header Notice in each
+ file and include the License file at legal/LICENSE.txt.  Sun designates this
+ particular file as subject to the "Classpath" exception as provided by Sun
+ in the GPL Version 2 section of the License file that accompanied this code.
+ If applicable, add the following below the License Header, with the fields
+ enclosed by brackets [] replaced by your own identifying information:
+ "Portions Copyrighted [year] [name of copyright owner]"
+
+ Contributor(s):
+
+ If you wish your version of this file to be governed by only the CDDL or
+ only the GPL Version 2, indicate your decision by adding "[Contributor]
+ elects to include this software in this distribution under the [CDDL or GPL
+ Version 2] license."  If you don't indicate a single choice of license, a
+ recipient has the option to distribute your version of this file under
+ either the CDDL, the GPL Version 2 or to extend the choice of license to
+ its licensees as provided above.  However, if you add GPL Version 2 code
+ and therefore, elected the GPL Version 2 license, then the option applies
+ only if the new code is made subject to such option by the copyright
+ holder.
+-->
+
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+    <definition name=".admin-basepage" template="/WEB-INF/jsps/tiles/admin/tiles-basepage.jsp">
+        <put-attribute name="bannerStatus" value="/WEB-INF/jsps/tiles/admin/bannerStatus.jsp" />
+        <put-attribute name="head"         value="/WEB-INF/jsps/tiles/admin/head.jsp" />
+        <put-attribute name="styles"       value="/WEB-INF/jsps/tiles/admin/empty.jsp" />
+        <put-attribute name="messages"     value="/WEB-INF/jsps/tiles/admin/messages.jsp" />
+        <put-attribute name="sidebar"      value="/WEB-INF/jsps/tiles/admin/empty.jsp" />
+        <put-attribute name="menu"         value="/WEB-INF/jsps/tiles/admin/menu.jsp" />
+        <put-attribute name="footer"       value="/WEB-INF/jsps/tiles/admin/footer.jsp" />
+        <put-attribute name="content"      value="${content}" />
+    </definition>
+
+    <!-- Admin pages -->
+
+    <definition name=".Config" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/Config.jsp" />
+    </definition>
+
+    <definition name=".ThemeSettings" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/ThemeSettingsList.jsp" />
+    </definition>
+
+    <definition name=".ThemeSettingsCreate" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/ThemeSettingsCreate.jsp" />
+    </definition>
+
+    <definition name=".ProfileAccessManager" extends=".admin-basepage">
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/ProfileAccessManager.jsp"/>
+    </definition>
+
+    <definition name=".ProfileDetails" extends=".admin-basepage">
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/ProfileDetails.jsp"/>
+    </definition>
+
+    <definition name=".UserMetrics" extends=".admin-basepage">
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/UserMetrics.jsp"/>
+    </definition>
+
+    <definition name=".GroupManager" extends=".admin-basepage">
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/GroupManager.jsp"/>
+    </definition>
+
+    <definition name=".GroupDetails" extends=".admin-basepage">
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/GroupDetails.jsp"/>
+    </definition>
+
+    <definition name=".GroupMemberDetails" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/GroupMemberDetails.jsp" />
+    </definition>
+
+    <definition name=".GroupMembers" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/GroupMembers.jsp" />
+    </definition>
+    
+    <definition name=".AdminGroupCreate" extends=".admin-basepage">
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/GroupCreate.jsp"/>
+    </definition>
+
+    <definition name=".AppManager" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/GadgetsInstalled.jsp" />
+    </definition>
+
+    <definition name=".SystemNotifications" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/SystemNotification.jsp" />
+    </definition>
+
+    <definition name=".SystemNotificationCreate" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/SystemNotificationCreate.jsp" />
+    </definition>
+
+    <definition name=".GroupNotifications" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/GroupNotification.jsp" />
+    </definition>
+
+    <definition name=".GroupNotificationCreate" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/GroupNotificationCreate.jsp" />
+    </definition>
+    
+    <definition name=".GadgetPerms" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/GadgetPerms.jsp" />
+    </definition>
+
+    <definition name=".GadgetPermsCreateApp" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/GadgetPermsCreateApp.jsp" />
+    </definition>
+
+    <definition name=".GadgetPermsCreateFeature" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/GadgetPermsCreateFeature.jsp" />
+    </definition>
+
+    <definition name=".GadgetPermsCreateHttp" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/GadgetPermsCreateHttp.jsp" />
+    </definition>
+
+    <definition name=".GadgetRegistration" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/GadgetRegistration.jsp" />
+    </definition>
+
+    <definition name=".GadgetRegistrationReview" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/admin/GadgetRegistrationReview.jsp" />
+    </definition>
+
+    <!-- Core pages -->
+
+    <definition name=".Login" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/login.jsp" />
+    </definition>
+
+    <definition name=".Logout" template="/WEB-INF/jsps/logout.jsp">
+    </definition>
+
+    <definition name=".Error" extends=".admin-basepage" >
+        <put-attribute name="content" value="/WEB-INF/jsps/core/Error.jsp" />
+    </definition>
+
+</tiles-definitions>

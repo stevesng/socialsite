@@ -22,6 +22,7 @@
 
 package com.sun.socialsite.web.ui.core.struts2;
 
+import com.sun.socialsite.config.Config;
 
 /**
  * Login Action.
@@ -29,12 +30,18 @@ package com.sun.socialsite.web.ui.core.struts2;
 public class Login extends CustomizedActionSupport {
 
     private boolean failed = false;
+    private boolean selfRegistrationEnabled = false;
 
     public Login() {
+        boolean selfRegn = Config.getBooleanProperty("socialsite.enable.selfregistration");
+        if (selfRegn) {
+            selfRegistrationEnabled = true;
+        }
     }
 
     @Override
     public String execute() {
+        // nothing to do right now
         return SUCCESS;
     }
 
@@ -44,6 +51,14 @@ public class Login extends CustomizedActionSupport {
 
     public void setFailed(boolean failed) {
         this.failed = failed;
+    }
+
+    public boolean isSelfRegistrationEnabled() {
+        return selfRegistrationEnabled;
+    }
+
+    public void setSelfRegistrationEnabled(boolean value) {
+        this.selfRegistrationEnabled = value;
     }
 
     // Having this method keeps struts from printing an error

@@ -1,0 +1,12 @@
+#This property file contains properties specific to the SocialSite suite
+
+#This property is used to set the e-mail for the SocialSite suite
+SSADMIN_EMAIL=users@socialsite.dev.java.net
+
+#This points to the directory where the SocialSite jar file was installed
+#If nothing was changed after installing, this should not have to be changed
+SOCIALSITE_HOME=.
+
+#This is the logging level used to record the ant script execution.
+#Possible values are: error, warn, info, verbose, or debug
+LOG_LEVEL=verbose

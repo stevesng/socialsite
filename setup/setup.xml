@@ -1,0 +1,826 @@
+<!--
+  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+  Copyright 2007-2008 Sun Microsystems, Inc. All rights reserved.
+
+  The contents of this file are subject to the terms of either the GNU
+  General Public License Version 2 only ("GPL") or the Common Development
+  and Distribution License("CDDL") (collectively, the "License").  You
+  may not use this file except in compliance with the License. You can obtain
+  a copy of the License at https://socialsite.dev.java.net/legal/CDDL+GPL.html
+  or legal/LICENSE.txt.  See the License for the specific language governing
+  permissions and limitations under the License.
+
+  When distributing the software, include this License Header Notice in each
+  file and include the License file at legal/LICENSE.txt.  Sun designates this
+  particular file as subject to the "Classpath" exception as provided by Sun
+  in the GPL Version 2 section of the License file that accompanied this code.
+  If applicable, add the following below the License Header, with the fields
+  enclosed by brackets [] replaced by your own identifying information:
+  "Portions Copyrighted [year] [name of copyright owner]"
+
+  Contributor(s):
+
+  If you wish your version of this file to be governed by only the CDDL or
+  only the GPL Version 2, indicate your decision by adding "[Contributor]
+  elects to include this software in this distribution under the [CDDL or GPL
+  Version 2] license."  If you don't indicate a single choice of license, a
+  recipient has the option to distribute your version of this file under
+  either the CDDL, the GPL Version 2 or to extend the choice of license to
+  its licensees as provided above.  However, if you add GPL Version 2 code
+  and therefore, elected the GPL Version 2 license, then the option applies
+  only if the new code is made subject to such option by the copyright
+  holder.
+-->
+
+<project name="Project SocialSite component integration with GlassFish/Sun Java System Application Server 9.x"  default="full-setup" basedir=".">
+
+  <!-- ========== Version numbers for SocialSite components ================= -->
+
+  <property name="socialsite.version" value="EA 1"/>
+  <property name="socialsite.home" value="${basedir}"/>
+
+
+  <target name="check.glassfish.home" unless="GLASSFISH_HOME">
+    <echo>
+      The glassfish.home property is not set correctly. Please
+      pass this property with the value set to the directory
+      where the GlassFish/Sun Java System Application Server 9.X is
+      installed and rerun ant with the following usage:
+          ant -Dsocialsite.home=xxx -Dglassfish.home=yyy -Ddomain.path=aaa target
+    </echo>
+    <fail message="glassfish.home property is not set correctly"/>
+  </target>
+
+  <target name="check.socialsite.home" unless="SOCIALSITE_HOME">
+    <echo>
+      The socialsite.home property is not set correctly. Please
+      pass this property with the value set to the directory
+      where SocialSite is installed and rerun ant with the
+      following usage:
+           ant -Dsocialsite.home=xxx -Dglassfish.home=yyy -Ddomain.path=aaa target
+    </echo>
+    <fail message="socialsite.home property is not set correctly"/>
+  </target>
+
+  <target name="check.domain.path" unless="DOMAIN_PATH">
+    <echo>
+      The domain path property is not set correctly. Please
+      pass the domain.path property with the domain.path
+      value set to the directory where the specific domain directory is located
+      and rerun ant with the following usage:
+           ant -Dsocialsite.home=xxx -Dglassfish.home=yyy -Ddomain.path=aaa target
+    </echo>
+    <fail message="domain.path property is not set correctly"/>
+  </target>
+
+  <target name="check.mail.server" unless="mailserver.set">
+    <echo>
+      The mail server name property is not set correctly. Please
+      set the MAIL_SERVER_NAME property with your mail server name in the
+      glassfish.props file and rerun ant
+    </echo>
+    <fail message="MAIL_SERVER_NAME property is not set correctly"/>
+  </target>
+
+  <target name="check.mail.user" unless="mailuser.set">
+    <echo>
+      The mail user name property is not set correctly. Please
+      set the MAIL_USER property with your mail user name in the
+      glassfish.props file and rerun ant
+    </echo>
+    <fail message="MAIL_USER property is not set correctly"/>
+  </target>
+
+  <target name="validate.glassfish.home" unless="glassfish_valid">
+    <echo>
+      The GLASSFISH_HOME property is not set to a valid GlassFish/Sun
+      Java System Application Server. Please set the GLASSFISH_HOME
+      property with a valid GlassFish/Sun Java System Application
+      Server in the glassfish.props file and rerun ant
+    </echo>
+    <fail message="GLASSFISH_HOME property is not set to a valid installation"/>
+  </target>
+
+  <target name="init">
+    <tstamp/>
+    <!-- Loading GlassFish/Sun Java System App Server properties -->
+    <property file="${basedir}/glassfish.props" />
+    <property file="${basedir}/socialsite.props" />
+
+    <record name="setup.log" loglevel="${LOG_LEVEL}"/>
+
+    <antcall target="check.socialsite.home"/>
+
+    <available property="GLASSFISH_HOME" value="${glassfish.home}"
+      file="${glassfish.home}/lib/appserv-cmp.jar" />
+
+    <antcall target="check.glassfish.home"/>
+
+    <available property="glassfish_valid" value="true"
+      file="${GLASSFISH_HOME}/lib/appserv-cmp.jar" />
+
+    <antcall target="validate.glassfish.home"/>
+
+    <available property="DOMAIN_PATH" value="${domain.path}"
+      file="${domain.path}/config/domain.xml" />
+    <antcall target="check.domain.path"/>
+
+    <basename property="DOMAIN_NAME" file="${DOMAIN_PATH}"/>
+    <dirname property="DOMAIN_DIR" file="${DOMAIN_PATH}"/>
+
+    <property name ="LIB_DIR" value="${DOMAIN_PATH}/lib" />
+
+    <condition property="mailserver.set">
+      <length string="${MAIL_SERVER_NAME}" when="greater" length="0" trim="true"/>
+    </condition>
+    <antcall target="check.mail.server"/>
+
+    <condition property="mailuser.set">
+      <length string="${MAIL_USER}" when="greater" length="0" trim="true"/>
+    </condition>
+    <antcall target="check.mail.user"/>
+
+
+    <condition property="isNotWindows">
+      <not>
+        <os family="windows" />
+      </not>
+    </condition>
+
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>
+
+    <echo message="OS is ${os.name}" />
+
+    <condition property="extension" value="">
+      <os family="unix" />
+    </condition>
+
+    <condition property="extension" value=".bat">
+      <os family="dos" />
+    </condition>
+
+    <property name="ASADMIN_SCRIPT" value="${GLASSFISH_HOME}/bin/asadmin${extension}"/>
+
+
+    <property name="MYTEMPDIR" value="${SOCIALSITE_HOME}/work/forglassfishv2"/>
+    <echo message="Creating temporary directory under SOCIALSITE_HOME/work for storing war files" />
+    <mkdir dir="${MYTEMPDIR}" />
+
+    <property name="PASSFILE" value="${MYTEMPDIR}/passfile.txt"/>
+
+    <echo message="Creating temporary password file for asadmin" />
+    <touch file="${PASSFILE}"/>
+    <propertyfile file="${PASSFILE}" >
+        <entry key="AS_ADMIN_PASSWORD" value="${AS_ADMIN_PASSWORD}" operation="=" />
+    </propertyfile>
+
+    <!-- cluster variables -->
+    <property name="CLUSTER" value=""/>
+    <condition property="isClustered">
+      <length string="${CLUSTER}" when="greater" length="0" trim="true"/>
+    </condition>
+    <condition property="CLUSTER_TARGET_ARG" value="--target ${CLUSTER}" else="">
+      <length string="${CLUSTER}" when="greater" length="0" trim="true"/>
+    </condition>
+
+    <property name="CLUSTER_PORT" value=""/>
+    <condition property="URL_PORT" value="${CLUSTER_PORT}" else="${AS_SERVER_PORT}">
+      <length string="${CLUSTER_PORT}" when="greater" length="0" trim="true"/>
+    </condition>
+
+    <property name="SITE_NAME" value=""/>
+    <condition property="URL_HOST" value="${SITE_NAME}" else="${AS_SERVER_NAME}">
+      <length string="${SITE_NAME}" when="greater" length="0" trim="true"/>
+    </condition>
+
+    <!-- determine if data should be preserved during uninstall, default it to
+         keep data.  NOTE: that if this property is set in the property file it
+         won't be overridden.
+    -->
+    <!-- FOR NOW: default to removing data, but later change this to preserve.
+    <property name="PRESERVE_DATA" value="true"/>
+    -->
+    <property name="PRESERVE_DATA" value="false"/>
+
+    <condition property="KEEP_DATA" value="true">
+      <istrue value="${PRESERVE_DATA}" />
+    </condition>
+
+    <property name="LOCALE" value="en_US"/>
+    <property name="TIMEZONE" value="PST"/>
+
+
+  </target>
+
+
+  <target name="stop-glassfish" depends="init"
+    description="Stop server">
+
+    <antcall target="stop-glassfish.sh" />
+    <antcall target="stop-glassfish.bat" />
+  </target>
+
+  <target name="stop-glassfish.sh" depends="init"  if="isNotWindows" >
+    <exec executable="${GLASSFISH_HOME}/bin/asadmin">
+      <arg line="stop-domain" />
+      <arg line="--domaindir ${DOMAIN_DIR}" />
+      <arg line="${DOMAIN_NAME}" />
+    </exec>
+  </target>
+
+  <target name="stop-glassfish.bat" depends="init" if="isWindows" >
+    <exec executable="${GLASSFISH_HOME}/bin/asadmin.bat">
+      <arg line="stop-domain" />
+      <arg line="--domaindir ${DOMAIN_DIR}" />
+      <arg line="${DOMAIN_NAME}" />
+    </exec>
+  </target>
+
+  <target name="start-glassfish" depends="init"
+    description="Start server">
+
+    <antcall target="start-glassfish.sh" />
+    <antcall target="start-glassfish.bat" >
+       <param name="waitForDetectingStartup" value="1" />
+    </antcall>
+  </target>
+
+  <target name="start-glassfish.sh" depends="init"  if="isNotWindows" >
+    <exec executable="${GLASSFISH_HOME}/bin/asadmin">
+      <arg line="start-domain" />
+      <arg line="--user ${AS_ADMIN_USER}" />
+      <arg line="--passwordfile ${PASSFILE}" />
+      <arg line="--domaindir ${DOMAIN_DIR}" />
+      <arg line="${DOMAIN_NAME}" />
+    </exec>
+  </target>
+
+  <target name="start-glassfish.bat" depends="init" if="isWindows">
+
+     <copy file="${GLASSFISH_HOME}/bin/asadmin.bat" tofile="${GLASSFISH_HOME}/bin/asadmin-wrapper.bat" />
+     <concat destfile="${GLASSFISH_HOME}/bin/asadmin-wrapper.bat" append="true" fixlastline="yes" >echo "" > "${GLASSFISH_HOME}/bin/startupDetected.touch"</concat>
+
+     <antcall target="start-server.bat"/>
+     <waitfor maxwait="${waitForDetectingStartup}" maxwaitunit="minute" checkevery="500">
+         <available file="${GLASSFISH_HOME}/bin/startupDetected.touch"/>
+     </waitfor>
+
+     <delete file="${GLASSFISH_HOME}/bin/asadmin-wrapper.bat" failonerror="false" />
+     <delete file="${GLASSFISH_HOME}/bin/startupDetected.touch" failonerror="false" />
+  </target>
+
+  <target name="start-server.bat" if="isWindows" >
+   <exec executable="${GLASSFISH_HOME}/bin/asadmin-wrapper.bat" spawn="true">
+      <arg line="start-domain" />
+      <arg line="--user ${AS_ADMIN_USER}" />
+      <arg line="--passwordfile ${PASSFILE}" />
+      <arg line="--domaindir ${DOMAIN_DIR}" />
+      <arg line="${DOMAIN_NAME}" />
+    </exec>
+  </target>
+
+ <target name="stop-database" depends="init"
+    description="Stop database">
+
+    <antcall target="stop-database.sh" />
+    <antcall target="stop-database.bat" />
+  </target>
+
+  <target name="stop-database.sh" depends="init"  if="isNotWindows" >
+    <exec executable="${GLASSFISH_HOME}/bin/asadmin">
+      <arg line="stop-database" />
+    </exec>
+  </target>
+
+  <target name="stop-database.bat" depends="init" if="isWindows" >
+    <exec executable="${GLASSFISH_HOME}/bin/asadmin.bat">
+      <arg line="stop-database" />
+    </exec>
+  </target>
+
+  <target name="start-database" depends="init"
+    description="Start database">
+    <antcall target="start-database.sh" />
+    <antcall target="start-database.bat">
+      <param name="waitForDetectingStartup" value="1" />
+    </antcall>
+  </target>
+
+  <target name="start-database.sh" depends="init"  if="isNotWindows" >
+    <exec executable="${GLASSFISH_HOME}/bin/asadmin">
+      <arg line="start-database" />
+      <arg line="--dbport ${DATABASE_PORT}" />
+    </exec>
+  </target>
+
+  <target name="start-database.bat" depends="init" if="isWindows">
+     <copy file="${GLASSFISH_HOME}/bin/asadmin.bat" tofile="${GLASSFISH_HOME}/bin/asadmin-wrapper.bat" />
+     <concat destfile="${GLASSFISH_HOME}/bin/asadmin-wrapper.bat" append="true" fixlastline="yes" >echo "" > "${GLASSFISH_HOME}/bin/startupDetected.touch"</concat>
+
+     <antcall target="start-db.bat"/>
+     <waitfor maxwait="${waitForDetectingStartup}" maxwaitunit="minute" checkevery="500">
+         <available file="${GLASSFISH_HOME}/bin/startupDetected.touch"/>
+     </waitfor>
+
+     <delete file="${GLASSFISH_HOME}/bin/asadmin-wrapper.bat" failonerror="false" />
+     <delete file="${GLASSFISH_HOME}/bin/startupDetected.touch" failonerror="false" />
+  </target>
+
+  <target name="start-db.bat" if="isWindows" >
+    <exec executable="${GLASSFISH_HOME}/bin/asadmin-wrapper.bat" spawn="true">
+      <arg line="start-database" />
+      <arg line="--dbport ${DATABASE_PORT}" />
+    </exec>
+  </target>
+
+
+  <target name="change-glassfish-settings" depends="init"
+    description="Change Core GlassFish Settings">
+ 
+    <!-- For now, we need many request-processing threads to avoid hangs -->
+    <exec executable="${ASADMIN_SCRIPT}">
+      <arg line="set" />
+      <arg line="--user ${AS_ADMIN_USER}" />
+      <arg line="--passwordfile ${PASSFILE}" />
+      <arg line="--host ${AS_SERVER_NAME}" />
+      <arg line="--port ${AS_ADMIN_PORT}" />
+      <arg line="server.http-service.request-processing.thread-count=60" />
+    </exec>
+  </target>
+
+
+  <target name="create-auth-realms" depends="init"
+    description="Create Auth Realms">
+
+    <!-- SocialSite Admin Realm -->
+    <exec executable="${ASADMIN_SCRIPT}">
+      <arg line="create-auth-realm" />
+      <arg line="--user ${AS_ADMIN_USER}" />
+      <arg line="--passwordfile ${PASSFILE}" />
+      <arg line="--host ${AS_SERVER_NAME}" />
+      <arg line="--port ${AS_ADMIN_PORT}" />
+      <arg line="--classname com.sun.enterprise.security.auth.realm.file.FileRealm" />
+      <arg line='--property file=\${com.sun.aas.instanceRoot}/config/admin-keyfile:jaas-context=fileRealm:assign-groups=admin,user' />
+      <arg line="${CLUSTER_TARGET_ARG}" />
+      <arg line="SocialSite_AdminRealm" />
+    </exec>
+
+    <!-- SocialSite User Realm -->
+    <exec executable="${ASADMIN_SCRIPT}">
+      <arg line="create-auth-realm" />
+      <arg line="--user ${AS_ADMIN_USER}" />
+      <arg line="--passwordfile ${PASSFILE}" />
+      <arg line="--host ${AS_SERVER_NAME}" />
+      <arg line="--port ${AS_ADMIN_PORT}" />
+      <arg line="--classname com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm" />
+      <arg line='--property digest-algorithm=SHA:encoding=Hex:user-name-column=username:password-column=passphrase:group-name-column=rolename:jaas-context=jdbcRealm:datasource-jndi="jdbc/SocialSite_DB":group-table=userapi_userrole_view:user-table=userapi_user' />
+      <arg line="${CLUSTER_TARGET_ARG}" />
+      <arg line="SocialSite_UserRealm" />
+    </exec>
+
+  </target>
+
+
+  <target name="delete-auth-realms" depends="init"
+    description="Delete Auth Realms">
+
+    <exec executable="${ASADMIN_SCRIPT}">
+      <arg line="delete-auth-realm" />
+      <arg line="--user ${AS_ADMIN_USER}" />
+      <arg line="--passwordfile ${PASSFILE}" />
+      <arg line="--host ${AS_SERVER_NAME}" />
+      <arg line="--port ${AS_ADMIN_PORT}" />
+      <arg line="${CLUSTER_TARGET_ARG}" />
+      <arg line="SocialSite_AdminRealm" />
+    </exec>
+
+    <exec executable="${ASADMIN_SCRIPT}">
+      <arg line="delete-auth-realm" />
+      <arg line="--user ${AS_ADMIN_USER}" />
+      <arg line="--passwordfile ${PASSFILE}" />
+      <arg line="--host ${AS_SERVER_NAME}" />
+      <arg line="--port ${AS_ADMIN_PORT}" />
+      <arg line="${CLUSTER_TARGET_ARG}" />
+      <arg line="SocialSite_UserRealm" />
+    </exec>
+
+  </target>
+
+
+  <target name="create-javamail-resource" depends="init"
+    description="Create Javamail Resource">
+
+    <exec executable="${ASADMIN_SCRIPT}">
+      <arg line="create-javamail-resource" />
+      <arg line="--user ${AS_ADMIN_USER}" />
+      <arg line="--passwordfile ${PASSFILE}" />
+      <arg line="--host ${AS_SERVER_NAME}" />
+      <arg line="--port ${AS_ADMIN_PORT}" />
+      <arg line="--mailhost ${MAIL_SERVER_NAME}" />
+      <arg line="--mailuser ${MAIL_USER}" />
+      <arg line="--fromaddress ${SSADMIN_EMAIL}" />
+      <arg line="${CLUSTER_TARGET_ARG}" />
+      <arg line="mail/SocialSite/Session" />
+    </exec>
+
+  </target>
+
+
+  <target name="delete-javamail-resource" depends="init"
+    description="Delete Javamail Resource">
+
+    <exec executable="${ASADMIN_SCRIPT}">
+      <arg line="delete-javamail-resource" />
+      <arg line="--user ${AS_ADMIN_USER}" />
+      <arg line="--passwordfile ${PASSFILE}" />
+      <arg line="--host ${AS_SERVER_NAME}" />
+      <arg line="--port ${AS_ADMIN_PORT}" />
+      <arg line="${CLUSTER_TARGET_ARG}" />
+      <arg line="mail/SocialSite/Session" />
+    </exec>
+
+  </target>
+
+
+   <taskdef name="unpack200dir"
+            classname="com.sun.socialsite.installer.ant.Unpack200DirTask"
+            classpath="${socialsite.home}/socialsite-installer.jar" />
+
+   <macrodef name="jar-unpack-dir">
+       <attribute name="pack.jar.dir" />
+
+       <sequential>
+
+         <unpack200dir dir="@{pack.jar.dir}" />
+         <delete>
+             <fileset dir="@{pack.jar.dir}" includes="**/*.pack.gz"/>
+         </delete>
+       </sequential>
+   </macrodef>
+
+
+
+  <target name="integrate.init" depends="init"
+    description="Initialize integration for GlassFish">
+
+    <!-- <property file="${basedir}/swap.properties" /> -->
+
+    <echo message="Change GlassFish Settings" />
+    <antcall target="change-glassfish-settings" />
+
+  </target>
+
+
+
+  <target name="setup" depends="init"
+    description="Setup environment needed for integrating SocialSite into GlassFish">
+
+    <echo message="Start the server" />
+    <antcall target="start-glassfish" />
+
+    <echo message="Start the database" />
+    <antcall target="start-database" />
+
+    <echo message="Initializing integration" />
+    <antcall target="integrate.init" />
+
+    <echo message="Integrating SocialSite" />
+    <antcall target="integrate.socialsite" />
+
+    <echo message="Integrating User Management" />
+    <antcall target="integrate.usermanagement" />
+
+    <antcall target="synchronize.cluster" />
+
+    <echo message="Cleaning up" />
+    <antcall target="clean" />
+
+    <echo>
+    SocialSite has been integrated into your GlassFish installation.
+
+    You can now administer your SocialSite instance here:
+
+      http://${URL_HOST}:${URL_PORT}/socialsite/admin
+
+    Or go here to try out the sample application:
+
+      http://${URL_HOST}:${URL_PORT}/socialsite
+
+    NOTE: The GlassFish server and database are currently running.
+          If you do not want the server and database running,
+          please stop the server and database.
+    </echo>
+
+
+  </target>
+
+
+  <target name="revert" depends="init">
+
+    <echo message="Start the server" />
+    <antcall target="start-glassfish" />
+
+    <echo message="Start the database" />
+    <antcall target="start-database" />
+
+    <echo message="Reverting User Management" />
+    <antcall target="revert.usermanagement.changes" />
+
+    <antcall target="revert.init"/>
+    <antcall target="revert.socialsite.changes"/>
+
+    <echo message="Cleaning up" />
+    <antcall target="clean" />
+
+    <echo>
+    SocialSite has been removed from your GlassFish installation.
+    NOTE: The GlassFish server and database are currently running.
+          If you do not want the server and database running,
+          please stop the server and database. 
+    </echo>
+
+  </target>
+
+
+  <target name="integrate.socialsite" depends="init"
+    description="Integrate SocialSite onto GlassFish">
+
+    <!-- create properties file with base url -->
+    <touch file="${DOMAIN_PATH}/lib/classes/socialsite.properties"/>
+    <propertyfile file="${DOMAIN_PATH}/lib/classes/socialsite.properties" >
+       <entry key="socialsite.base.url" value="http://${URL_HOST}:${URL_PORT}/socialsite" operation="=" />
+       <entry key="socialsite.gadgets.server.url" value="http://${URL_HOST}:${URL_PORT}/socialsite/gadgets" operation="=" />
+    </propertyfile>
+
+    <!-- determine if database already exists -->
+    <echo message="Check if data already exists" />
+    <exec executable="${ASADMIN_SCRIPT}" outputproperty="connectionPoolList">
+      <arg line="list-jdbc-connection-pools" />
+      <arg line="--user ${AS_ADMIN_USER}" />
+      <arg line="--passwordfile ${PASSFILE}" />
+      <arg line="--host ${AS_SERVER_NAME}" />
+      <arg line="--port ${AS_ADMIN_PORT}" />
+    </exec>
+
+    <condition property="socialsiteDBExists">
+      <contains substring="SocialSite_Pool" string="${connectionPoolList}" />
+    </condition>
+
+    <echo message="Creating SocialSite Connection Pool" />
+    <antcall target="create-socialsite-connection-pool" />
+
+    <echo message="Creating SocialSite JDBC Resource" />
+    <antcall target="create-socialsite-jdbc-resource" />
+
+    <echo message="Creating SocialSite Database Tables" />
+    <antcall target="create-socialsite-database-tables" />
+
+    <echo message="Deploy SocialSite" />
+    <!-- <antcall target="deploy.socialsite" /> -->
+
+  </target>
+
+
+  <target name="deploy.socialsite" depends="init"
+    description="Deploy SocialSite">
+
+    <echo message="Deploy socialsite.war" />
+    <exec executable="${ASADMIN_SCRIPT}">
+      <arg value="deploy" />
+      <arg line="--user ${AS_ADMIN_USER}" />
+      <arg line="--passwordfile ${PASSFILE}" />
+      <arg line="--host ${AS_SERVER_NAME}" />
+      <arg line="--port ${AS_ADMIN_PORT}" />
+      <arg line="--force=true" />
+      <arg line="--name socialsite" />
+      <arg line="--upload=true" />
+      <arg line="${CLUSTER_TARGET_ARG}" />
+      <arg value="${SOCIALSITE_HOME}/../dist/socialsite.war" />
+    </exec>
+
+  </target>
+
+
+  <target name="undeploy.socialsite" depends="init"
+    description="Undeploy SocialSite">
+
+    <echo message="Undeploy socialsite.war" />
+    <exec executable="${ASADMIN_SCRIPT}">
+      <arg value="undeploy" />
+      <arg line="--user ${AS_ADMIN_USER}" />
+      <arg line="--passwordfile ${PASSFILE}" />
+      <arg line="--host ${AS_SERVER_NAME}" />
+      <arg line="--port ${AS_ADMIN_PORT}" />
+      <arg line="${CLUSTER_TARGET_ARG}" />
+      <arg value="socialsite" />
+    </exec>
+
+  </target>
+
+
+  <target name="create-socialsite-connection-pool" depends="init"
+          unless="socialsiteDBExists">
+    <exec executable="${ASADMIN_SCRIPT}">
+      <arg line="create-jdbc-connection-pool" />
+      <arg line="--user ${AS_ADMIN_USER}" />
+      <arg line="--passwordfile ${PASSFILE}" />
+      <arg line="--host ${AS_SERVER_NAME}" />
+      <arg line="--port ${AS_ADMIN_PORT}" />
+      <arg line="--datasourceclassname ${DATABASE_CLASS}" />
+      <arg line="--restype javax.sql.DataSource" />
+      <arg line="--property PortNumber=${DATABASE_PORT}:Password=${DATABASE_PASSWORD}:User=${DATABASE_USER}:ServerName=${AS_SERVER_NAME}:DatabaseName=SocialSite_DB" />
+      <arg line="SocialSite_Pool" />
+    </exec>
+  </target>
+
+  <target name="delete-socialsite-connection-pool" depends="init"
+          unless="KEEP_DATA">
+    <exec executable="${ASADMIN_SCRIPT}">
+      <arg line="delete-jdbc-connection-pool" />
+      <arg line="--user ${AS_ADMIN_USER}" />
+      <arg line="--passwordfile ${PASSFILE}" />
+      <arg line="--host ${AS_SERVER_NAME}" />
+      <arg line="--port ${AS_ADMIN_PORT}" />
+      <arg line="SocialSite_Pool" />
+    </exec>
+  </target>
+
+
+  <target name="create-socialsite-jdbc-resource" depends="init"
+          unless="socialsiteDBExists">
+    <exec executable="${ASADMIN_SCRIPT}">
+      <arg line="create-jdbc-resource" />
+      <arg line="--user ${AS_ADMIN_USER}" />
+      <arg line="--passwordfile ${PASSFILE}" />
+      <arg line="--host ${AS_SERVER_NAME}" />
+      <arg line="--port ${AS_ADMIN_PORT}" />
+      <arg line="--connectionpoolid SocialSite_Pool" />
+      <arg line="${CLUSTER_TARGET_ARG}" />
+      <arg line="jdbc/SocialSite_DB" />
+    </exec>
+  </target>
+
+
+  <target name="delete-socialsite-jdbc-resource" depends="init"
+          unless="KEEP_DATA">
+    <exec executable="${ASADMIN_SCRIPT}">
+      <arg line="delete-jdbc-resource" />
+      <arg line="--user ${AS_ADMIN_USER}" />
+      <arg line="--passwordfile ${PASSFILE}" />
+      <arg line="--host ${AS_SERVER_NAME}" />
+      <arg line="--port ${AS_ADMIN_PORT}" />
+      <arg line="${CLUSTER_TARGET_ARG}" />
+      <arg line="jdbc/SocialSite_DB" />
+    </exec>
+  </target>
+
+
+  <target name="create-socialsite-database-tables" depends="init"
+    unless="socialsiteDBExists"
+    description="Create SocialSite Database Tables">
+
+    <!--
+    <sql driver="${JDBC_DRIVER}"
+         url="${JDBC_BASE_URL}SocialSite_DB;create=true"
+         userid="${DATABASE_USER}" password="${DATABASE_PASSWORD}"
+         classpath="${JDBC_CLASSPATH}" onerror="continue"
+         src="${SOCIALSITE_HOME}/dbscripts/${DATABASE_VENDOR}/createdb.sql">
+    </sql>
+    -->
+
+    <java classname="com.sun.socialsite.installer.ExecuteSql" fork="true"
+      classpath="${SOCIALSITE_HOME}/socialsite-installer.jar:${JDBC_CLASSPATH}">
+        <arg line="${JDBC_BASE_URL}SocialSite_DB;create=true"/>
+        <arg line="${DATABASE_USER}"/>
+        <arg line="${DATABASE_PASSWORD}"/>
+        <arg line="${JDBC_DRIVER}"/>
+        <arg line="${SOCIALSITE_HOME}/dbscripts/${DATABASE_VENDOR}/createdb.sql"/>
+    </java>
+
+  </target>
+
+
+  <target name="delete-socialsite-database-tables" depends="init"
+    unless="KEEP_DATA"
+    description="Delete SocialSite Database Tables">
+
+    <!--
+    <sql driver="${JDBC_DRIVER}"
+         url="${JDBC_BASE_URL}SocialSite_DB"
+         userid="${DATABASE_USER}" password="${DATABASE_PASSWORD}"
+         classpath="${JDBC_CLASSPATH}" onerror="continue"
+         src="${SOCIALSITE_HOME}/dbscripts/droptables.sql">
+    </sql>
+    -->
+
+    <java classname="com.sun.socialsite.installer.ExecuteSql" fork="true"
+      classpath="${SOCIALSITE_HOME}/socialsite-installer.jar:${JDBC_CLASSPATH}">
+        <arg line="${JDBC_BASE_URL}SocialSite_DB"/>
+        <arg line="${DATABASE_USER}"/>
+        <arg line="${DATABASE_PASSWORD}"/>
+        <arg line="${JDBC_DRIVER}"/>
+        <arg line="${SOCIALSITE_HOME}/dbscripts/droptables.sql"/>
+    </java>
+
+  </target>
+
+
+  <target name="integrate.usermanagement" depends="init"
+    description="Integrate User Management onto GlassFish">
+
+    <echo message="Create JDBC Realm" />
+    <antcall target="create-auth-realms" />
+
+    <echo message="Create Javamail Resource" />
+    <antcall target="create-javamail-resource" />
+
+  </target>
+
+  <target name="revert.usermanagement.changes" depends="init"
+    description="Revert User Management">
+
+    <echo message="Delete Javamail Resource" />
+    <antcall target="delete-javamail-resource" />
+
+    <echo message="Delete JDBC Realm" />
+    <antcall target="delete-auth-realms" />
+
+  </target>
+
+
+  <!--
+   * Forces synchronization by restarting cluster instances.
+   * Note that this is very likely to fail for any node agents which don't
+   * have a 'INSTANCE-SYNC-JVM-OPTIONS="-Xmx256m"' property.  See
+   * http://docs.sun.com/app/docs/doc/819-3679/abdkk?a=view for more
+   * info.
+  -->
+  <target name="synchronize.cluster" if="isClustered" depends="init">
+    <echo message="Synchronizing Cluster Instances" />
+    <exec executable="${ASADMIN_SCRIPT}">
+      <arg line="stop-cluster" />
+      <arg line="--user ${AS_ADMIN_USER}" />
+      <arg line="--passwordfile ${PASSFILE}" />
+      <arg line="--host ${AS_SERVER_NAME}" />
+      <arg line="--port ${AS_ADMIN_PORT}" />
+      <arg line="${CLUSTER}" />
+    </exec>
+    <exec executable="${ASADMIN_SCRIPT}">
+      <arg line="start-cluster" />
+      <arg line="--user ${AS_ADMIN_USER}" />
+      <arg line="--passwordfile ${PASSFILE}" />
+      <arg line="--host ${AS_SERVER_NAME}" />
+      <arg line="--port ${AS_ADMIN_PORT}" />
+      <arg line="${CLUSTER}" />
+    </exec>
+  </target>
+
+
+  <target name="full-setup">
+    <antcall target="setup" />
+  </target>
+
+
+  <target name="updatecenter-setup">
+
+    <propertyfile file="${basedir}/glassfish.props" >
+       <entry key="GLASSFISH_HOME" value="${glassfish.home}"/>
+    </propertyfile>
+    <antcall target="setup"/>
+  </target>
+
+
+
+  <target name="revert.socialsite.changes" depends="init">
+
+    <antcall target="undeploy.socialsite" />
+
+    <delete file="${DOMAIN_PATH}/lib/classes/socialsite.properties" quiet="true" deleteonexit="true" />
+
+    <echo message="Removing SocialSite JDBC Resource" />
+    <antcall target="delete-socialsite-jdbc-resource" />
+
+    <echo message="Removing SocialSite Connection Pool" />
+    <antcall target="delete-socialsite-connection-pool" />
+
+    <echo message="Delete SocialSite Database Tables" />
+    <antcall target="delete-socialsite-database-tables" />
+
+  </target>
+
+
+  <target name="revert.init" depends="init"
+    description="Revert initialization changes from GlassFish">
+
+  </target>
+
+  <target name="clean" depends="init"
+    description="Clean up temporary directories under GlassFish">
+
+    <delete dir="${MYTEMPDIR}" quiet="true" />
+  </target>
+
+</project>
